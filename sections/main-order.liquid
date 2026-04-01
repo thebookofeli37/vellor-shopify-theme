@@ -1,0 +1,384 @@
+{% comment %}
+  VELLOR Customer Order Detail Section
+  Shows full order details: line items, totals, addresses
+{% endcomment %}
+
+<section id="main-order-{{ section.id }}" class="vellor-order">
+  <div class="vellor-order__header">
+    <div class="vellor-order__header-inner">
+      <h1 class="vellor-order__title">Order {{ order.name }}</h1>
+      <p class="vellor-order__subtitle">Placed on {{ order.created_at | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <div class="vellor-order__body">
+    <div class="vellor-order__container">
+
+      <!-- Back link -->
+      <a href="{{ routes.account_url }}" class="vellor-order__back">&larr; Back to Account</a>
+
+      <!-- Status Banner -->
+      <div class="vellor-order__status-bar">
+        <div class="vellor-order__status-item">
+          <span class="vellor-order__status-label">Payment</span>
+          <span class="vellor-order__status-value">{{ order.financial_status_label }}</span>
+        </div>
+        <div class="vellor-order__status-item">
+          <span class="vellor-order__status-label">Fulfillment</span>
+          <span class="vellor-order__status-value">{{ order.fulfillment_status_label | default: 'Unfulfilled' }}</span>
+        </div>
+      </div>
+
+      <!-- Line Items -->
+      <div class="vellor-order__items">
+        <h2 class="vellor-order__section-title">Items</h2>
+
+        {% for line_item in order.line_items %}
+          <div class="vellor-order__line-item">
+            <div class="vellor-order__line-image">
+              {% if line_item.image %}
+                <img
+                  src="{{ line_item.image | image_url: width: 200 }}"
+                  alt="{{ line_item.title | escape }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="vellor-order__line-placeholder"></div>
+              {% endif %}
+            </div>
+            <div class="vellor-order__line-details">
+              <p class="vellor-order__line-title">{{ line_item.title }}</p>
+              {% if line_item.variant.title != 'Default Title' %}
+                <p class="vellor-order__line-variant">{{ line_item.variant.title }}</p>
+              {% endif %}
+              {% if line_item.sku != blank %}
+                <p class="vellor-order__line-sku">SKU: {{ line_item.sku }}</p>
+              {% endif %}
+            </div>
+            <div class="vellor-order__line-qty">
+              <span class="vellor-order__qty-label">Qty</span>
+              {{ line_item.quantity }}
+            </div>
+            <div class="vellor-order__line-price">
+              {{ line_item.final_line_price | money }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Totals -->
+      <div class="vellor-order__totals">
+        <div class="vellor-order__total-row">
+          <span>Subtotal</span>
+          <span>{{ order.line_items_subtotal_price | money }}</span>
+        </div>
+
+        {% for discount_application in order.discount_applications %}
+          <div class="vellor-order__total-row vellor-order__total-row--discount">
+            <span>Discount ({{ discount_application.title }})</span>
+            <span>-{{ discount_application.total_allocated_amount | money }}</span>
+          </div>
+        {% endfor %}
+
+        {% for shipping_method in order.shipping_methods %}
+          <div class="vellor-order__total-row">
+            <span>Shipping ({{ shipping_method.title }})</span>
+            <span>{{ shipping_method.price | money }}</span>
+          </div>
+        {% endfor %}
+
+        {% if order.tax_lines.size > 0 %}
+          {% for tax_line in order.tax_lines %}
+            <div class="vellor-order__total-row">
+              <span>Tax ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</span>
+              <span>{{ tax_line.price | money }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <div class="vellor-order__total-row vellor-order__total-row--final">
+          <span>Total</span>
+          <span>{{ order.total_price | money }}</span>
+        </div>
+      </div>
+
+      <!-- Addresses -->
+      <div class="vellor-order__addresses">
+        {% if order.shipping_address %}
+          <div class="vellor-order__address-block">
+            <h3 class="vellor-order__address-title">Shipping Address</h3>
+            <div class="vellor-order__address-body">
+              <p>{{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}</p>
+              {% if order.shipping_address.company != blank %}
+                <p>{{ order.shipping_address.company }}</p>
+              {% endif %}
+              <p>{{ order.shipping_address.address1 }}</p>
+              {% if order.shipping_address.address2 != blank %}
+                <p>{{ order.shipping_address.address2 }}</p>
+              {% endif %}
+              <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province_code }} {{ order.shipping_address.zip }}</p>
+              <p>{{ order.shipping_address.country }}</p>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if order.billing_address %}
+          <div class="vellor-order__address-block">
+            <h3 class="vellor-order__address-title">Billing Address</h3>
+            <div class="vellor-order__address-body">
+              <p>{{ order.billing_address.first_name }} {{ order.billing_address.last_name }}</p>
+              {% if order.billing_address.company != blank %}
+                <p>{{ order.billing_address.company }}</p>
+              {% endif %}
+              <p>{{ order.billing_address.address1 }}</p>
+              {% if order.billing_address.address2 != blank %}
+                <p>{{ order.billing_address.address2 }}</p>
+              {% endif %}
+              <p>{{ order.billing_address.city }}, {{ order.billing_address.province_code }} {{ order.billing_address.zip }}</p>
+              <p>{{ order.billing_address.country }}</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #main-order-{{ section.id }} .vellor-order__header {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 8rem 2rem 3rem;
+    text-align: center;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__subtitle {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__body {
+    background-color: #F2F2F2;
+    padding: 3rem 2rem 5rem;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Back Link */
+  #main-order-{{ section.id }} .vellor-order__back {
+    display: inline-block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    color: #999;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__back:hover {
+    color: #1C1C1C;
+  }
+
+  /* Status Bar */
+  #main-order-{{ section.id }} .vellor-order__status-bar {
+    display: flex;
+    gap: 3rem;
+    padding: 1.25rem 0;
+    margin-bottom: 2.5rem;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__status-label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.25rem;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__status-value {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #1C1C1C;
+    text-transform: capitalize;
+  }
+
+  /* Section Title */
+  #main-order-{{ section.id }} .vellor-order__section-title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #1C1C1C;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Line Items */
+  #main-order-{{ section.id }} .vellor-order__line-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  @media (max-width: 600px) {
+    #main-order-{{ section.id }} .vellor-order__line-item {
+      grid-template-columns: 60px 1fr;
+      gap: 1rem;
+    }
+    #main-order-{{ section.id }} .vellor-order__line-qty,
+    #main-order-{{ section.id }} .vellor-order__line-price {
+      grid-column: 2;
+    }
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-placeholder {
+    width: 100%;
+    padding-bottom: 100%;
+    background-color: #e5e5e5;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-title {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1C1C1C;
+    margin: 0 0 0.25rem;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-variant,
+  #main-order-{{ section.id }} .vellor-order__line-sku {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    margin: 0;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-qty {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__qty-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-right: 0.25rem;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__line-price {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Totals */
+  #main-order-{{ section.id }} .vellor-order__totals {
+    max-width: 320px;
+    margin: 2rem 0 2.5rem auto;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__total-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #444;
+    padding: 0.5rem 0;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__total-row--discount {
+    color: #999;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__total-row--final {
+    border-top: 1px solid #1C1C1C;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #1C1C1C;
+  }
+
+  /* Addresses */
+  #main-order-{{ section.id }} .vellor-order__addresses {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #ddd;
+  }
+
+  @media (max-width: 600px) {
+    #main-order-{{ section.id }} .vellor-order__addresses {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  #main-order-{{ section.id }} .vellor-order__address-title {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 0.75rem;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__address-body {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  #main-order-{{ section.id }} .vellor-order__address-body p {
+    margin: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Order",
+  "tag": "section",
+  "class": "vellor-section-order",
+  "settings": []
+}
+{% endschema %}

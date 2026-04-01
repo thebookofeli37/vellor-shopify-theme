@@ -1,0 +1,341 @@
+{% comment %}
+  VELLOR Customer Login Section
+  Login form with email, password, forgot password, and create account links
+{% endcomment %}
+
+<section id="main-login-{{ section.id }}" class="vellor-login">
+  <div class="vellor-login__header">
+    <div class="vellor-login__header-inner">
+      <h1 class="vellor-login__title">Sign In</h1>
+      <p class="vellor-login__subtitle">Welcome back to VELLOR</p>
+    </div>
+  </div>
+
+  <div class="vellor-login__body">
+    <div class="vellor-login__form-wrapper">
+
+      {% form 'customer_login', class: 'vellor-login__form' %}
+        {% if form.errors %}
+          <div class="vellor-login__errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="vellor-login__field">
+          <label for="customer-email" class="vellor-login__label">Email</label>
+          <input
+            type="email"
+            id="customer-email"
+            name="customer[email]"
+            class="vellor-login__input"
+            placeholder="Email Address"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+          >
+        </div>
+
+        <div class="vellor-login__field">
+          <label for="customer-password" class="vellor-login__label">Password</label>
+          <input
+            type="password"
+            id="customer-password"
+            name="customer[password]"
+            class="vellor-login__input"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="vellor-login__forgot">
+          <a href="#recover" id="recover-link" class="vellor-login__forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="vellor-login__submit">Sign In</button>
+      {% endform %}
+
+      <div class="vellor-login__alt">
+        <p class="vellor-login__alt-text">Don't have an account?</p>
+        <a href="{{ routes.account_register_url }}" class="vellor-login__create-link">Create Account</a>
+      </div>
+
+      <!-- Password Recovery Form -->
+      <div id="recover-form" class="vellor-login__recover" style="display: none;">
+        <h2 class="vellor-login__recover-title">Reset Your Password</h2>
+        <p class="vellor-login__recover-text">We will send you an email to reset your password.</p>
+
+        {% form 'recover_customer_password', class: 'vellor-login__form' %}
+          {% if form.posted_successfully? %}
+            <div class="vellor-login__success">
+              <p>If that email address is in our system, you will receive an email with instructions to reset your password.</p>
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="vellor-login__errors">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <div class="vellor-login__field">
+            <label for="recover-email" class="vellor-login__label">Email</label>
+            <input
+              type="email"
+              id="recover-email"
+              name="email"
+              class="vellor-login__input"
+              placeholder="Email Address"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              required
+            >
+          </div>
+
+          <button type="submit" class="vellor-login__submit">Submit</button>
+        {% endform %}
+
+        <a href="#login" id="cancel-recover" class="vellor-login__back-link">&larr; Back to Sign In</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var recoverLink = document.getElementById('recover-link');
+    var cancelRecover = document.getElementById('cancel-recover');
+    var recoverForm = document.getElementById('recover-form');
+    var loginForm = document.querySelector('.vellor-login__form');
+    var altSection = document.querySelector('.vellor-login__alt');
+
+    if (recoverLink) {
+      recoverLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        document.querySelector('.vellor-login__forgot').style.display = 'none';
+        altSection.style.display = 'none';
+        recoverForm.style.display = 'block';
+      });
+    }
+
+    if (cancelRecover) {
+      cancelRecover.addEventListener('click', function(e) {
+        e.preventDefault();
+        recoverForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        document.querySelector('.vellor-login__forgot').style.display = 'block';
+        altSection.style.display = 'block';
+      });
+    }
+
+    if (window.location.hash === '#recover') {
+      if (recoverLink) recoverLink.click();
+    }
+  })();
+</script>
+
+<style>
+  #main-login-{{ section.id }} .vellor-login__header {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 8rem 2rem 3rem;
+    text-align: center;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__subtitle {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__body {
+    background-color: #F2F2F2;
+    padding: 4rem 2rem 5rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__form-wrapper {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__field {
+    margin-bottom: 1.5rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.5rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__input {
+    width: 100%;
+    padding: 0.85rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__input:focus {
+    border-bottom-color: #1C1C1C;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__input::placeholder {
+    color: #bbb;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__forgot {
+    text-align: right;
+    margin-bottom: 2rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__forgot-link {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__forgot-link:hover {
+    color: #1C1C1C;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__submit:hover {
+    background-color: #333;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__alt {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__alt-text {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0 0 0.75rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__create-link {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    text-decoration: none;
+    border-bottom: 1px solid #1C1C1C;
+    padding-bottom: 2px;
+    transition: opacity 0.3s ease;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__create-link:hover {
+    opacity: 0.6;
+  }
+
+  /* Recover Form */
+  #main-login-{{ section.id }} .vellor-login__recover-title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #1C1C1C;
+    margin: 0 0 0.5rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__recover-text {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0 0 2rem;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__back-link:hover {
+    color: #1C1C1C;
+  }
+
+  /* Messages */
+  #main-login-{{ section.id }} .vellor-login__errors {
+    background-color: rgba(139, 0, 0, 0.06);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #8B0000;
+  }
+
+  #main-login-{{ section.id }} .vellor-login__success {
+    background-color: rgba(0, 128, 0, 0.06);
+    border: 1px solid rgba(0, 128, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #1C1C1C;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Login",
+  "tag": "section",
+  "class": "vellor-section-login",
+  "settings": []
+}
+{% endschema %}

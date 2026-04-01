@@ -1,0 +1,278 @@
+{% comment %}
+  VELLOR Customer Account Section
+  Shows customer info, order history, and logout link
+{% endcomment %}
+
+<section id="main-account-{{ section.id }}" class="vellor-account">
+  <div class="vellor-account__header">
+    <div class="vellor-account__header-inner">
+      <h1 class="vellor-account__title">My Account</h1>
+      <p class="vellor-account__subtitle">Welcome back, {{ customer.first_name }}</p>
+    </div>
+  </div>
+
+  <div class="vellor-account__body">
+    <div class="vellor-account__container">
+
+      <div class="vellor-account__info">
+        <div class="vellor-account__info-grid">
+          <div class="vellor-account__info-block">
+            <span class="vellor-account__info-label">Name</span>
+            <span class="vellor-account__info-value">{{ customer.first_name }} {{ customer.last_name }}</span>
+          </div>
+          <div class="vellor-account__info-block">
+            <span class="vellor-account__info-label">Email</span>
+            <span class="vellor-account__info-value">{{ customer.email }}</span>
+          </div>
+          {% if customer.default_address %}
+            <div class="vellor-account__info-block">
+              <span class="vellor-account__info-label">Default Address</span>
+              <span class="vellor-account__info-value">
+                {{ customer.default_address.city }}, {{ customer.default_address.province_code }} {{ customer.default_address.zip }}
+              </span>
+            </div>
+          {% endif %}
+        </div>
+        <a href="{{ routes.account_logout_url }}" class="vellor-account__logout">Log Out</a>
+      </div>
+
+      <div class="vellor-account__orders">
+        <h2 class="vellor-account__orders-title">Order History</h2>
+
+        {% if customer.orders.size > 0 %}
+          <div class="vellor-account__table-wrap">
+            <table class="vellor-account__table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th class="vellor-account__table-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                  <tr>
+                    <td>
+                      <a href="{{ order.customer_url }}" class="vellor-account__order-link">{{ order.name }}</a>
+                    </td>
+                    <td>{{ order.created_at | date: "%B %d, %Y" }}</td>
+                    <td>
+                      <span class="vellor-account__status">{{ order.fulfillment_status_label }}</span>
+                    </td>
+                    <td class="vellor-account__table-right">{{ order.total_price | money }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="vellor-account__empty">
+            <p class="vellor-account__empty-text">You haven't placed any orders yet.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="vellor-account__shop-link">Start Shopping</a>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #main-account-{{ section.id }} .vellor-account__header {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 8rem 2rem 3rem;
+    text-align: center;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__subtitle {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__body {
+    background-color: #F2F2F2;
+    padding: 4rem 2rem 5rem;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Account Info */
+  #main-account-{{ section.id }} .vellor-account__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  @media (max-width: 600px) {
+    #main-account-{{ section.id }} .vellor-account__info {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+
+  #main-account-{{ section.id }} .vellor-account__info-grid {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__info-label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.35rem;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__info-value {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__logout {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__logout:hover {
+    color: #1C1C1C;
+  }
+
+  /* Orders */
+  #main-account-{{ section.id }} .vellor-account__orders-title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #1C1C1C;
+    margin: 0 0 1.5rem;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__table th {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    text-align: left;
+    padding: 0 0 1rem;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__table td {
+    padding: 1rem 1rem 1rem 0;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    white-space: nowrap;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__table-right {
+    text-align: right;
+    padding-right: 0;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__order-link {
+    color: #1C1C1C;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__order-link:hover {
+    border-bottom-color: #1C1C1C;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__status {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #999;
+  }
+
+  /* Empty State */
+  #main-account-{{ section.id }} .vellor-account__empty {
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__empty-text {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0 0 1.5rem;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__shop-link {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  #main-account-{{ section.id }} .vellor-account__shop-link:hover {
+    background-color: #333;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Account",
+  "tag": "section",
+  "class": "vellor-section-account",
+  "settings": []
+}
+{% endschema %}

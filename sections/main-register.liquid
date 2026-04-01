@@ -1,0 +1,248 @@
+{% comment %}
+  VELLOR Customer Registration Section
+  Registration form with first name, last name, email, password
+{% endcomment %}
+
+<section id="main-register-{{ section.id }}" class="vellor-register">
+  <div class="vellor-register__header">
+    <div class="vellor-register__header-inner">
+      <h1 class="vellor-register__title">Create Account</h1>
+      <p class="vellor-register__subtitle">Join VELLOR for a personalized experience</p>
+    </div>
+  </div>
+
+  <div class="vellor-register__body">
+    <div class="vellor-register__form-wrapper">
+
+      {% form 'create_customer', class: 'vellor-register__form' %}
+        {% if form.errors %}
+          <div class="vellor-register__errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="vellor-register__row">
+          <div class="vellor-register__field">
+            <label for="register-first-name" class="vellor-register__label">First Name</label>
+            <input
+              type="text"
+              id="register-first-name"
+              name="customer[first_name]"
+              class="vellor-register__input"
+              placeholder="First Name"
+              autocomplete="given-name"
+              required
+            >
+          </div>
+
+          <div class="vellor-register__field">
+            <label for="register-last-name" class="vellor-register__label">Last Name</label>
+            <input
+              type="text"
+              id="register-last-name"
+              name="customer[last_name]"
+              class="vellor-register__input"
+              placeholder="Last Name"
+              autocomplete="family-name"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="vellor-register__field">
+          <label for="register-email" class="vellor-register__label">Email</label>
+          <input
+            type="email"
+            id="register-email"
+            name="customer[email]"
+            class="vellor-register__input"
+            placeholder="Email Address"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            required
+          >
+        </div>
+
+        <div class="vellor-register__field">
+          <label for="register-password" class="vellor-register__label">Password</label>
+          <input
+            type="password"
+            id="register-password"
+            name="customer[password]"
+            class="vellor-register__input"
+            placeholder="Password"
+            autocomplete="new-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="vellor-register__submit">Create Account</button>
+      {% endform %}
+
+      <div class="vellor-register__alt">
+        <p class="vellor-register__alt-text">Already have an account?</p>
+        <a href="{{ routes.account_login_url }}" class="vellor-register__login-link">Sign In</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #main-register-{{ section.id }} .vellor-register__header {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 8rem 2rem 3rem;
+    text-align: center;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__subtitle {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__body {
+    background-color: #F2F2F2;
+    padding: 4rem 2rem 5rem;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__form-wrapper {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    #main-register-{{ section.id }} .vellor-register__row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  #main-register-{{ section.id }} .vellor-register__field {
+    margin-bottom: 1.5rem;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 0.5rem;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__input {
+    width: 100%;
+    padding: 0.85rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__input:focus {
+    border-bottom-color: #1C1C1C;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__input::placeholder {
+    color: #bbb;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__submit:hover {
+    background-color: #333;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__alt {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__alt-text {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0 0 0.75rem;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__login-link {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    text-decoration: none;
+    border-bottom: 1px solid #1C1C1C;
+    padding-bottom: 2px;
+    transition: opacity 0.3s ease;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__login-link:hover {
+    opacity: 0.6;
+  }
+
+  #main-register-{{ section.id }} .vellor-register__errors {
+    background-color: rgba(139, 0, 0, 0.06);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #8B0000;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Customer Register",
+  "tag": "section",
+  "class": "vellor-section-register",
+  "settings": []
+}
+{% endschema %}

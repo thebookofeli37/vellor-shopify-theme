@@ -1,0 +1,122 @@
+{% comment %}
+  VELLOR Main Page Section
+  Generic page template for static pages
+{% endcomment %}
+
+<section id="main-page-{{ section.id }}" class="vellor-page">
+  <div class="vellor-page__header">
+    <div class="vellor-page__header-inner">
+      <h1 class="vellor-page__title">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="vellor-page__body">
+    <div class="vellor-page__content">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+<style>
+  #main-page-{{ section.id }} {
+    min-height: 60vh;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__header {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 8rem 2rem 3rem;
+    text-align: center;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__body {
+    background-color: #F2F2F2;
+    color: #1C1C1C;
+    padding: 4rem 2rem;
+  }
+
+  @media (min-width: 769px) {
+    #main-page-{{ section.id }} .vellor-page__body {
+      padding: 5rem 3rem;
+    }
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content {
+    max-width: 740px;
+    margin: 0 auto;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content h2,
+  #main-page-{{ section.id }} .vellor-page__content h3,
+  #main-page-{{ section.id }} .vellor-page__content h4 {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-weight: 400;
+    color: #1C1C1C;
+    margin: 2.5rem 0 1rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content h2 {
+    font-size: 1.75rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content h3 {
+    font-size: 1.4rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content p {
+    margin: 0 0 1.25rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content a {
+    color: #1C1C1C;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.3s ease;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content a:hover {
+    opacity: 0.6;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content ul,
+  #main-page-{{ section.id }} .vellor-page__content ol {
+    padding-left: 1.5rem;
+    margin: 0 0 1.25rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content li {
+    margin-bottom: 0.5rem;
+  }
+
+  #main-page-{{ section.id }} .vellor-page__content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Main Page",
+  "tag": "section",
+  "class": "vellor-section-page",
+  "settings": []
+}
+{% endschema %}
