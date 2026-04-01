@@ -5,27 +5,20 @@
 
 <section id="video-interlude-{{ section.id }}" class="vellor-interlude">
   <div class="vellor-interlude__media">
-    {% if section.settings.video_url != blank %}
-      <video
-        class="vellor-interlude__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        {% if section.settings.poster_image %}
-          poster="{{ section.settings.poster_image | image_url: width: 1920 }}"
-        {% endif %}
-      >
-        <source src="{{ section.settings.video_url }}" type="video/mp4">
-      </video>
-    {% elsif section.settings.poster_image %}
-      <img
-        src="{{ section.settings.poster_image | image_url: width: 1920 }}"
-        alt="{{ section.settings.heading }}"
-        class="vellor-interlude__poster"
-        loading="lazy"
-      >
+    {% assign video_src = section.settings.video_url %}
+    {% if video_src == blank %}
+      {% assign video_src = 'model-grey.mp4' | asset_url %}
     {% endif %}
+    <video
+      class="vellor-interlude__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="{{ 'model-hero.png' | asset_url }}"
+    >
+      <source src="{{ video_src }}" type="video/mp4">
+    </video>
     <div class="vellor-interlude__overlay"></div>
   </div>
 

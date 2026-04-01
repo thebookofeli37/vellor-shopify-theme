@@ -5,29 +5,20 @@
 
 <section id="hero-video" class="vellor-hero" data-section-id="{{ section.id }}">
   <div class="vellor-hero__media">
-    {% if section.settings.video_url != blank %}
-      <video
-        class="vellor-hero__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        {% if section.settings.poster_image %}
-          poster="{{ section.settings.poster_image | image_url: width: 1920 }}"
-        {% endif %}
-      >
-        <source src="{{ section.settings.video_url }}" type="video/mp4">
-      </video>
-    {% elsif section.settings.poster_image %}
-      <img
-        class="vellor-hero__poster"
-        src="{{ section.settings.poster_image | image_url: width: 1920 }}"
-        alt="{{ section.settings.heading | default: 'VELLOR' }}"
-        loading="eager"
-        width="1920"
-        height="1080"
-      >
+    {% assign video_src = section.settings.video_url %}
+    {% if video_src == blank %}
+      {% assign video_src = 'model-blue.mp4' | asset_url %}
     {% endif %}
+    <video
+      class="vellor-hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="{{ 'model-web.png' | asset_url }}"
+    >
+      <source src="{{ video_src }}" type="video/mp4">
+    </video>
     <div class="vellor-hero__overlay"></div>
   </div>
 

@@ -17,9 +17,12 @@
             loading="lazy"
           >
         {% else %}
-          <div class="vellor-about__who-placeholder">
-            {{ 'lifestyle-1' | placeholder_svg_tag }}
-          </div>
+          <img
+            src="{{ 'model-web.png' | asset_url }}"
+            alt="VELLOR model"
+            class="vellor-about__who-image"
+            loading="lazy"
+          >
         {% endif %}
       </div>
       <div class="vellor-about__who-text-col">

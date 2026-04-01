@@ -1,55 +1,55 @@
 {
   "sections": {
     "hero": {
-      "type": "image-with-text",
+      "type": "about-hero",
       "settings": {
-        "heading": "Our Story",
-        "text": "VELLOR was born from the belief that everyday essentials should feel extraordinary. We set out to create a line of premium fleece pieces that bridge the gap between luxury and comfort.",
-        "layout": "image_first"
+        "heading": "VELLOR",
+        "subtitle": "The Standard for Everyday Luxury"
       }
     },
-    "main": {
-      "type": "main-page",
-      "settings": {
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "values": {
-      "type": "multicolumn",
+    "content": {
+      "type": "about-content",
       "blocks": {
-        "col1": {
-          "type": "column",
+        "pillar-1": {
+          "type": "pillar",
           "settings": {
-            "title": "Premium Materials",
-            "text": "Heavyweight 400gsm fleece, sourced from the finest mills. Every thread chosen with intention."
+            "title": "Heavyweight Construction",
+            "text": "14oz premium fleece and sherpa-textured fabrics. Garment-dyed for depth. Kangaroo pockets, ribbed cuffs, oversized hoods. Built to last years, not weeks."
           }
         },
-        "col2": {
-          "type": "column",
+        "pillar-2": {
+          "type": "pillar",
           "settings": {
-            "title": "Garment Dyed",
-            "text": "Each piece is individually dyed after construction for a rich, unique depth of color."
+            "title": "Quiet Design",
+            "text": "No logos screaming for attention. Tonal V embroidery. Earth tones and muted palettes. Pieces that speak through quality, not noise."
           }
         },
-        "col3": {
-          "type": "column",
+        "pillar-3": {
+          "type": "pillar",
           "settings": {
-            "title": "Made to Last",
-            "text": "Reinforced stitching, quality hardware, and fabrics that get softer with every wash."
+            "title": "Made in the USA",
+            "text": "Every piece is manufactured domestically in facilities that uphold fair wages, safe conditions, and sustainable practices. We know where every stitch comes from."
           }
         }
       },
-      "block_order": ["col1", "col2", "col3"],
+      "block_order": ["pillar-1", "pillar-2", "pillar-3"],
       "settings": {
-        "title": "What Sets Us Apart",
-        "columns_desktop": 3
+        "who_label": "What We Are",
+        "who_heading": "Not fast fashion. Not hype. Just substance.",
+        "who_text": "<p>VELLOR is a premium essentials brand built on one idea: the pieces you wear every day should be the ones made with the most intention. We design heavyweight fleece hoodies, joggers, and coordinated sets that feel like nothing else you own.</p><p>Every piece is crafted from 14oz premium heavyweight fleece, sherpa-textured fabrics, and garment-dyed for a lived-in softness from the very first wear. Tonal V embroidery marks each piece — subtle, not loud. The kind of detail you notice up close.</p><p>We don't do drops every week. We don't chase trends. We make a focused collection of essentials — six pieces, five sizes, every color considered — and we make them right. Oversized, boxy fits. Tapered joggers. Coordinated sets that look effortless because they were designed to be.</p>",
+        "pillars_heading": "We believe luxury is in the weight of the fabric, the silence of the branding, and the feeling when you put it on.",
+        "collection_heading": "Six pieces. Every one considered.",
+        "collection_text": "<p>SILENT — the signature in deep black. UNDONE — quiet luxury in light gray. WORN — warm earth tones that get better with time. EASE and DRIFT — complete coordinated sets in sage and cream. And the WORN Jogger — the tapered sweatpant that pairs with everything.</p><p>Each piece comes in XS through XL. Each is garment-dyed, sherpa-textured or 14oz heavyweight fleece, and finished with tonal V embroidery.</p><p>This is what happens when you stop trying to make everything and start making the right things.</p>",
+        "collection_cta_text": "Shop the Collection",
+        "collection_cta_url": "/collections/all",
+        "contact_heading": "Get in Touch",
+        "contact_email": "hello@vellor.com",
+        "contact_text": "We respond within 24 hours, Monday through Friday.",
+        "cta_heading": "Join the journey.",
+        "cta_button_text": "Shop Now",
+        "cta_button_url": "/collections/all"
       }
     }
   },
-  "order": [
-    "hero",
-    "main",
-    "values"
-  ]
+  "order": ["hero", "content"]
 }
