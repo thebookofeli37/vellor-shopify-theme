@@ -1,0 +1,66 @@
+<section class="vellor-404">
+  <div class="vellor-404__inner">
+    <p class="vellor-404__label">404</p>
+    <h1 class="vellor-404__heading">Page not found</h1>
+    <p class="vellor-404__text">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="/collections/all" class="vellor-404__link">Shop the Collection</a>
+  </div>
+</section>
+
+<style>
+  .vellor-404 {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .vellor-404__label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: rgba(242,242,242,0.1);
+    margin: 0 0 1rem;
+    letter-spacing: 0.1em;
+  }
+  .vellor-404__heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    margin: 0 0 1rem;
+  }
+  .vellor-404__text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0 0 2rem;
+  }
+  .vellor-404__link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    background: #F2F2F2;
+    padding: 0.9rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .vellor-404__link:hover {
+    background: transparent;
+    color: #F2F2F2;
+    outline: 1px solid #F2F2F2;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

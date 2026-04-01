@@ -2,24 +2,8 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "settings": {
-        "show_vendor": false,
-        "enable_cart_note": true,
-        "show_free_shipping_bar": true
-      }
-    },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "You Might Also Like",
-        "collection": "best-sellers",
-        "products_to_show": 4,
-        "show_view_all": false
-      }
+      "settings": {}
     }
   },
-  "order": [
-    "main",
-    "featured-collection"
-  ]
+  "order": ["main"]
 }

@@ -192,6 +192,17 @@
           priceEl.textContent = Shopify.formatMoney ? Shopify.formatMoney(matchedVariant.price) : ('$' + (matchedVariant.price / 100).toFixed(2));
           addBtn.disabled = false;
           addBtn.textContent = 'ADD TO BAG';
+        } else {
+          /* Variant exists but not available (sold out) */
+          var anyVariant = variants.find(function(v) {
+            return v.title.indexOf(selectedSize) !== -1;
+          });
+          if (anyVariant) {
+            variantInput.value = anyVariant.id;
+            priceEl.textContent = Shopify.formatMoney ? Shopify.formatMoney(anyVariant.price) : ('$' + (anyVariant.price / 100).toFixed(2));
+          }
+          addBtn.disabled = true;
+          addBtn.textContent = 'SOLD OUT';
         }
       });
     });
