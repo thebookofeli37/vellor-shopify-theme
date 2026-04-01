@@ -1,0 +1,429 @@
+{% comment %}
+  VELLOR Cart Section
+  Cart page with items, quantity controls, remove, subtotal, checkout
+{% endcomment %}
+
+<section id="main-cart-{{ section.id }}" class="vellor-cart" data-section-id="{{ section.id }}">
+  <div class="vellor-cart__container">
+    <h1 class="vellor-cart__heading">{{ section.settings.heading | default: 'Your Bag' }}</h1>
+
+    {% if cart.item_count > 0 %}
+      <div class="vellor-cart__content">
+        <div class="vellor-cart__items" id="vellor-cart-items">
+          {% for item in cart.items %}
+            <div class="vellor-cart__item" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+              <a href="{{ item.url }}" class="vellor-cart__item-image-wrap">
+                {% if item.image %}
+                  <img
+                    src="{{ item.image | image_url: width: 300 }}"
+                    alt="{{ item.title }}"
+                    class="vellor-cart__item-image"
+                    loading="lazy"
+                    width="120"
+                    height="160"
+                  >
+                {% endif %}
+              </a>
+
+              <div class="vellor-cart__item-details">
+                <div class="vellor-cart__item-header">
+                  <div>
+                    <a href="{{ item.url }}" class="vellor-cart__item-title">{{ item.product.title }}</a>
+                    {% if item.variant.title != 'Default Title' %}
+                      <p class="vellor-cart__item-variant">{{ item.variant.title }}</p>
+                    {% endif %}
+                  </div>
+                  <span class="vellor-cart__item-price">{{ item.final_line_price | money }}</span>
+                </div>
+
+                <div class="vellor-cart__item-footer">
+                  <div class="vellor-cart__quantity">
+                    <button
+                      class="vellor-cart__qty-btn"
+                      data-action="decrease"
+                      data-key="{{ item.key }}"
+                      aria-label="Decrease quantity"
+                    >&minus;</button>
+                    <span class="vellor-cart__qty-value">{{ item.quantity }}</span>
+                    <button
+                      class="vellor-cart__qty-btn"
+                      data-action="increase"
+                      data-key="{{ item.key }}"
+                      aria-label="Increase quantity"
+                    >+</button>
+                  </div>
+
+                  <button
+                    class="vellor-cart__remove"
+                    data-key="{{ item.key }}"
+                    aria-label="Remove {{ item.title }}"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="vellor-cart__summary">
+          <div class="vellor-cart__subtotal">
+            <span class="vellor-cart__subtotal-label">Subtotal</span>
+            <span class="vellor-cart__subtotal-value" id="vellor-cart-subtotal">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="vellor-cart__note">Shipping and taxes calculated at checkout.</p>
+
+          <a href="/checkout" class="vellor-cart__checkout-btn">
+            Checkout
+          </a>
+
+          <a href="{{ section.settings.continue_url | default: '/collections/all' }}" class="vellor-cart__continue">
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div class="vellor-cart__empty">
+        <p class="vellor-cart__empty-text">Your bag is empty.</p>
+        <a href="{{ section.settings.continue_url | default: '/collections/all' }}" class="vellor-cart__empty-link">
+          Shop the Collection
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (function() {
+    var section = document.getElementById('main-cart-{{ section.id }}');
+    if (!section) return;
+
+    function updateCart(key, quantity) {
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: quantity })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function() {
+        window.location.reload();
+      })
+      .catch(function(err) {
+        console.error('Cart update failed:', err);
+      });
+    }
+
+    /* Quantity buttons */
+    section.querySelectorAll('.vellor-cart__qty-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var key = btn.getAttribute('data-key');
+        var action = btn.getAttribute('data-action');
+        var qtyEl = btn.parentElement.querySelector('.vellor-cart__qty-value');
+        var currentQty = parseInt(qtyEl.textContent, 10);
+        var newQty = action === 'increase' ? currentQty + 1 : Math.max(0, currentQty - 1);
+        updateCart(key, newQty);
+      });
+    });
+
+    /* Remove buttons */
+    section.querySelectorAll('.vellor-cart__remove').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var key = btn.getAttribute('data-key');
+        updateCart(key, 0);
+      });
+    });
+  })();
+</script>
+
+<style>
+  #main-cart-{{ section.id }} {
+    background-color: #F2F2F2;
+    color: #1C1C1C;
+    padding: 3rem 1.5rem 5rem;
+    min-height: 60vh;
+  }
+
+  @media (min-width: 769px) {
+    #main-cart-{{ section.id }} {
+      padding: 5rem 3rem 7rem;
+    }
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__heading {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 2.5rem;
+    text-align: center;
+    color: #1C1C1C;
+  }
+
+  /* Items */
+  #main-cart-{{ section.id }} .vellor-cart__item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item:first-child {
+    border-top: 1px solid #e0e0e0;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-image-wrap {
+    flex-shrink: 0;
+    width: 100px;
+    height: 130px;
+    overflow: hidden;
+    background-color: #e8e8e8;
+  }
+
+  @media (min-width: 769px) {
+    #main-cart-{{ section.id }} .vellor-cart__item-image-wrap {
+      width: 120px;
+      height: 160px;
+    }
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-title {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #1C1C1C;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-title:hover {
+    opacity: 0.6;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-variant {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999999;
+    margin: 0.25rem 0 0;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-price {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #1C1C1C;
+    white-space: nowrap;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  /* Quantity */
+  #main-cart-{{ section.id }} .vellor-cart__quantity {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__qty-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__qty-btn:hover {
+    background-color: #e8e8e8;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__qty-value {
+    width: 36px;
+    text-align: center;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    color: #1C1C1C;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__remove {
+    background: none;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__remove:hover {
+    color: #8B0000;
+  }
+
+  /* Summary */
+  #main-cart-{{ section.id }} .vellor-cart__summary {
+    padding-top: 2rem;
+    text-align: right;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__subtotal-label {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__subtotal-value {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #1C1C1C;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__note {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999999;
+    margin: 0 0 1.5rem;
+    text-align: right;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__checkout-btn:hover {
+    background-color: #333;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__continue {
+    display: block;
+    text-align: center;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__continue:hover {
+    color: #1C1C1C;
+  }
+
+  /* Empty Cart */
+  #main-cart-{{ section.id }} .vellor-cart__empty {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__empty-text {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: #999999;
+    margin: 0 0 2rem;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__empty-link {
+    display: inline-block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    background-color: #1C1C1C;
+    padding: 0.9rem 2.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  #main-cart-{{ section.id }} .vellor-cart__empty-link:hover {
+    background-color: #333;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "tag": "section",
+  "class": "vellor-section-cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Bag"
+    },
+    {
+      "type": "url",
+      "id": "continue_url",
+      "label": "Continue Shopping URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Page",
+      "category": "VELLOR"
+    }
+  ],
+  "templates": ["cart"]
+}
+{% endschema %}

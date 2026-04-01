@@ -1,0 +1,175 @@
+{% comment %}
+  VELLOR - Size Selector Snippet
+  Usage: {% render 'size-selector', product: product %}
+  Renders size option buttons and tracks the selected variant ID.
+  Expects the product to have a "Size" option.
+{% endcomment %}
+
+<style>
+  .size-selector {
+    margin: 24px 0;
+  }
+
+  .size-selector__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    margin: 0 0 14px;
+    display: block;
+  }
+
+  .size-selector__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .size-selector__btn {
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    background-color: transparent;
+    border: 1px solid rgba(28, 28, 28, 0.2);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: #1C1C1C;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    position: relative;
+  }
+
+  .size-selector__btn:hover {
+    border-color: #1C1C1C;
+  }
+
+  .size-selector__btn.is-selected {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    border-color: #0A0A0A;
+  }
+
+  .size-selector__btn.is-unavailable {
+    color: #999;
+    border-color: rgba(28, 28, 28, 0.1);
+    cursor: not-allowed;
+    position: relative;
+  }
+
+  .size-selector__btn.is-unavailable::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    right: 4px;
+    height: 1px;
+    background-color: #999;
+    transform: rotate(-12deg);
+  }
+
+  /* Hidden input to hold the selected variant ID for form submission */
+  .size-selector__input {
+    display: none;
+  }
+</style>
+
+{% assign size_option_index = nil %}
+{% for option in product.options %}
+  {% assign option_name_lower = option | downcase %}
+  {% if option_name_lower == 'size' %}
+    {% assign size_option_index = forloop.index0 %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if size_option_index != nil %}
+  <div class="size-selector" data-product-id="{{ product.id }}" id="sizeSelector-{{ product.id }}">
+    <span class="size-selector__label">Size</span>
+    <div class="size-selector__options">
+      {% assign seen_sizes = '' %}
+      {% for variant in product.variants %}
+        {% assign size_value = variant.options[size_option_index] %}
+        {% unless seen_sizes contains size_value %}
+          {% assign seen_sizes = seen_sizes | append: size_value | append: ',' %}
+          <button
+            type="button"
+            class="size-selector__btn {% unless variant.available %}is-unavailable{% endunless %}"
+            data-variant-id="{{ variant.id }}"
+            data-size="{{ size_value }}"
+            data-available="{{ variant.available }}"
+            {% unless variant.available %}disabled aria-disabled="true"{% endunless %}
+            aria-label="Size {{ size_value }}{% unless variant.available %} - Sold out{% endunless %}"
+          >
+            {{ size_value }}
+          </button>
+        {% endunless %}
+      {% endfor %}
+    </div>
+    <input type="hidden" class="size-selector__input" name="id" id="sizeVariantId-{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+  </div>
+
+  <script>
+    (function() {
+      var selector = document.getElementById('sizeSelector-{{ product.id }}');
+      var hiddenInput = document.getElementById('sizeVariantId-{{ product.id }}');
+      var buttons = selector.querySelectorAll('.size-selector__btn');
+
+      /* Build a lookup: size value -> variant ID (first available for that size) */
+      var sizeVariantMap = {};
+      {% for variant in product.variants %}
+        {% assign sv = variant.options[size_option_index] %}
+        if (!sizeVariantMap['{{ sv }}']) {
+          sizeVariantMap['{{ sv }}'] = {
+            id: {{ variant.id }},
+            available: {{ variant.available }}
+          };
+        }
+      {% endfor %}
+
+      /* Pre-select the first available size */
+      var preselected = false;
+      buttons.forEach(function(btn) {
+        if (!preselected && btn.dataset.available === 'true') {
+          btn.classList.add('is-selected');
+          hiddenInput.value = btn.dataset.variantId;
+          preselected = true;
+        }
+      });
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (btn.disabled) return;
+
+          /* Remove selected state from all */
+          buttons.forEach(function(b) { b.classList.remove('is-selected'); });
+
+          /* Set selected */
+          btn.classList.add('is-selected');
+
+          /* Update hidden input with variant ID */
+          var sizeVal = btn.dataset.size;
+          var variant = sizeVariantMap[sizeVal];
+          if (variant) {
+            hiddenInput.value = variant.id;
+          }
+
+          /* Dispatch custom event for other components to listen to */
+          var event = new CustomEvent('vellor:size-selected', {
+            detail: {
+              productId: {{ product.id }},
+              variantId: parseInt(btn.dataset.variantId),
+              size: sizeVal
+            },
+            bubbles: true
+          });
+          selector.dispatchEvent(event);
+        });
+      });
+    })();
+  </script>
+{% endif %}

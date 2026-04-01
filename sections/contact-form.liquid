@@ -1,0 +1,332 @@
+{% comment %}
+  VELLOR Contact Form Section
+  Contact page with info and form
+{% endcomment %}
+
+<section id="contact-form-{{ section.id }}" class="vellor-contact">
+  <div class="vellor-contact__container">
+    <div class="vellor-contact__grid">
+
+      <!-- Info Column -->
+      <div class="vellor-contact__info-col">
+        <h1 class="vellor-contact__heading">{{ section.settings.heading | default: 'Contact Us' }}</h1>
+
+        {% if section.settings.description != blank %}
+          <p class="vellor-contact__description">{{ section.settings.description }}</p>
+        {% endif %}
+
+        <div class="vellor-contact__details">
+          {% if section.settings.email != blank %}
+            <div class="vellor-contact__detail-item">
+              <span class="vellor-contact__detail-label">Email</span>
+              <a href="mailto:{{ section.settings.email }}" class="vellor-contact__detail-value">{{ section.settings.email }}</a>
+            </div>
+          {% endif %}
+
+          {% if section.settings.hours != blank %}
+            <div class="vellor-contact__detail-item">
+              <span class="vellor-contact__detail-label">Hours</span>
+              <span class="vellor-contact__detail-value">{{ section.settings.hours }}</span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.response_time != blank %}
+            <div class="vellor-contact__detail-item">
+              <span class="vellor-contact__detail-label">Response Time</span>
+              <span class="vellor-contact__detail-value">{{ section.settings.response_time }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="vellor-contact__form-col">
+        {% form 'contact', class: 'vellor-contact__form' %}
+          {% if form.posted_successfully? %}
+            <div class="vellor-contact__success">
+              <p>Thank you for reaching out. We will get back to you shortly.</p>
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="vellor-contact__errors">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <div class="vellor-contact__form-row">
+            <div class="vellor-contact__field">
+              <label for="contact-first-name" class="vellor-contact__field-label">First Name</label>
+              <input
+                type="text"
+                id="contact-first-name"
+                name="contact[first_name]"
+                class="vellor-contact__input"
+                placeholder="First Name"
+                required
+              >
+            </div>
+            <div class="vellor-contact__field">
+              <label for="contact-last-name" class="vellor-contact__field-label">Last Name</label>
+              <input
+                type="text"
+                id="contact-last-name"
+                name="contact[last_name]"
+                class="vellor-contact__input"
+                placeholder="Last Name"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="vellor-contact__field">
+            <label for="contact-email" class="vellor-contact__field-label">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="contact[email]"
+              class="vellor-contact__input"
+              placeholder="Email Address"
+              required
+            >
+          </div>
+
+          <div class="vellor-contact__field">
+            <label for="contact-message" class="vellor-contact__field-label">Message</label>
+            <textarea
+              id="contact-message"
+              name="contact[body]"
+              class="vellor-contact__textarea"
+              placeholder="Your message"
+              rows="6"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="vellor-contact__submit">
+            {{ section.settings.submit_text | default: 'Send Message' }}
+          </button>
+        {% endform %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #contact-form-{{ section.id }} {
+    background-color: #F2F2F2;
+    color: #1C1C1C;
+    padding: 4rem 1.5rem;
+  }
+
+  @media (min-width: 769px) {
+    #contact-form-{{ section.id }} {
+      padding: 7rem 3rem;
+    }
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 769px) {
+    #contact-form-{{ section.id }} .vellor-contact__grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+    }
+  }
+
+  /* Info Column */
+  #contact-form-{{ section.id }} .vellor-contact__heading {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin: 0 0 1.25rem;
+    color: #1C1C1C;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__description {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #999999;
+    margin: 0 0 2.5rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__detail-label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 0.35rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__detail-value {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.9rem;
+    color: #1C1C1C;
+    text-decoration: none;
+  }
+
+  #contact-form-{{ section.id }} a.vellor-contact__detail-value:hover {
+    opacity: 0.6;
+  }
+
+  /* Form */
+  #contact-form-{{ section.id }} .vellor-contact__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__field {
+    margin-bottom: 1.25rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__field-label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 0.5rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__input,
+  #contact-form-{{ section.id }} .vellor-contact__textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: transparent;
+    border: 1px solid #ccc;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #1C1C1C;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__input:focus,
+  #contact-form-{{ section.id }} .vellor-contact__textarea:focus {
+    border-color: #1C1C1C;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__input::placeholder,
+  #contact-form-{{ section.id }} .vellor-contact__textarea::placeholder {
+    color: #bbb;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0.5rem;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__submit:hover {
+    background-color: #333;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__success {
+    background-color: rgba(0, 128, 0, 0.06);
+    border: 1px solid rgba(0, 128, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #1C1C1C;
+  }
+
+  #contact-form-{{ section.id }} .vellor-contact__errors {
+    background-color: rgba(139, 0, 0, 0.06);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #8B0000;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "tag": "section",
+  "class": "vellor-section-contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Have a question about our products, an order, or anything else? We would love to hear from you."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "hello@vellor.com"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Business Hours",
+      "default": "Mon - Fri, 9am - 5pm EST"
+    },
+    {
+      "type": "text",
+      "id": "response_time",
+      "label": "Response Time",
+      "default": "Within 24 hours"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit Button Text",
+      "default": "Send Message"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form",
+      "category": "VELLOR"
+    }
+  ]
+}
+{% endschema %}

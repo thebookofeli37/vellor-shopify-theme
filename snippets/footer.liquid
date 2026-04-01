@@ -1,0 +1,300 @@
+{% comment %}
+  VELLOR - Footer Snippet
+  Usage: {% render 'footer' %}
+  Site footer with newsletter signup, link columns, and bottom bar.
+{% endcomment %}
+
+<style>
+  .footer {
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    padding: 0;
+  }
+
+  /* Newsletter section */
+  .footer__newsletter {
+    padding: 72px 40px;
+    text-align: center;
+    border-bottom: 1px solid rgba(242, 242, 242, 0.1);
+  }
+
+  .footer__newsletter-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    margin: 0 0 8px;
+  }
+
+  .footer__newsletter-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #999;
+    margin: 0 0 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .footer__newsletter-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .footer__newsletter-input {
+    flex: 1;
+    padding: 14px 18px;
+    background-color: transparent;
+    border: 1px solid rgba(242, 242, 242, 0.2);
+    border-right: none;
+    color: #F2F2F2;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .footer__newsletter-input::placeholder {
+    color: #999;
+  }
+
+  .footer__newsletter-input:focus {
+    border-color: rgba(242, 242, 242, 0.5);
+  }
+
+  .footer__newsletter-submit {
+    padding: 14px 28px;
+    background-color: #F2F2F2;
+    color: #0A0A0A;
+    border: 1px solid #F2F2F2;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .footer__newsletter-submit:hover {
+    background-color: transparent;
+    color: #F2F2F2;
+  }
+
+  /* Link columns */
+  .footer__links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    padding: 56px 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(242, 242, 242, 0.1);
+  }
+
+  .footer__column-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    margin: 0 0 20px;
+  }
+
+  .footer__column-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__column-list li {
+    margin-bottom: 12px;
+  }
+
+  .footer__column-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #999;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .footer__column-link:hover {
+    color: #F2F2F2;
+  }
+
+  .footer__column-link--muted {
+    color: rgba(153, 153, 153, 0.5);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Bottom bar */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .footer__bottom-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+  }
+
+  .footer__bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .footer__bottom-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .footer__bottom-link:hover {
+    color: #F2F2F2;
+  }
+
+  .footer__copyright {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(153, 153, 153, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .footer__newsletter {
+      padding: 48px 20px;
+    }
+
+    .footer__newsletter-form {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .footer__newsletter-input {
+      width: 100%;
+      border-right: 1px solid rgba(242, 242, 242, 0.2);
+      border-bottom: none;
+    }
+
+    .footer__newsletter-submit {
+      width: 100%;
+    }
+
+    .footer__links {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 40px 20px;
+      gap: 32px;
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+  }
+</style>
+
+<footer class="footer" role="contentinfo">
+  <!-- Newsletter -->
+  <div class="footer__newsletter">
+    <h3 class="footer__newsletter-heading">Join the World of VELLOR</h3>
+    <p class="footer__newsletter-text">Be the first to discover new collections and exclusive offers.</p>
+    {% form 'customer', id: 'footer-newsletter' %}
+      <div class="footer__newsletter-form">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input
+          class="footer__newsletter-input"
+          type="email"
+          name="contact[email]"
+          placeholder="Enter your email"
+          required
+          autocomplete="email"
+          aria-label="Email address"
+        >
+        <button type="submit" class="footer__newsletter-submit">Subscribe</button>
+      </div>
+    {% endform %}
+  </div>
+
+  <!-- Link columns -->
+  <div class="footer__links">
+    <!-- Shop -->
+    <div>
+      <h4 class="footer__column-title">Shop</h4>
+      <ul class="footer__column-list">
+        <li><a href="/collections/womens" class="footer__column-link">Women's</a></li>
+        <li><span class="footer__column-link footer__column-link--muted">Men's Coming Soon</span></li>
+      </ul>
+    </div>
+
+    <!-- Help -->
+    <div>
+      <h4 class="footer__column-title">Help</h4>
+      <ul class="footer__column-list">
+        <li><a href="/pages/shipping-returns" class="footer__column-link">Shipping &amp; Returns</a></li>
+        <li><a href="/pages/contact" class="footer__column-link">Contact</a></li>
+        <li><a href="/pages/affiliate" class="footer__column-link">Become an Affiliate</a></li>
+      </ul>
+    </div>
+
+    <!-- Company -->
+    <div>
+      <h4 class="footer__column-title">Company</h4>
+      <ul class="footer__column-list">
+        <li><a href="/pages/about" class="footer__column-link">About Us</a></li>
+        <li><a href="/policies/privacy-policy" class="footer__column-link">Privacy Policy</a></li>
+        <li><a href="/policies/terms-of-service" class="footer__column-link">Terms of Service</a></li>
+      </ul>
+    </div>
+
+    <!-- Social -->
+    <div>
+      <h4 class="footer__column-title">Social</h4>
+      <ul class="footer__column-list">
+        {% if settings.social_instagram_link != blank %}
+          <li><a href="{{ settings.social_instagram_link }}" class="footer__column-link" target="_blank" rel="noopener">Instagram</a></li>
+        {% else %}
+          <li><a href="https://instagram.com" class="footer__column-link" target="_blank" rel="noopener">Instagram</a></li>
+        {% endif %}
+        {% if settings.social_tiktok_link != blank %}
+          <li><a href="{{ settings.social_tiktok_link }}" class="footer__column-link" target="_blank" rel="noopener">TikTok</a></li>
+        {% else %}
+          <li><a href="https://tiktok.com" class="footer__column-link" target="_blank" rel="noopener">TikTok</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer__bottom">
+    <span class="footer__bottom-logo">VELLOR</span>
+    <div class="footer__bottom-links">
+      <a href="/policies/privacy-policy" class="footer__bottom-link">Privacy</a>
+      <a href="/policies/terms-of-service" class="footer__bottom-link">Terms</a>
+    </div>
+    <span class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} VELLOR. All rights reserved.</span>
+  </div>
+</footer>

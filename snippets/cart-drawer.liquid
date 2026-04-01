@@ -1,0 +1,403 @@
+{% comment %}
+  VELLOR - Cart Drawer Snippet
+  Usage: {% render 'cart-drawer' %}
+  Slide-in cart drawer from right side with AJAX cart functionality.
+{% endcomment %}
+
+<style>
+  .cart-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .cart-drawer-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    max-width: 100%;
+    height: 100%;
+    background-color: #F2F2F2;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(28, 28, 28, 0.1);
+  }
+
+  .cart-drawer__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    margin: 0;
+  }
+
+  .cart-drawer__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #1C1C1C;
+    font-size: 18px;
+    line-height: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+  }
+
+  .cart-drawer__close:hover {
+    color: #999;
+  }
+
+  .cart-drawer__items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .cart-drawer__item {
+    display: flex;
+    gap: 16px;
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(28, 28, 28, 0.06);
+  }
+
+  .cart-drawer__item-image {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background-color: #e8e8e8;
+  }
+
+  .cart-drawer__item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .cart-drawer__item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: #1C1C1C;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .cart-drawer__item-variant {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.04em;
+    margin: 4px 0 0;
+  }
+
+  .cart-drawer__item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .cart-drawer__quantity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cart-drawer__quantity-btn {
+    background: none;
+    border: 1px solid rgba(28, 28, 28, 0.15);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1C1C1C;
+    transition: border-color 0.2s ease;
+  }
+
+  .cart-drawer__quantity-btn:hover {
+    border-color: #1C1C1C;
+  }
+
+  .cart-drawer__quantity-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #1C1C1C;
+    min-width: 16px;
+    text-align: center;
+  }
+
+  .cart-drawer__item-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #1C1C1C;
+    letter-spacing: 0.02em;
+  }
+
+  .cart-drawer__item-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999;
+    text-decoration: underline;
+    padding: 0;
+    margin-top: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .cart-drawer__item-remove:hover {
+    color: #1C1C1C;
+  }
+
+  .cart-drawer__footer {
+    padding: 20px 28px 28px;
+    border-top: 1px solid rgba(28, 28, 28, 0.1);
+  }
+
+  .cart-drawer__subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .cart-drawer__subtotal-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+  }
+
+  .cart-drawer__subtotal-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #1C1C1C;
+  }
+
+  .cart-drawer__checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .cart-drawer__checkout-btn:hover {
+    background-color: #1C1C1C;
+  }
+
+  .cart-drawer__empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px;
+  }
+
+  .cart-drawer__empty-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #999;
+    margin: 0 0 24px;
+    letter-spacing: 0.04em;
+  }
+
+  .cart-drawer__empty-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    text-decoration: none;
+    border-bottom: 1px solid #1C1C1C;
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .cart-drawer__empty-link:hover {
+    color: #999;
+    border-color: #999;
+  }
+</style>
+
+<div class="cart-drawer-overlay" id="cartDrawerOverlay" onclick="VellorCart.close()"></div>
+
+<div class="cart-drawer" id="cartDrawer" aria-label="Shopping bag">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">BAG</h2>
+    <button class="cart-drawer__close" onclick="VellorCart.close()" aria-label="Close bag">&times;</button>
+  </div>
+
+  <div class="cart-drawer__items" id="cartDrawerItems">
+    <!-- Cart items rendered via JS -->
+  </div>
+
+  <div class="cart-drawer__footer" id="cartDrawerFooter" style="display: none;">
+    <div class="cart-drawer__subtotal">
+      <span class="cart-drawer__subtotal-label">Subtotal</span>
+      <span class="cart-drawer__subtotal-value" id="cartDrawerSubtotal"></span>
+    </div>
+    <a href="/checkout" class="cart-drawer__checkout-btn">CHECKOUT</a>
+  </div>
+</div>
+
+<script>
+  window.VellorCart = (function() {
+    const drawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('cartDrawerOverlay');
+    const itemsContainer = document.getElementById('cartDrawerItems');
+    const footer = document.getElementById('cartDrawerFooter');
+    const subtotalEl = document.getElementById('cartDrawerSubtotal');
+
+    function formatMoney(cents) {
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    function open() {
+      fetchCart().then(function() {
+        drawer.classList.add('is-open');
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+
+    function close() {
+      drawer.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function fetchCart() {
+      return fetch('/cart.js', {
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(cart) { renderCart(cart); })
+      .catch(function(err) { console.error('Cart fetch error:', err); });
+    }
+
+    function renderCart(cart) {
+      if (cart.item_count === 0) {
+        itemsContainer.innerHTML =
+          '<div class="cart-drawer__empty">' +
+            '<p class="cart-drawer__empty-text">Your bag is empty</p>' +
+            '<a href="/collections/all" class="cart-drawer__empty-link">Continue Shopping</a>' +
+          '</div>';
+        footer.style.display = 'none';
+        updateCartCount(0);
+        return;
+      }
+
+      var html = '';
+      cart.items.forEach(function(item) {
+        var imgSrc = item.featured_image
+          ? item.featured_image.url + '&width=200'
+          : '';
+        var variantTitle = item.variant_title || '';
+
+        html +=
+          '<div class="cart-drawer__item" data-key="' + item.key + '">' +
+            (imgSrc ? '<img class="cart-drawer__item-image" src="' + imgSrc + '" alt="' + item.title + '" loading="lazy">' : '') +
+            '<div class="cart-drawer__item-details">' +
+              '<div>' +
+                '<p class="cart-drawer__item-title">' + item.product_title + '</p>' +
+                (variantTitle ? '<p class="cart-drawer__item-variant">' + variantTitle + '</p>' : '') +
+              '</div>' +
+              '<div class="cart-drawer__item-bottom">' +
+                '<div class="cart-drawer__quantity">' +
+                  '<button class="cart-drawer__quantity-btn" onclick="VellorCart.updateQuantity(\'' + item.key + '\', ' + (item.quantity - 1) + ')" aria-label="Decrease quantity">&minus;</button>' +
+                  '<span class="cart-drawer__quantity-value">' + item.quantity + '</span>' +
+                  '<button class="cart-drawer__quantity-btn" onclick="VellorCart.updateQuantity(\'' + item.key + '\', ' + (item.quantity + 1) + ')" aria-label="Increase quantity">+</button>' +
+                '</div>' +
+                '<span class="cart-drawer__item-price">' + formatMoney(item.final_line_price) + '</span>' +
+              '</div>' +
+              '<button class="cart-drawer__item-remove" onclick="VellorCart.updateQuantity(\'' + item.key + '\', 0)">Remove</button>' +
+            '</div>' +
+          '</div>';
+      });
+
+      itemsContainer.innerHTML = html;
+      footer.style.display = 'block';
+      subtotalEl.textContent = formatMoney(cart.total_price);
+      updateCartCount(cart.item_count);
+    }
+
+    function updateQuantity(key, qty) {
+      fetch('/cart/update.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ updates: { [key]: qty } })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(cart) { renderCart(cart); })
+      .catch(function(err) { console.error('Cart update error:', err); });
+    }
+
+    function updateCartCount(count) {
+      var badges = document.querySelectorAll('.header__cart-count');
+      badges.forEach(function(badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+      });
+    }
+
+    return {
+      open: open,
+      close: close,
+      fetchCart: fetchCart,
+      updateQuantity: updateQuantity
+    };
+  })();
+</script>

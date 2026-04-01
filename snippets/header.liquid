@@ -1,0 +1,310 @@
+{% comment %}
+  VELLOR - Header Snippet
+  Usage: {% render 'header' %}
+  Fixed navigation with transparent-to-solid scroll behavior.
+  Requires cart-drawer.liquid to be rendered in the layout.
+{% endcomment %}
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: transparent;
+    transition: background-color 0.35s ease;
+    padding: 20px 40px;
+    box-sizing: border-box;
+  }
+
+  .header.is-scrolled {
+    background-color: #0A0A0A;
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 1;
+  }
+
+  .header__nav--right {
+    justify-content: flex-end;
+  }
+
+  .header__link {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .header__link:hover {
+    opacity: 0.6;
+  }
+
+  .header__logo {
+    flex: 1;
+    text-align: center;
+  }
+
+  .header__logo-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    text-decoration: none;
+  }
+
+  .header__cart-btn {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #F2F2F2;
+    display: flex;
+    align-items: center;
+  }
+
+  .header__cart-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #F2F2F2;
+    color: #0A0A0A;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile hamburger */
+  .header__hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .header__hamburger-line {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background-color: #F2F2F2;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .header__hamburger.is-active .header__hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .header__hamburger.is-active .header__hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__hamburger.is-active .header__hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Mobile nav */
+  .header__mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0A0A0A;
+    z-index: 49;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .header__mobile-nav.is-open {
+    transform: translateX(0);
+  }
+
+  .header__mobile-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .header__mobile-link:hover {
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 16px 20px;
+    }
+
+    .header__nav {
+      display: none;
+    }
+
+    .header__hamburger {
+      display: flex;
+      flex: 1;
+    }
+
+    .header__logo {
+      flex: unset;
+    }
+
+    .header__nav--right-mobile {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+</style>
+
+<header class="header" id="siteHeader">
+  <div class="header__inner">
+    <!-- Desktop left nav -->
+    <nav class="header__nav" aria-label="Main navigation">
+      <a href="/collections/womens" class="header__link">Women</a>
+      <a href="/collections/all" class="header__link">Shop</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="header__hamburger" id="headerHamburger" aria-label="Open menu">
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+    </button>
+
+    <!-- Logo -->
+    <div class="header__logo">
+      <a href="/" class="header__logo-link">VELLOR</a>
+    </div>
+
+    <!-- Desktop right nav -->
+    <nav class="header__nav header__nav--right">
+      <a href="/pages/about" class="header__link">Story</a>
+      <button class="header__cart-btn" onclick="VellorCart.open()" aria-label="Open shopping bag">
+        <svg class="header__cart-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M5 5h10l1 12H4L5 5z"/>
+          <path d="M7 5V4a3 3 0 016 0v1"/>
+        </svg>
+        <span class="header__cart-count" style="display: {% if cart.item_count > 0 %}flex{% else %}none{% endif %};">
+          {{ cart.item_count }}
+        </span>
+      </button>
+    </nav>
+
+    <!-- Mobile right (cart only) -->
+    <div class="header__nav--right-mobile" style="display: none;">
+      <button class="header__cart-btn" onclick="VellorCart.open()" aria-label="Open shopping bag">
+        <svg class="header__cart-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M5 5h10l1 12H4L5 5z"/>
+          <path d="M7 5V4a3 3 0 016 0v1"/>
+        </svg>
+        <span class="header__cart-count" style="display: {% if cart.item_count > 0 %}flex{% else %}none{% endif %};">
+          {{ cart.item_count }}
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile navigation overlay -->
+<nav class="header__mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <a href="/collections/womens" class="header__mobile-link">Women</a>
+  <a href="/collections/all" class="header__mobile-link">Shop</a>
+  <a href="/pages/about" class="header__mobile-link">Story</a>
+</nav>
+
+<script>
+  (function() {
+    var header = document.getElementById('siteHeader');
+    var hamburger = document.getElementById('headerHamburger');
+    var mobileNav = document.getElementById('mobileNav');
+    var scrollThreshold = 40;
+
+    /* Scroll behavior: transparent to solid */
+    function onScroll() {
+      if (window.scrollY > scrollThreshold) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* Mobile menu toggle */
+    hamburger.addEventListener('click', function() {
+      var isActive = hamburger.classList.toggle('is-active');
+      if (isActive) {
+        mobileNav.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* Close mobile nav on link click */
+    var mobileLinks = mobileNav.querySelectorAll('.header__mobile-link');
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('is-active');
+        mobileNav.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* Show mobile cart button via media query */
+    var mobileRightNav = document.querySelector('.header__nav--right-mobile');
+    function checkMobile() {
+      if (window.innerWidth <= 768) {
+        mobileRightNav.style.display = 'flex';
+      } else {
+        mobileRightNav.style.display = 'none';
+      }
+    }
+    window.addEventListener('resize', checkMobile);
+    checkMobile();
+  })();
+</script>

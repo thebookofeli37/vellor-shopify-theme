@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Luxury Essentials",
+        "subheading": "Premium fleece hoodies, joggers, and sets. Elevated basics for the modern wardrobe.",
+        "button_text": "Shop Now",
+        "button_link": "/collections/all",
+        "overlay_opacity": 50
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "collection": "new-arrivals",
+        "products_to_show": 4,
+        "show_view_all": true
+      }
+    },
+    "image-with-text": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Crafted for Comfort",
+        "text": "Each piece is made from heavyweight premium fleece, garment-dyed for a rich depth of color that only gets better with time.",
+        "button_text": "Our Story",
+        "button_link": "/pages/our-story",
+        "layout": "image_first"
+      }
+    },
+    "featured-collection-2": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "collection": "best-sellers",
+        "products_to_show": 4,
+        "show_view_all": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Stay in the loop",
+        "text": "Be the first to know about new drops, exclusive offers, and VELLOR news."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-collection",
+    "image-with-text",
+    "featured-collection-2",
+    "newsletter"
+  ]
+}

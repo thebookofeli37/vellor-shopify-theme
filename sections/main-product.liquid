@@ -1,0 +1,642 @@
+{% comment %}
+  VELLOR Main Product Section
+  Product detail page with image/video, size selector, AJAX add to cart
+{% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<section id="main-product-{{ section.id }}" class="vellor-pdp" data-section-id="{{ section.id }}">
+  <div class="vellor-pdp__container">
+    <div class="vellor-pdp__grid">
+      <!-- Media Column -->
+      <div class="vellor-pdp__media-col">
+        <div class="vellor-pdp__media-main" id="vellor-pdp-media">
+          {% if product.featured_image %}
+            <img
+              id="vellor-pdp-image"
+              src="{{ product.featured_image | image_url: width: 1200 }}"
+              srcset="{{ product.featured_image | image_url: width: 600 }} 600w,
+                      {{ product.featured_image | image_url: width: 900 }} 900w,
+                      {{ product.featured_image | image_url: width: 1200 }} 1200w"
+              sizes="(max-width: 768px) 100vw, 55vw"
+              alt="{{ product.featured_image.alt | default: product.title }}"
+              class="vellor-pdp__image"
+              loading="eager"
+            >
+          {% endif %}
+
+          {% if section.settings.video_url != blank %}
+            <video
+              id="vellor-pdp-video"
+              class="vellor-pdp__video"
+              muted
+              loop
+              playsinline
+              style="display: none;"
+            >
+              <source src="{{ section.settings.video_url }}" type="video/mp4">
+            </video>
+          {% endif %}
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div class="vellor-pdp__thumbnails">
+            {% for image in product.images %}
+              <button
+                class="vellor-pdp__thumb{% if forloop.first %} vellor-pdp__thumb--active{% endif %}"
+                data-image-url="{{ image | image_url: width: 1200 }}"
+                data-image-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w, {{ image | image_url: width: 1200 }} 1200w"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 120 }}"
+                  alt="{{ image.alt | default: product.title }}"
+                  loading="lazy"
+                  width="60"
+                  height="80"
+                >
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Details Column -->
+      <div class="vellor-pdp__details-col">
+        <div class="vellor-pdp__details-inner">
+          <a href="{{ section.settings.back_link | default: '/collections/all' }}" class="vellor-pdp__back">
+            &larr; {{ section.settings.back_text | default: 'Back to Shop' }}
+          </a>
+
+          <h1 class="vellor-pdp__title">{{ product.title }}</h1>
+
+          <div class="vellor-pdp__price">
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="vellor-pdp__price-compare">{{ current_variant.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="vellor-pdp__price-current" id="vellor-pdp-price">{{ current_variant.price | money }}</span>
+          </div>
+
+          {% if product.description != blank %}
+            <div class="vellor-pdp__description">{{ product.description }}</div>
+          {% endif %}
+
+          <form id="vellor-pdp-form" class="vellor-pdp__form" novalidate>
+            <!-- Size Selector -->
+            {% assign size_option = product.options_by_name['Size'] %}
+            {% if size_option %}
+              <div class="vellor-pdp__sizes">
+                <span class="vellor-pdp__sizes-label">Size</span>
+                <div class="vellor-pdp__sizes-grid">
+                  {% for value in size_option.values %}
+                    {%- assign size_available = false -%}
+                    {%- for variant in product.variants -%}
+                      {%- if variant.options contains value and variant.available -%}
+                        {%- assign size_available = true -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    <button
+                      type="button"
+                      class="vellor-pdp__size-btn{% unless size_available %} vellor-pdp__size-btn--disabled{% endunless %}{% if current_variant.title contains value %} vellor-pdp__size-btn--active{% endif %}"
+                      data-size="{{ value }}"
+                      {% unless size_available %}disabled{% endunless %}
+                      aria-label="Select size {{ value }}"
+                    >
+                      {{ value }}
+                    </button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+
+            <input type="hidden" name="id" id="vellor-variant-id" value="{{ current_variant.id }}">
+
+            <button
+              type="submit"
+              class="vellor-pdp__add-btn"
+              id="vellor-add-to-cart"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {% if current_variant.available %}
+                ADD TO BAG
+              {% else %}
+                SOLD OUT
+              {% endif %}
+            </button>
+          </form>
+
+          <!-- Product Details List -->
+          {% if section.settings.show_details %}
+            <div class="vellor-pdp__details-list">
+              <button class="vellor-pdp__details-toggle" aria-expanded="false">
+                Product Details
+                <span class="vellor-pdp__details-icon">+</span>
+              </button>
+              <div class="vellor-pdp__details-content" style="display: none;">
+                {% for block in section.blocks %}
+                  {% if block.type == 'detail_item' %}
+                    <p class="vellor-pdp__detail-item">{{ block.settings.text }}</p>
+                  {% endif %}
+                {% endfor %}
+                {% if product.metafields.custom.fabric %}
+                  <p class="vellor-pdp__detail-item">Fabric: {{ product.metafields.custom.fabric }}</p>
+                {% endif %}
+                {% if product.metafields.custom.care %}
+                  <p class="vellor-pdp__detail-item">Care: {{ product.metafields.custom.care }}</p>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+
+          <!-- View in Motion -->
+          {% if section.settings.video_url != blank %}
+            <button class="vellor-pdp__video-toggle" id="vellor-video-toggle" type="button">
+              <span class="vellor-pdp__video-toggle-icon">&#9654;</span>
+              View in Motion
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var section = document.getElementById('main-product-{{ section.id }}');
+    if (!section) return;
+
+    /* Variant data */
+    var variants = {{ product.variants | json }};
+    var variantInput = document.getElementById('vellor-variant-id');
+    var priceEl = document.getElementById('vellor-pdp-price');
+    var addBtn = document.getElementById('vellor-add-to-cart');
+
+    /* Size selector */
+    var sizeBtns = section.querySelectorAll('.vellor-pdp__size-btn:not(.vellor-pdp__size-btn--disabled)');
+    sizeBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        section.querySelectorAll('.vellor-pdp__size-btn').forEach(function(b) {
+          b.classList.remove('vellor-pdp__size-btn--active');
+        });
+        btn.classList.add('vellor-pdp__size-btn--active');
+
+        var selectedSize = btn.getAttribute('data-size');
+        var matchedVariant = variants.find(function(v) {
+          return v.title.indexOf(selectedSize) !== -1 && v.available;
+        });
+
+        if (matchedVariant) {
+          variantInput.value = matchedVariant.id;
+          priceEl.textContent = Shopify.formatMoney ? Shopify.formatMoney(matchedVariant.price) : ('$' + (matchedVariant.price / 100).toFixed(2));
+          addBtn.disabled = false;
+          addBtn.textContent = 'ADD TO BAG';
+        }
+      });
+    });
+
+    /* AJAX Add to Cart */
+    var form = document.getElementById('vellor-pdp-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var variantId = parseInt(variantInput.value, 10);
+      if (!variantId) return;
+
+      addBtn.disabled = true;
+      addBtn.textContent = 'ADDING...';
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: 1 })
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('Add to cart failed');
+        return res.json();
+      })
+      .then(function() {
+        addBtn.textContent = 'ADDED';
+        setTimeout(function() {
+          addBtn.disabled = false;
+          addBtn.textContent = 'ADD TO BAG';
+        }, 2000);
+        /* Dispatch event for cart count update */
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      })
+      .catch(function() {
+        addBtn.disabled = false;
+        addBtn.textContent = 'ADD TO BAG';
+      });
+    });
+
+    /* Thumbnail switcher */
+    var thumbs = section.querySelectorAll('.vellor-pdp__thumb');
+    var mainImage = document.getElementById('vellor-pdp-image');
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        thumbs.forEach(function(t) { t.classList.remove('vellor-pdp__thumb--active'); });
+        thumb.classList.add('vellor-pdp__thumb--active');
+        if (mainImage) {
+          mainImage.src = thumb.getAttribute('data-image-url');
+          mainImage.srcset = thumb.getAttribute('data-image-srcset');
+        }
+      });
+    });
+
+    /* Video toggle */
+    var videoToggle = document.getElementById('vellor-video-toggle');
+    var pdpVideo = document.getElementById('vellor-pdp-video');
+    var pdpImage = document.getElementById('vellor-pdp-image');
+    if (videoToggle && pdpVideo) {
+      var isVideoPlaying = false;
+      videoToggle.addEventListener('click', function() {
+        if (isVideoPlaying) {
+          pdpVideo.pause();
+          pdpVideo.style.display = 'none';
+          if (pdpImage) pdpImage.style.display = 'block';
+          videoToggle.innerHTML = '<span class="vellor-pdp__video-toggle-icon">&#9654;</span> View in Motion';
+          isVideoPlaying = false;
+        } else {
+          if (pdpImage) pdpImage.style.display = 'none';
+          pdpVideo.style.display = 'block';
+          pdpVideo.play();
+          videoToggle.innerHTML = '<span class="vellor-pdp__video-toggle-icon">&#9632;</span> View Photo';
+          isVideoPlaying = true;
+        }
+      });
+    }
+
+    /* Details accordion */
+    var detailsToggle = section.querySelector('.vellor-pdp__details-toggle');
+    if (detailsToggle) {
+      detailsToggle.addEventListener('click', function() {
+        var content = section.querySelector('.vellor-pdp__details-content');
+        var icon = detailsToggle.querySelector('.vellor-pdp__details-icon');
+        var expanded = detailsToggle.getAttribute('aria-expanded') === 'true';
+        detailsToggle.setAttribute('aria-expanded', !expanded);
+        content.style.display = expanded ? 'none' : 'block';
+        icon.textContent = expanded ? '+' : '−';
+      });
+    }
+  })();
+</script>
+
+<style>
+  #main-product-{{ section.id }} {
+    background-color: #F2F2F2;
+    color: #1C1C1C;
+    padding: 0;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 769px) {
+    #main-product-{{ section.id }} .vellor-pdp__grid {
+      grid-template-columns: 55% 45%;
+      min-height: 100vh;
+    }
+  }
+
+  /* Media Column */
+  #main-product-{{ section.id }} .vellor-pdp__media-col {
+    position: relative;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__media-main {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background-color: #e8e8e8;
+  }
+
+  @media (min-width: 769px) {
+    #main-product-{{ section.id }} .vellor-pdp__media-main {
+      aspect-ratio: auto;
+      height: 85vh;
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__image,
+  #main-product-{{ section.id }} .vellor-pdp__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__thumb {
+    flex-shrink: 0;
+    width: 60px;
+    height: 80px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, border-color 0.3s ease;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__thumb--active,
+  #main-product-{{ section.id }} .vellor-pdp__thumb:hover {
+    opacity: 1;
+    border-color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Details Column */
+  #main-product-{{ section.id }} .vellor-pdp__details-col {
+    display: flex;
+    align-items: flex-start;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  @media (min-width: 769px) {
+    #main-product-{{ section.id }} .vellor-pdp__details-col {
+      align-items: center;
+      padding: 4rem;
+    }
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__details-inner {
+    max-width: 440px;
+    width: 100%;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__back {
+    display: inline-block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.3s ease;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__back:hover {
+    color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    margin: 0 0 0.75rem;
+    line-height: 1.15;
+    color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__price {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__price-compare {
+    text-decoration: line-through;
+    color: #bbb;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__price-current {
+    color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__description {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #999999;
+    margin-bottom: 2rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__description p {
+    margin: 0 0 0.75rem;
+  }
+
+  /* Sizes */
+  #main-product-{{ section.id }} .vellor-pdp__sizes {
+    margin-bottom: 1.5rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__sizes-label {
+    display: block;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999999;
+    margin-bottom: 0.75rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__sizes-grid {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__size-btn {
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    border: 1px solid #ccc;
+    background: transparent;
+    color: #1C1C1C;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0 0.75rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__size-btn:hover {
+    border-color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__size-btn--active {
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    border-color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__size-btn--disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  /* Add to Bag */
+  #main-product-{{ section.id }} .vellor-pdp__add-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1.5rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__add-btn:hover:not(:disabled) {
+    background-color: #333;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__add-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* Details Accordion */
+  #main-product-{{ section.id }} .vellor-pdp__details-list {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__details-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1C1C1C;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__details-icon {
+    font-size: 1.1rem;
+    font-weight: 300;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__details-content {
+    padding-top: 1rem;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__detail-item {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #999999;
+    margin: 0 0 0.25rem;
+  }
+
+  /* Video Toggle */
+  #main-product-{{ section.id }} .vellor-pdp__video-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__video-toggle:hover {
+    color: #1C1C1C;
+  }
+
+  #main-product-{{ section.id }} .vellor-pdp__video-toggle-icon {
+    font-size: 0.6rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "tag": "section",
+  "class": "vellor-section-pdp",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Product Video URL (MP4)",
+      "info": "Optional video for 'View in Motion' feature"
+    },
+    {
+      "type": "text",
+      "id": "back_text",
+      "label": "Back Link Text",
+      "default": "Back to Shop"
+    },
+    {
+      "type": "url",
+      "id": "back_link",
+      "label": "Back Link URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_details",
+      "label": "Show Product Details Accordion",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail_item",
+      "name": "Detail Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Detail Text",
+          "default": "100% Premium Cotton"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Page",
+      "category": "VELLOR"
+    }
+  ],
+  "templates": ["product"]
+}
+{% endschema %}

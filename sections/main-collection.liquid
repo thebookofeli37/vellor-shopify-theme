@@ -1,0 +1,377 @@
+{% comment %}
+  VELLOR Main Collection Section
+  Collection page with hero banner, filter bar, and product grid
+{% endcomment %}
+
+<section id="main-collection-{{ section.id }}" class="vellor-collection" data-section-id="{{ section.id }}">
+  <!-- Hero Banner -->
+  <div class="vellor-collection__hero">
+    {% if collection.image %}
+      <img
+        src="{{ collection.image | image_url: width: 1920 }}"
+        alt="{{ collection.title }}"
+        class="vellor-collection__hero-image"
+        loading="eager"
+      >
+    {% endif %}
+    <div class="vellor-collection__hero-overlay"></div>
+    <div class="vellor-collection__hero-content">
+      <h1 class="vellor-collection__title">{{ collection.title }}</h1>
+      {% if collection.description != blank %}
+        <p class="vellor-collection__description">{{ collection.description | strip_html | truncate: 160 }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="vellor-collection__body">
+    <!-- Filter / Sort Bar -->
+    <div class="vellor-collection__toolbar">
+      <div class="vellor-collection__count">
+        {{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}
+      </div>
+
+      <div class="vellor-collection__sort">
+        <label for="vellor-sort-select" class="vellor-collection__sort-label">Sort by</label>
+        <select id="vellor-sort-select" class="vellor-collection__sort-select" onchange="window.location.href = this.value;">
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          <option value="{{ collection.url }}?sort_by=manual" {% if sort_by == 'manual' %}selected{% endif %}>Featured</option>
+          <option value="{{ collection.url }}?sort_by=best-selling" {% if sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+          <option value="{{ collection.url }}?sort_by=title-ascending" {% if sort_by == 'title-ascending' %}selected{% endif %}>A - Z</option>
+          <option value="{{ collection.url }}?sort_by=title-descending" {% if sort_by == 'title-descending' %}selected{% endif %}>Z - A</option>
+          <option value="{{ collection.url }}?sort_by=price-ascending" {% if sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+          <option value="{{ collection.url }}?sort_by=price-descending" {% if sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+          <option value="{{ collection.url }}?sort_by=created-ascending" {% if sort_by == 'created-ascending' %}selected{% endif %}>Oldest</option>
+          <option value="{{ collection.url }}?sort_by=created-descending" {% if sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="vellor-collection__grid">
+      {% paginate collection.products by section.settings.products_per_page %}
+        {% for product in collection.products %}
+          <a href="{{ product.url }}" class="vellor-collection__card">
+            <div class="vellor-collection__card-image-wrap">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 800 }}"
+                  srcset="{{ product.featured_image | image_url: width: 400 }} 400w,
+                          {{ product.featured_image | image_url: width: 600 }} 600w,
+                          {{ product.featured_image | image_url: width: 800 }} 800w"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  alt="{{ product.featured_image.alt | default: product.title }}"
+                  loading="lazy"
+                  class="vellor-collection__card-image"
+                >
+              {% else %}
+                <div class="vellor-collection__card-placeholder">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+
+              {% if product.available == false %}
+                <span class="vellor-collection__badge vellor-collection__badge--soldout">Sold Out</span>
+              {% elsif product.compare_at_price > product.price %}
+                <span class="vellor-collection__badge vellor-collection__badge--sale">Sale</span>
+              {% endif %}
+            </div>
+
+            <div class="vellor-collection__card-info">
+              <h2 class="vellor-collection__card-title">{{ product.title }}</h2>
+              <div class="vellor-collection__card-price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="vellor-collection__card-compare">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span>{{ product.price | money }}</span>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+          <div class="vellor-collection__pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="vellor-collection__page-link">&larr; Previous</a>
+            {% endif %}
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}" class="vellor-collection__page-link">{{ part.title }}</a>
+              {% else %}
+                <span class="vellor-collection__page-link vellor-collection__page-link--current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="vellor-collection__page-link">Next &rarr;</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #main-collection-{{ section.id }} {
+    background-color: #F2F2F2;
+    color: #1C1C1C;
+  }
+
+  /* Hero */
+  #main-collection-{{ section.id }} .vellor-collection__hero {
+    position: relative;
+    height: 40vh;
+    min-height: 280px;
+    max-height: 500px;
+    overflow: hidden;
+    background-color: #0A0A0A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__title {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__description {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-top: 0.75rem;
+    max-width: 500px;
+  }
+
+  /* Body */
+  #main-collection-{{ section.id }} .vellor-collection__body {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  @media (min-width: 769px) {
+    #main-collection-{{ section.id }} .vellor-collection__body {
+      padding: 3rem 3rem 6rem;
+    }
+  }
+
+  /* Toolbar */
+  #main-collection-{{ section.id }} .vellor-collection__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__count {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__sort-label {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999999;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__sort-select {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    color: #1C1C1C;
+    background: transparent;
+    border: 1px solid #ddd;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Grid */
+  #main-collection-{{ section.id }} .vellor-collection__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 769px) {
+    #main-collection-{{ section.id }} .vellor-collection__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: #e8e8e8;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card:hover .vellor-collection__card-image {
+    transform: scale(1.05);
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+    background-color: #1C1C1C;
+    color: #F2F2F2;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__badge--soldout {
+    background-color: #999999;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__badge--sale {
+    background-color: #8B0000;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-info {
+    padding: 0.75rem 0;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-title {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    margin: 0 0 0.25rem;
+    color: #1C1C1C;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-price {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999999;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-compare {
+    text-decoration: line-through;
+    color: #bbb;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Pagination */
+  #main-collection-{{ section.id }} .vellor-collection__pagination {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 3rem;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__page-link {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.75rem;
+    color: #999999;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__page-link:hover {
+    border-color: #1C1C1C;
+    color: #1C1C1C;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__page-link--current {
+    color: #1C1C1C;
+    border-color: #1C1C1C;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "tag": "section",
+  "class": "vellor-section-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Page",
+      "category": "VELLOR"
+    }
+  ],
+  "templates": ["collection"]
+}
+{% endschema %}

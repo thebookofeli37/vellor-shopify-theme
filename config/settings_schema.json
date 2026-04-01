@@ -1,0 +1,276 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "VELLOR",
+    "theme_version": "1.0.0",
+    "theme_author": "VELLOR",
+    "theme_documentation_url": "https://vellor.com",
+    "theme_support_url": "https://vellor.com/support"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 120
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary dark",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_light",
+        "label": "Primary light",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text color",
+        "default": "#1C1C1C"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#999999"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color",
+        "default": "#6E6E6E"
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": "Body background",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Body text",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border color",
+        "default": "#2A2A2A"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Heading font",
+        "default": "cormorant_garamond_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_heading_base_size",
+        "min": 12,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "label": "Heading base size",
+        "default": 32
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "inter_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_body_base_size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Body base size",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://instagram.com/yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "info": "https://tiktok.com/@yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter / X",
+        "info": "https://twitter.com/yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://facebook.com/yourbrand"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "info": "https://pinterest.com/yourbrand"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "newsletter_enable_popup",
+        "label": "Enable newsletter popup",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "newsletter_popup_delay",
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "unit": "s",
+        "label": "Popup delay",
+        "default": 3
+      },
+      {
+        "type": "text",
+        "id": "newsletter_popup_heading",
+        "label": "Popup heading",
+        "default": "Join the VELLOR world"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_popup_text",
+        "label": "Popup text",
+        "default": "Subscribe for early access to new drops, exclusive offers, and 10% off your first order."
+      },
+      {
+        "type": "text",
+        "id": "newsletter_popup_discount_code",
+        "label": "Discount code to show after signup",
+        "default": "WELCOME10"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "footer_copyright_text",
+        "label": "Copyright text",
+        "default": "VELLOR. All rights reserved."
+      },
+      {
+        "type": "richtext",
+        "id": "footer_about_text",
+        "label": "Footer about text",
+        "default": "<p>Luxury essentials for the modern wardrobe. Premium fleece, elevated basics.</p>"
+      },
+      {
+        "type": "text",
+        "id": "footer_newsletter_heading",
+        "label": "Newsletter heading",
+        "default": "Stay in the loop"
+      },
+      {
+        "type": "text",
+        "id": "footer_newsletter_text",
+        "label": "Newsletter subtext",
+        "default": "New drops and exclusive offers. No spam."
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_enable_drawer",
+        "label": "Enable cart drawer",
+        "default": true,
+        "info": "Show cart in a slide-out drawer instead of navigating to cart page"
+      },
+      {
+        "type": "text",
+        "id": "cart_empty_text",
+        "label": "Empty cart message",
+        "default": "Your cart is empty"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_free_shipping_bar",
+        "label": "Show free shipping progress bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free shipping threshold (in cents)",
+        "default": "15000",
+        "info": "e.g. 15000 = $150.00"
+      }
+    ]
+  },
+  {
+    "name": "Cookie banner",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cookie_banner_enable",
+        "label": "Enable cookie banner",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "cookie_banner_text",
+        "label": "Cookie banner text",
+        "default": "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies."
+      }
+    ]
+  }
+]

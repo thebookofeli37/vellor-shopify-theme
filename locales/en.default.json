@@ -1,0 +1,203 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "main_nav": "Main navigation",
+      "menu": "Menu",
+      "close": "Close"
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "404",
+      "subtext": "The page you are looking for does not exist.",
+      "button": "Return home"
+    },
+    "search": {
+      "placeholder": "Search",
+      "submit": "Search",
+      "no_results": "No results found for \"{{ terms }}\"."
+    },
+    "newsletter": {
+      "label": "Email",
+      "success": "Thank you for subscribing."
+    },
+    "password_page": {
+      "login_heading": "Enter store using password",
+      "login_password_button": "Enter using password",
+      "close": "Close",
+      "password_link": "Enter using password"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue Shopping",
+    "empty": "Your cart is empty",
+    "remove": "Remove",
+    "update": "Update",
+    "shipping_note": "Shipping & taxes calculated at checkout",
+    "free_shipping_remaining": "away from free shipping",
+    "free_shipping_qualified": "You qualify for free shipping!",
+    "quantity": "Quantity",
+    "product": "Product",
+    "price": "Price",
+    "total": "Total"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "description": "Description",
+      "details": "Details",
+      "care": "Care",
+      "shipping_returns": "Shipping & Returns",
+      "size_guide": "Size Guide",
+      "sku": "SKU",
+      "vendor": "Vendor",
+      "type": "Type",
+      "share": "Share"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "no_matches": "No products match your selection.",
+      "items_count": "{{ count }} products",
+      "sort_by": "Sort by",
+      "sort_options": {
+        "manual": "Featured",
+        "best_selling": "Best Selling",
+        "title_ascending": "A-Z",
+        "title_descending": "Z-A",
+        "price_ascending": "Price: Low to High",
+        "price_descending": "Price: High to Low",
+        "created_ascending": "Oldest",
+        "created_descending": "Newest"
+      }
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "order_history": "Order History",
+      "no_orders": "You haven't placed any orders yet.",
+      "return": "Return to Account Details"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign In",
+      "forgot_password": "Forgot your password?",
+      "create_account": "Create account",
+      "guest_title": "Continue as guest",
+      "guest_continue": "Continue"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create",
+      "cancel": "Cancel"
+    },
+    "recover_password": {
+      "title": "Reset your password",
+      "email": "Email",
+      "submit": "Submit",
+      "success": "We've sent you an email with a link to update your password.",
+      "cancel": "Cancel"
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Placed on {{ date }}",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "subtotal": "Subtotal"
+    },
+    "addresses": {
+      "title": "Your Addresses",
+      "default": "Default",
+      "add_new": "Add a New Address",
+      "edit_address": "Edit address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country",
+      "province": "Province",
+      "zip": "Postal/Zip Code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add Address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?"
+    }
+  },
+  "footer": {
+    "shop": "Shop",
+    "help": "Help",
+    "company": "Company",
+    "social": "Social",
+    "all_products": "All Products",
+    "hoodies": "Hoodies",
+    "joggers": "Joggers",
+    "sets": "Sets",
+    "new_arrivals": "New Arrivals",
+    "contact": "Contact Us",
+    "shipping": "Shipping",
+    "returns": "Returns & Exchanges",
+    "faq": "FAQ",
+    "size_guide": "Size Guide",
+    "our_story": "Our Story",
+    "sustainability": "Sustainability",
+    "careers": "Careers",
+    "press": "Press",
+    "privacy_policy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "newsletter_placeholder": "Enter your email",
+    "subscribe": "Subscribe"
+  },
+  "newsletter": {
+    "success_heading": "Welcome to VELLOR",
+    "success_text": "Use the code below for 10% off your first order."
+  },
+  "sections": {
+    "featured_collection": {
+      "view_all": "View All"
+    },
+    "image_with_text": {
+      "shop_now": "Shop Now"
+    }
+  }
+}

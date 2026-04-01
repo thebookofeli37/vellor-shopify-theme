@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "hero": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Our Story",
+        "text": "VELLOR was born from the belief that everyday essentials should feel extraordinary. We set out to create a line of premium fleece pieces that bridge the gap between luxury and comfort.",
+        "layout": "image_first"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "values": {
+      "type": "multicolumn",
+      "blocks": {
+        "col1": {
+          "type": "column",
+          "settings": {
+            "title": "Premium Materials",
+            "text": "Heavyweight 400gsm fleece, sourced from the finest mills. Every thread chosen with intention."
+          }
+        },
+        "col2": {
+          "type": "column",
+          "settings": {
+            "title": "Garment Dyed",
+            "text": "Each piece is individually dyed after construction for a rich, unique depth of color."
+          }
+        },
+        "col3": {
+          "type": "column",
+          "settings": {
+            "title": "Made to Last",
+            "text": "Reinforced stitching, quality hardware, and fabrics that get softer with every wash."
+          }
+        }
+      },
+      "block_order": ["col1", "col2", "col3"],
+      "settings": {
+        "title": "What Sets Us Apart",
+        "columns_desktop": 3
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "main",
+    "values"
+  ]
+}

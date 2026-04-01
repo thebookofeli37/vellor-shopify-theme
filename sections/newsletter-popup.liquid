@@ -1,0 +1,253 @@
+{% comment %}
+  VELLOR Newsletter Popup Section
+  Email signup overlay shown via JS after delay
+{% endcomment %}
+
+<div id="vellor-popup-{{ section.id }}" class="vellor-popup" style="display: none;" role="dialog" aria-modal="true" aria-label="Newsletter signup">
+  <div class="vellor-popup__backdrop"></div>
+  <div class="vellor-popup__dialog">
+    <button class="vellor-popup__close" aria-label="Close popup">&times;</button>
+
+    <div class="vellor-popup__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="vellor-popup__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="vellor-popup__description">{{ section.settings.description }}</p>
+      {% endif %}
+
+      <form class="vellor-popup__form" action="/contact#newsletter-popup" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="&#x2713;">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        <div class="vellor-popup__form-row">
+          <input
+            type="email"
+            name="contact[email]"
+            class="vellor-popup__input"
+            placeholder="{{ section.settings.placeholder | default: 'Enter your email' }}"
+            required
+            aria-label="Email address"
+          >
+          <button type="submit" class="vellor-popup__submit">
+            {{ section.settings.button_text | default: 'Subscribe' }}
+          </button>
+        </div>
+      </form>
+
+      {% if section.settings.disclaimer != blank %}
+        <p class="vellor-popup__disclaimer">{{ section.settings.disclaimer }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var popup = document.getElementById('vellor-popup-{{ section.id }}');
+    if (!popup) return;
+
+    var delay = {{ section.settings.delay | default: 3 }} * 1000;
+    var storageKey = 'vellor_popup_dismissed';
+
+    /* Only show if not previously dismissed */
+    if (sessionStorage.getItem(storageKey)) return;
+
+    function showPopup() {
+      popup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hidePopup() {
+      popup.style.display = 'none';
+      document.body.style.overflow = '';
+      sessionStorage.setItem(storageKey, '1');
+    }
+
+    setTimeout(showPopup, delay);
+
+    /* Close button */
+    popup.querySelector('.vellor-popup__close').addEventListener('click', hidePopup);
+
+    /* Backdrop click */
+    popup.querySelector('.vellor-popup__backdrop').addEventListener('click', hidePopup);
+
+    /* Escape key */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popup.style.display === 'flex') {
+        hidePopup();
+      }
+    });
+
+    /* Form submit success */
+    popup.querySelector('.vellor-popup__form').addEventListener('submit', function() {
+      sessionStorage.setItem(storageKey, '1');
+    });
+  })();
+</script>
+
+<style>
+  #vellor-popup-{{ section.id }} {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__dialog {
+    position: relative;
+    background-color: #0A0A0A;
+    color: #F2F2F2;
+    max-width: 460px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #999999;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem;
+    transition: color 0.3s ease;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__close:hover {
+    color: #F2F2F2;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__heading {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 300;
+    margin: 0 0 1rem;
+    color: #F2F2F2;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__description {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #999999;
+    margin: 0 0 1.5rem;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__form-row {
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__input {
+    flex: 1;
+    padding: 0.85rem 1rem;
+    background: transparent;
+    border: none;
+    color: #F2F2F2;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    outline: none;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__input::placeholder {
+    color: #666;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__submit {
+    padding: 0.85rem 1.5rem;
+    background-color: #F2F2F2;
+    color: #0A0A0A;
+    border: none;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__submit:hover {
+    background-color: #ddd;
+  }
+
+  #vellor-popup-{{ section.id }} .vellor-popup__disclaimer {
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+    font-size: 0.65rem;
+    color: #666;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter Popup",
+  "tag": "div",
+  "class": "vellor-section-popup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the VELLOR World"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Subscribe for early access to new collections, exclusive offers, and the latest from VELLOR."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "By subscribing, you agree to receive marketing emails from VELLOR. Unsubscribe anytime."
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Display Delay (seconds)",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Popup",
+      "category": "VELLOR"
+    }
+  ]
+}
+{% endschema %}
