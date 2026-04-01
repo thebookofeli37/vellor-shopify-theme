@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "ambassador-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

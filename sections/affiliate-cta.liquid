@@ -18,7 +18,7 @@
     {% endif %}
 
     {% if section.settings.cta_text != blank %}
-      <a href="{{ section.settings.cta_url | default: '#' }}" class="vellor-affiliate__cta">
+      <a href="{{ section.settings.cta_url | default: '/pages/ambassador' }}" class="vellor-affiliate__cta">
         {{ section.settings.cta_text }}
       </a>
     {% endif %}
@@ -104,19 +104,19 @@
       "type": "text",
       "id": "label",
       "label": "Label",
-      "default": "Partner With Us"
+      "default": "Represent the Brand"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Become a VELLOR Affiliate"
+      "default": "Become a VELLOR Ambassador"
     },
     {
       "type": "text",
       "id": "description",
       "label": "Description",
-      "default": "Join our network of tastemakers and earn commission on every referral. Apply to become a VELLOR partner."
+      "default": "Free product, commission on every sale, and early access to new drops. We're looking for real ones — not influencers."
     },
     {
       "type": "text",
