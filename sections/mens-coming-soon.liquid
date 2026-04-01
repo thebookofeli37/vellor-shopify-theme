@@ -54,9 +54,13 @@
           class="vellor-coming-soon__image"
         >
       {% else %}
-        <div class="vellor-coming-soon__placeholder">
-          {{ 'lifestyle-2' | placeholder_svg_tag }}
-        </div>
+        <img
+          src="{{ 'undone-hoodie.jpg' | asset_url }}"
+          alt="VELLOR UNDONE hoodie"
+          loading="lazy"
+          class="vellor-coming-soon__image"
+          style="opacity: 0.7;"
+        >
       {% endif %}
     </div>
   </div>
@@ -220,7 +224,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>The same uncompromising quality. Tailored for him. Sign up to be the first to know.</p>"
+      "default": "<p>The same 14oz heavyweight fleece. The same garment-dyed softness. The same tonal V embroidery. Oversized hoodies, tapered joggers, and coordinated sets — built for him. Sign up to be the first to know.</p>"
     },
     {
       "type": "image_picker",
