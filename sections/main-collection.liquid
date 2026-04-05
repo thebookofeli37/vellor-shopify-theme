@@ -15,10 +15,9 @@
         <source src="{{ 'model-grey.mp4' | asset_url }}" type="video/mp4">
       </video>
     {% elsif collection.handle == 'swim' %}
-      <div class="vellor-collection__hero-placeholder">
-        <p class="vellor-collection__hero-big">SWIM</p>
-        <p class="vellor-collection__hero-sub">Coming Soon</p>
-      </div>
+      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'swim-hero.png' | asset_url }}" style="object-position: center 40%;">
+        <source src="{{ 'swim-hero.mp4' | asset_url }}" type="video/mp4">
+      </video>
     {% elsif collection.image %}
       <img
         src="{{ collection.image | image_url: width: 1920 }}"
@@ -448,6 +447,81 @@
     border-color: #1C1C1C;
   }
 </style>
+
+{% if collection.handle == 'swim' %}
+<style>
+  /* Swim page — subtle nav color shift */
+  .site-header,
+  header.site-header {
+    background: linear-gradient(180deg, rgba(15, 30, 45, 0.95) 0%, rgba(10, 10, 11, 0.8) 100%) !important;
+  }
+  .site-header.is-scrolled,
+  header.site-header.is-scrolled {
+    background: rgba(15, 30, 45, 0.97) !important;
+  }
+  .site-header .nav-link,
+  header .nav-link {
+    color: rgba(180, 210, 230, 0.6) !important;
+  }
+  .site-header .nav-link:hover,
+  header .nav-link:hover {
+    color: rgba(200, 230, 250, 0.9) !important;
+  }
+  .site-header .nav-link[href*="swim"],
+  header .nav-link[href*="swim"] {
+    color: rgba(130, 200, 240, 0.9) !important;
+  }
+  .header-logo a,
+  .site-header .header-logo a {
+    color: rgba(200, 225, 245, 0.95) !important;
+  }
+  .cart-icon-wrapper svg,
+  .site-header .cart-icon-wrapper svg {
+    stroke: rgba(180, 210, 230, 0.6) !important;
+  }
+
+  /* Swim hero adjustments */
+  #main-collection-{{ section.id }} .vellor-collection__hero {
+    height: 85vh;
+    max-height: 800px;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__hero-video {
+    opacity: 0.6;
+    object-position: center 40%;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__hero-overlay {
+    background: linear-gradient(to bottom, rgba(10, 25, 40, 0.3) 0%, transparent 30%, transparent 60%, rgba(10, 25, 40, 0.6) 100%);
+  }
+
+  /* Swim about section */
+  #main-collection-{{ section.id }} .vellor-collection__about {
+    background: linear-gradient(180deg, #0A0A0B 0%, #0F1E2D 50%, #0A0A0B 100%);
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-label {
+    color: rgba(130, 200, 240, 0.4);
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-heading {
+    color: rgba(200, 225, 245, 0.9);
+  }
+
+  /* Product grid background for swim */
+  #main-collection-{{ section.id }} .vellor-collection__body {
+    background: #0B1520;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__toolbar {
+    border-color: rgba(130, 200, 240, 0.1);
+  }
+  #main-collection-{{ section.id }} .vellor-collection__count {
+    color: rgba(180, 210, 230, 0.4);
+  }
+  #main-collection-{{ section.id }} .vellor-collection__card-title {
+    color: rgba(200, 225, 245, 0.8);
+  }
+  #main-collection-{{ section.id }} .vellor-collection__card-price span {
+    color: rgba(180, 210, 230, 0.5);
+  }
+</style>
+{% endif %}
 
 {% schema %}
 {
