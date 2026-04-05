@@ -119,7 +119,11 @@
               {% unless current_variant.available %}disabled{% endunless %}
             >
               {% if current_variant.available %}
-                ADD TO BAG
+                {% if current_variant.inventory_quantity <= 0 and current_variant.inventory_policy == 'continue' %}
+                  PRE-ORDER
+                {% else %}
+                  ADD TO BAG
+                {% endif %}
               {% else %}
                 SOLD OUT
               {% endif %}
@@ -191,7 +195,12 @@
           variantInput.value = matchedVariant.id;
           priceEl.textContent = Shopify.formatMoney ? Shopify.formatMoney(matchedVariant.price) : ('$' + (matchedVariant.price / 100).toFixed(2));
           addBtn.disabled = false;
-          addBtn.textContent = 'ADD TO BAG';
+          /* Check if pre-order (available but 0 inventory with continue selling) */
+          if (matchedVariant.inventory_quantity <= 0 && matchedVariant.inventory_policy === 'continue') {
+            addBtn.textContent = 'PRE-ORDER';
+          } else {
+            addBtn.textContent = 'ADD TO BAG';
+          }
         } else {
           /* Variant exists but not available (sold out) */
           var anyVariant = variants.find(function(v) {
@@ -227,17 +236,23 @@
         return res.json();
       })
       .then(function() {
-        addBtn.textContent = 'ADDED';
+        var currentVariantId = parseInt(variantInput.value, 10);
+        var currentV = variants.find(function(v) { return v.id === currentVariantId; });
+        var isPreOrder = currentV && currentV.inventory_quantity <= 0 && currentV.inventory_policy === 'continue';
+        addBtn.textContent = isPreOrder ? 'PRE-ORDERED' : 'ADDED';
         setTimeout(function() {
           addBtn.disabled = false;
-          addBtn.textContent = 'ADD TO BAG';
+          addBtn.textContent = isPreOrder ? 'PRE-ORDER' : 'ADD TO BAG';
         }, 2000);
         /* Dispatch event for cart count update */
         document.dispatchEvent(new CustomEvent('cart:updated'));
       })
       .catch(function() {
         addBtn.disabled = false;
-        addBtn.textContent = 'ADD TO BAG';
+        var currentVariantId2 = parseInt(variantInput.value, 10);
+        var currentV2 = variants.find(function(v) { return v.id === currentVariantId2; });
+        var isPreOrder2 = currentV2 && currentV2.inventory_quantity <= 0 && currentV2.inventory_policy === 'continue';
+        addBtn.textContent = isPreOrder2 ? 'PRE-ORDER' : 'ADD TO BAG';
       });
     });
 
