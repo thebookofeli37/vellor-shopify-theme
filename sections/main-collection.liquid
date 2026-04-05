@@ -4,9 +4,22 @@
 {% endcomment %}
 
 <section id="main-collection-{{ section.id }}" class="vellor-collection" data-section-id="{{ section.id }}">
-  <!-- Hero Banner -->
+  <!-- Video Hero -->
   <div class="vellor-collection__hero">
-    {% if collection.image %}
+    {% if collection.handle == 'women' or collection.handle == 'all' %}
+      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'model-web.png' | asset_url }}">
+        <source src="{{ 'model-blue.mp4' | asset_url }}" type="video/mp4">
+      </video>
+    {% elsif collection.handle == 'mens' %}
+      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'model-hero.png' | asset_url }}">
+        <source src="{{ 'model-grey.mp4' | asset_url }}" type="video/mp4">
+      </video>
+    {% elsif collection.handle == 'swim' %}
+      <div class="vellor-collection__hero-placeholder">
+        <p class="vellor-collection__hero-big">SWIM</p>
+        <p class="vellor-collection__hero-sub">Coming Soon</p>
+      </div>
+    {% elsif collection.image %}
       <img
         src="{{ collection.image | image_url: width: 1920 }}"
         alt="{{ collection.title }}"
@@ -19,6 +32,29 @@
       <h1 class="vellor-collection__title">{{ collection.title }}</h1>
       {% if collection.description != blank %}
         <p class="vellor-collection__description">{{ collection.description | strip_html | truncate: 160 }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Quick About -->
+  <div class="vellor-collection__about">
+    <div class="vellor-collection__about-inner">
+      {% if collection.handle == 'women' or collection.handle == 'all' %}
+        <p class="vellor-collection__about-label">The Collection</p>
+        <h2 class="vellor-collection__about-heading">Built for real life. Made to stand out.</h2>
+        <p class="vellor-collection__about-text">14oz heavyweight fleece. Sherpa textures. Garment-dyed for depth. Tonal V embroidery on every piece. Hoodies, joggers, and coordinated sets in black, gray, tan, sage, and cream.</p>
+      {% elsif collection.handle == 'mens' %}
+        <p class="vellor-collection__about-label">Men's Collection</p>
+        <h2 class="vellor-collection__about-heading">Same quality. Built for him.</h2>
+        <p class="vellor-collection__about-text">The same heavyweight fleece, garment-dyed softness, and tonal V embroidery — designed for men. Oversized hoodies, tapered joggers, and coordinated sets. Coming soon.</p>
+      {% elsif collection.handle == 'swim' %}
+        <p class="vellor-collection__about-label">Swim Collection</p>
+        <h2 class="vellor-collection__about-heading">Made for the water.</h2>
+        <p class="vellor-collection__about-text">Swim pieces designed with the same intention as everything else we make. Clean lines, quality material, nothing extra. Sign up to be the first to know when it drops.</p>
+      {% else %}
+        <p class="vellor-collection__about-label">{{ collection.title }}</p>
+        <h2 class="vellor-collection__about-heading">Every piece, considered.</h2>
+        <p class="vellor-collection__about-text">{{ collection.description | strip_html | default: 'Premium essentials designed to be worn every day.' }}</p>
       {% endif %}
     </div>
   </div>
@@ -119,9 +155,9 @@
   /* Hero */
   #main-collection-{{ section.id }} .vellor-collection__hero {
     position: relative;
-    height: 40vh;
-    min-height: 280px;
-    max-height: 500px;
+    height: 70vh;
+    min-height: 400px;
+    max-height: 700px;
     overflow: hidden;
     background-color: #0A0A0A;
     display: flex;
@@ -129,19 +165,45 @@
     justify-content: center;
   }
 
+  #main-collection-{{ section.id }} .vellor-collection__hero-video,
   #main-collection-{{ section.id }} .vellor-collection__hero-image {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.6;
+    object-position: center 25%;
+    opacity: 0.5;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-placeholder {
+    text-align: center;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300;
+    color: rgba(242,242,242,0.1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #main-collection-{{ section.id }} .vellor-collection__hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(242,242,242,0.2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1rem;
   }
 
   #main-collection-{{ section.id }} .vellor-collection__hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
   }
 
   #main-collection-{{ section.id }} .vellor-collection__hero-content {
@@ -153,11 +215,48 @@
 
   #main-collection-{{ section.id }} .vellor-collection__title {
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 300;
     color: #F2F2F2;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* About Section */
+  #main-collection-{{ section.id }} .vellor-collection__about {
+    background: #0A0A0A;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  @media (min-width: 769px) {
+    #main-collection-{{ section.id }} .vellor-collection__about { padding: 5rem 3rem; }
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-inner {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.2);
+    margin-bottom: 1.5rem;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0 0 1.25rem;
+    line-height: 1.3;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__about-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(242,242,242,0.35);
+    line-height: 1.8;
     margin: 0;
   }
 
