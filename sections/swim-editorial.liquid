@@ -1,0 +1,134 @@
+{% comment %}
+  VELLOR Swim Collection Editorial Section
+{% endcomment %}
+
+<section id="swim-editorial-{{ section.id }}" class="vellor-swim-edit">
+  <div class="vellor-swim-edit__grid">
+    <div class="vellor-swim-edit__text-col">
+      <span class="vellor-swim-edit__label">Swim Collection</span>
+      <h2 class="vellor-swim-edit__heading">Made for<br>the water.</h2>
+      <p class="vellor-swim-edit__desc">Swim pieces designed with the same intention as everything else we make. Clean lines, quality material, nothing extra.</p>
+      <a href="/collections/swim" class="vellor-swim-edit__cta">
+        Shop Swim
+        <span class="vellor-swim-edit__cta-line"></span>
+      </a>
+    </div>
+    <div class="vellor-swim-edit__image-col">
+      <p class="vellor-swim-edit__big-text">Swim</p>
+      <p class="vellor-swim-edit__coming">Coming Soon</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 769px) {
+    #swim-editorial-{{ section.id }} .vellor-swim-edit__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__text-col {
+    background: #0A0A0A;
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: 2;
+  }
+  @media (min-width: 769px) {
+    #swim-editorial-{{ section.id }} .vellor-swim-edit__text-col {
+      padding: 4rem;
+      order: 1;
+    }
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.2);
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: #F2F2F2;
+    margin: 0 0 2rem;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(242,242,242,0.3);
+    line-height: 2;
+    max-width: 350px;
+    margin-bottom: 3rem;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__cta-line {
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: rgba(242,242,242,0.3);
+    transition: width 0.5s;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__cta:hover .vellor-swim-edit__cta-line {
+    width: 3.5rem;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__image-col {
+    background: #1C1C1C;
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+  }
+  @media (min-width: 769px) {
+    #swim-editorial-{{ section.id }} .vellor-swim-edit__image-col {
+      min-height: 100vh;
+      order: 2;
+    }
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__big-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 300;
+    color: rgba(242,242,242,0.1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__coming {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    color: rgba(242,242,242,0.2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Swim Editorial",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Swim Editorial", "category": "VELLOR" }]
+}
+{% endschema %}
