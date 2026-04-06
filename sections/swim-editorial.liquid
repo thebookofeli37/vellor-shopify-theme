@@ -129,7 +129,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center 40%;
-    z-index: 0;
+    z-index: 1;
   }
   #swim-editorial-{{ section.id }} .vellor-swim-edit__video {
     position: absolute;
@@ -138,11 +138,16 @@
     height: 100%;
     object-fit: cover;
     object-position: center 40%;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__video.is-playing {
+    opacity: 1;
   }
   #swim-editorial-{{ section.id }} .vellor-swim-edit__big-text {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(4rem, 8vw, 8rem);
     font-weight: 300;
@@ -160,6 +165,17 @@
     margin-top: 1rem;
   }
 </style>
+
+<script>
+  (function() {
+    var video = document.querySelector('#swim-editorial-{{ section.id }} .vellor-swim-edit__video');
+    if (video) {
+      video.addEventListener('playing', function() {
+        video.classList.add('is-playing');
+      });
+    }
+  })();
+</script>
 
 {% schema %}
 {
