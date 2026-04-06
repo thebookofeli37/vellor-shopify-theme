@@ -14,10 +14,23 @@
       </a>
     </div>
     <div class="vellor-swim-edit__image-col">
-      <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0.5;" poster="{{ 'swim-hero.png' | asset_url }}">
+      <img
+        class="vellor-swim-edit__poster"
+        src="{{ 'swim-hero.png' | asset_url }}"
+        alt="Vellor Swim Collection"
+        loading="lazy"
+      >
+      <video
+        class="vellor-swim-edit__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="{{ 'swim-hero.png' | asset_url }}"
+      >
         <source src="{{ 'swim-hero.mp4' | asset_url }}" type="video/mp4">
       </video>
-      <p class="vellor-swim-edit__big-text" style="position:relative;z-index:2;">Swim</p>
+      <p class="vellor-swim-edit__big-text">Swim</p>
     </div>
   </div>
 </section>
@@ -51,7 +64,7 @@
     font-size: 0.6rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: rgba(242,242,242,0.2);
+    color: rgba(242,242,242,0.4);
     margin-bottom: 2.5rem;
     display: block;
   }
@@ -66,7 +79,7 @@
   #swim-editorial-{{ section.id }} .vellor-swim-edit__desc {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
-    color: rgba(242,242,242,0.3);
+    color: rgba(242,242,242,0.5);
     line-height: 2;
     max-width: 350px;
     margin-bottom: 3rem;
@@ -109,11 +122,31 @@
       order: 2;
     }
   }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    z-index: 0;
+  }
+  #swim-editorial-{{ section.id }} .vellor-swim-edit__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    z-index: 1;
+  }
   #swim-editorial-{{ section.id }} .vellor-swim-edit__big-text {
+    position: relative;
+    z-index: 2;
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(4rem, 8vw, 8rem);
     font-weight: 300;
-    color: rgba(242,242,242,0.1);
+    color: rgba(242,242,242,0.15);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin: 0;
