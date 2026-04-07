@@ -58,6 +58,25 @@
     </div>
   </div>
 
+  {% if collection.handle == 'swim' %}
+  <!-- Swim Gallery -->
+  <div class="vellor-collection__gallery">
+    <div class="vellor-collection__gallery-grid">
+      <div class="vellor-collection__gallery-item">
+        <video autoplay muted loop playsinline poster="{{ 'swim-yellow.jpg' | asset_url }}">
+          <source src="{{ 'swim-yellow.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="vellor-collection__gallery-item">
+        <img src="{{ 'swim-white.jpg' | asset_url }}" alt="Vellor Swim — White" loading="lazy">
+      </div>
+      <div class="vellor-collection__gallery-item">
+        <img src="{{ 'swim-yellow.jpg' | asset_url }}" alt="Vellor Swim — Yellow" loading="lazy">
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
   <div class="vellor-collection__body">
     <!-- Filter / Sort Bar -->
     <div class="vellor-collection__toolbar">
@@ -506,6 +525,40 @@
   }
   #main-collection-{{ section.id }} .vellor-collection__about-heading {
     color: rgba(200, 225, 245, 0.9);
+  }
+
+  /* Swim gallery */
+  #main-collection-{{ section.id }} .vellor-collection__gallery {
+    background: #0A0A0B;
+    padding: 4rem 1.5rem;
+  }
+  @media (min-width: 769px) {
+    #main-collection-{{ section.id }} .vellor-collection__gallery { padding: 6rem 3rem; }
+  }
+  #main-collection-{{ section.id }} .vellor-collection__gallery-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 769px) {
+    #main-collection-{{ section.id }} .vellor-collection__gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  #main-collection-{{ section.id }} .vellor-collection__gallery-item {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #0F1E2D;
+  }
+  #main-collection-{{ section.id }} .vellor-collection__gallery-item img,
+  #main-collection-{{ section.id }} .vellor-collection__gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* Product grid background for swim */
