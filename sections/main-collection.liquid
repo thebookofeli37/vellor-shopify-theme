@@ -59,33 +59,67 @@
   </div>
 
   {% if collection.handle == 'swim' %}
-  <!-- Swim Gallery — full collection of swim assets -->
-  <div class="vellor-collection__gallery">
-    <div class="vellor-collection__gallery-grid">
-      <div class="vellor-collection__gallery-item">
-        <video autoplay muted loop playsinline poster="{{ 'swim-upscale.jpg' | asset_url }}">
-          <source src="{{ 'swim-main.mp4' | asset_url }}" type="video/mp4">
-        </video>
+  <!-- Swim Editorial — three chapters, one story -->
+
+  <!-- Manifesto: full-bleed main video -->
+  <div class="vellor-swim-edit__manifesto">
+    <video class="vellor-swim-edit__manifesto-video" autoplay muted loop playsinline poster="{{ 'swim-upscale.jpg' | asset_url }}">
+      <source src="{{ 'swim-main.mp4' | asset_url }}" type="video/mp4">
+    </video>
+    <div class="vellor-swim-edit__manifesto-overlay"></div>
+    <div class="vellor-swim-edit__manifesto-content">
+      <p class="vellor-swim-edit__manifesto-eyebrow">Chapter One</p>
+      <h2 class="vellor-swim-edit__manifesto-title">Made for the water.<br>Built for the moment&nbsp;after.</h2>
+      <p class="vellor-swim-edit__manifesto-text">Soft, fast-drying, structured. The cut hugs without holding. Three pieces. One feeling.</p>
+    </div>
+  </div>
+
+  <!-- Chapter Two — White: image + video side by side with story -->
+  <div class="vellor-swim-edit__chapter vellor-swim-edit__chapter--light">
+    <div class="vellor-swim-edit__chapter-grid">
+      <div class="vellor-swim-edit__chapter-media">
+        <img src="{{ 'swim-white.jpg' | asset_url }}" alt="Vellor Swim — White" loading="lazy">
       </div>
-      <div class="vellor-collection__gallery-item">
-        <video autoplay muted loop playsinline poster="{{ 'swim-yellow.jpg' | asset_url }}">
-          <source src="{{ 'swim-yellow.mp4' | asset_url }}" type="video/mp4">
-        </video>
+      <div class="vellor-swim-edit__chapter-copy">
+        <p class="vellor-swim-edit__eyebrow">Chapter Two — White</p>
+        <h3 class="vellor-swim-edit__chapter-heading">The reset.</h3>
+        <p class="vellor-swim-edit__chapter-text">Worn against tan skin and afternoon heat. White isn't a color — it's the part of the day before anything has happened yet.</p>
       </div>
-      <div class="vellor-collection__gallery-item">
+      <div class="vellor-swim-edit__chapter-media">
         <video autoplay muted loop playsinline poster="{{ 'swim-white.jpg' | asset_url }}">
           <source src="{{ 'swim-white-video.mp4' | asset_url }}" type="video/mp4">
         </video>
       </div>
-      <div class="vellor-collection__gallery-item">
-        <img src="{{ 'swim-white.jpg' | asset_url }}" alt="Vellor Swim — White" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Chapter Three — Yellow: reversed layout -->
+  <div class="vellor-swim-edit__chapter vellor-swim-edit__chapter--dark">
+    <div class="vellor-swim-edit__chapter-grid vellor-swim-edit__chapter-grid--reverse">
+      <div class="vellor-swim-edit__chapter-media">
+        <video autoplay muted loop playsinline poster="{{ 'swim-yellow.jpg' | asset_url }}">
+          <source src="{{ 'swim-yellow.mp4' | asset_url }}" type="video/mp4">
+        </video>
       </div>
-      <div class="vellor-collection__gallery-item">
+      <div class="vellor-swim-edit__chapter-copy">
+        <p class="vellor-swim-edit__eyebrow">Chapter Three — Yellow</p>
+        <h3 class="vellor-swim-edit__chapter-heading">First light.</h3>
+        <p class="vellor-swim-edit__chapter-text">The first thing the sun touches in the morning. The last thing you take off at night. Yellow is the day, distilled.</p>
+      </div>
+      <div class="vellor-swim-edit__chapter-media">
         <img src="{{ 'swim-yellow.jpg' | asset_url }}" alt="Vellor Swim — Yellow" loading="lazy">
       </div>
-      <div class="vellor-collection__gallery-item">
-        <img src="{{ 'swim-upscale.jpg' | asset_url }}" alt="Vellor Swim — Editorial" loading="lazy">
-      </div>
+    </div>
+  </div>
+
+  <!-- Closing — full-bleed editorial moment -->
+  <div class="vellor-swim-edit__closer">
+    <img class="vellor-swim-edit__closer-image" src="{{ 'swim-upscale.jpg' | asset_url }}" alt="Vellor Swim Collection" loading="lazy">
+    <div class="vellor-swim-edit__closer-overlay"></div>
+    <div class="vellor-swim-edit__closer-content">
+      <p class="vellor-swim-edit__eyebrow" style="color: rgba(255,255,255,0.6);">Drops soon</p>
+      <h3 class="vellor-swim-edit__closer-heading">Be the first to know.</h3>
+      <a href="#vellor-collection-toolbar" class="vellor-swim-edit__closer-cta">Notify Me</a>
     </div>
   </div>
   {% endif %}
@@ -540,38 +574,224 @@
     color: rgba(200, 225, 245, 0.9);
   }
 
-  /* Swim gallery */
-  #main-collection-{{ section.id }} .vellor-collection__gallery {
+  /* Swim Editorial — chapter-based story layout */
+
+  /* Manifesto (Chapter One) */
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto {
+    position: relative;
+    width: 100%;
+    min-height: 90vh;
+    overflow: hidden;
     background: #0A0A0B;
-    padding: 4rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.7;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,25,40,0.4) 0%, rgba(10,25,40,0.1) 40%, rgba(10,25,40,0.7) 100%);
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    padding: 2rem;
+    color: #F2F2F2;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(200,225,245,0.6);
+    margin: 0 0 2rem;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.25rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 1.5rem;
+    color: #F2F2F2;
+    letter-spacing: 0.01em;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__manifesto-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(200,225,245,0.7);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Shared eyebrow style for chapters */
+  #main-collection-{{ section.id }} .vellor-swim-edit__eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+  }
+
+  /* Chapter (light + dark variants) */
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter {
+    padding: 5rem 1.5rem;
   }
   @media (min-width: 769px) {
-    #main-collection-{{ section.id }} .vellor-collection__gallery { padding: 6rem 3rem; }
+    #main-collection-{{ section.id }} .vellor-swim-edit__chapter { padding: 7rem 3rem; }
   }
-  #main-collection-{{ section.id }} .vellor-collection__gallery-grid {
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--light {
+    background: #F2F2F2;
+    color: #1C1C1C;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--dark {
+    background: #0B1520;
+    color: #F2F2F2;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--light .vellor-swim-edit__eyebrow {
+    color: #999;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--dark .vellor-swim-edit__eyebrow {
+    color: rgba(180,210,230,0.5);
+  }
+
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-grid {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
+    align-items: center;
   }
-  @media (min-width: 769px) {
-    #main-collection-{{ section.id }} .vellor-collection__gallery-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+  @media (min-width: 900px) {
+    #main-collection-{{ section.id }} .vellor-swim-edit__chapter-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2.5rem;
+    }
+    #main-collection-{{ section.id }} .vellor-swim-edit__chapter-grid--reverse .vellor-swim-edit__chapter-copy {
+      order: 0;
     }
   }
-  #main-collection-{{ section.id }} .vellor-collection__gallery-item {
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-media {
     aspect-ratio: 3 / 4;
     overflow: hidden;
     background: #0F1E2D;
   }
-  #main-collection-{{ section.id }} .vellor-collection__gallery-item img,
-  #main-collection-{{ section.id }} .vellor-collection__gallery-item video {
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-media img,
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-media video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-copy {
+    text-align: center;
+    padding: 1rem;
+  }
+  @media (min-width: 900px) {
+    #main-collection-{{ section.id }} .vellor-swim-edit__chapter-copy {
+      text-align: left;
+      padding: 0 1rem;
+    }
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin: 0 0 1.25rem;
+    letter-spacing: 0.01em;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--light .vellor-swim-edit__chapter-heading {
+    color: #1C1C1C;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--dark .vellor-swim-edit__chapter-heading {
+    color: rgba(200,225,245,0.95);
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 0;
+    max-width: 360px;
+  }
+  @media (max-width: 899px) {
+    #main-collection-{{ section.id }} .vellor-swim-edit__chapter-text { margin: 0 auto; }
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--light .vellor-swim-edit__chapter-text {
+    color: #666;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__chapter--dark .vellor-swim-edit__chapter-text {
+    color: rgba(180,210,230,0.6);
+  }
+
+  /* Closer */
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer {
+    position: relative;
+    width: 100%;
+    min-height: 75vh;
+    overflow: hidden;
+    background: #0A0A0B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.55;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,25,40,0.4) 0%, rgba(10,25,40,0.7) 100%);
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #F2F2F2;
+    padding: 2rem;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    margin: 0 0 2rem;
+    color: #F2F2F2;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-cta {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #0A0A0B;
+    background: #F2F2F2;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  #main-collection-{{ section.id }} .vellor-swim-edit__closer-cta:hover {
+    background: transparent;
+    color: #F2F2F2;
+    outline: 1px solid #F2F2F2;
+    outline-offset: -1px;
   }
 
   /* Product grid background for swim */
