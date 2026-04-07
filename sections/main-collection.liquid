@@ -59,12 +59,22 @@
   </div>
 
   {% if collection.handle == 'swim' %}
-  <!-- Swim Gallery -->
+  <!-- Swim Gallery — full collection of swim assets -->
   <div class="vellor-collection__gallery">
     <div class="vellor-collection__gallery-grid">
       <div class="vellor-collection__gallery-item">
+        <video autoplay muted loop playsinline poster="{{ 'swim-upscale.jpg' | asset_url }}">
+          <source src="{{ 'swim-main.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="vellor-collection__gallery-item">
         <video autoplay muted loop playsinline poster="{{ 'swim-yellow.jpg' | asset_url }}">
           <source src="{{ 'swim-yellow.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="vellor-collection__gallery-item">
+        <video autoplay muted loop playsinline poster="{{ 'swim-white.jpg' | asset_url }}">
+          <source src="{{ 'swim-white-video.mp4' | asset_url }}" type="video/mp4">
         </video>
       </div>
       <div class="vellor-collection__gallery-item">
@@ -72,6 +82,9 @@
       </div>
       <div class="vellor-collection__gallery-item">
         <img src="{{ 'swim-yellow.jpg' | asset_url }}" alt="Vellor Swim — Yellow" loading="lazy">
+      </div>
+      <div class="vellor-collection__gallery-item">
+        <img src="{{ 'swim-upscale.jpg' | asset_url }}" alt="Vellor Swim — Editorial" loading="lazy">
       </div>
     </div>
   </div>
