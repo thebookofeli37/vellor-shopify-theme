@@ -26,7 +26,13 @@
     <h1 class="vellor-hero__heading">{{ section.settings.heading | default: 'VELLOR' }}</h1>
 
     {% if section.settings.link_text != blank %}
-      <a href="{{ section.settings.link_url | default: '#' }}" class="vellor-hero__link">
+      <a
+        href="{{ section.settings.link_url | default: '#' }}"
+        class="vellor-hero__link"
+        {% if section.settings.link_url == blank %}
+          onclick="event.preventDefault();this.closest('.shopify-section,#hero-video').nextElementSibling?.scrollIntoView({behavior:'smooth',block:'start'});"
+        {% endif %}
+      >
         {{ section.settings.link_text }}
         <span class="vellor-hero__link-arrow">&darr;</span>
       </a>

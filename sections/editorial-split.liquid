@@ -42,7 +42,7 @@
         {% endif %}
 
         {% if section.settings.cta_text != blank %}
-          <a href="{{ section.settings.cta_url | default: '#' }}" class="vellor-editorial__cta">
+          <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="vellor-editorial__cta">
             {{ section.settings.cta_text }}
             <span class="vellor-editorial__cta-line"></span>
           </a>
