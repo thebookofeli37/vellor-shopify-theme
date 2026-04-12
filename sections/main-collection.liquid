@@ -18,6 +18,10 @@
       <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'swim-hero.png' | asset_url }}" style="object-position: center 20%;">
         <source src="{{ 'swim-hero.mp4' | asset_url }}" type="video/mp4">
       </video>
+    {% elsif collection.handle == 'capsule' %}
+      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'capsule-hero.jpg' | asset_url }}">
+        <source src="{{ 'capsule-hero.mp4' | asset_url }}" type="video/mp4">
+      </video>
     {% elsif collection.image %}
       <img
         src="{{ collection.image | image_url: width: 1920 }}"
