@@ -1,0 +1,82 @@
+{% comment %}VELLOR Size Guide{% endcomment %}
+<section id="size-guide-{{ section.id }}" class="vellor-size-guide">
+  <div class="vellor-size-guide__inner">
+    <p class="vellor-size-guide__label">Fit Reference</p>
+    <h1 class="vellor-size-guide__heading">Size Guide</h1>
+    <p class="vellor-size-guide__subtext">All measurements in inches. VELLOR pieces have an oversized, relaxed fit. Size down for a more fitted look.</p>
+    <div class="vellor-size-guide__tables">
+      <div class="vellor-size-guide__section">
+        <h2 class="vellor-size-guide__section-title">Tops &amp; Hoodies</h2>
+        <div class="vellor-size-guide__table-wrap"><table class="vellor-size-guide__table">
+          <thead><tr><th>Size</th><th>Chest</th><th>Length</th><th>Sleeve</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>40-42</td><td>27</td><td>24</td></tr>
+            <tr><td>M</td><td>42-44</td><td>28</td><td>24.5</td></tr>
+            <tr><td>L</td><td>44-46</td><td>29</td><td>25</td></tr>
+            <tr><td>XL</td><td>46-48</td><td>30</td><td>25.5</td></tr>
+            <tr><td>XXL</td><td>48-50</td><td>31</td><td>26</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="vellor-size-guide__section">
+        <h2 class="vellor-size-guide__section-title">Bottoms &amp; Joggers</h2>
+        <div class="vellor-size-guide__table-wrap"><table class="vellor-size-guide__table">
+          <thead><tr><th>Size</th><th>Waist</th><th>Hip</th><th>Inseam</th></tr></thead>
+          <tbody>
+            <tr><td>S</td><td>28-30</td><td>38-40</td><td>29</td></tr>
+            <tr><td>M</td><td>30-32</td><td>40-42</td><td>30</td></tr>
+            <tr><td>L</td><td>32-34</td><td>42-44</td><td>31</td></tr>
+            <tr><td>XL</td><td>34-36</td><td>44-46</td><td>31</td></tr>
+            <tr><td>XXL</td><td>36-38</td><td>46-48</td><td>32</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="vellor-size-guide__section">
+        <h2 class="vellor-size-guide__section-title">Swim</h2>
+        <div class="vellor-size-guide__table-wrap"><table class="vellor-size-guide__table">
+          <thead><tr><th>Size</th><th>Waist</th><th>Hip</th></tr></thead>
+          <tbody>
+            <tr><td>XS</td><td>24-26</td><td>34-36</td></tr>
+            <tr><td>S</td><td>26-28</td><td>36-38</td></tr>
+            <tr><td>M</td><td>28-30</td><td>38-40</td></tr>
+            <tr><td>L</td><td>30-32</td><td>40-42</td></tr>
+            <tr><td>XL</td><td>32-34</td><td>42-44</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <div class="vellor-size-guide__help">
+      <h3 class="vellor-size-guide__help-title">How to Measure</h3>
+      <div class="vellor-size-guide__help-grid">
+        <div class="vellor-size-guide__help-item"><strong>Chest</strong><p>Measure around the fullest part of your chest, keeping the tape level.</p></div>
+        <div class="vellor-size-guide__help-item"><strong>Waist</strong><p>Measure around your natural waistline, just above the hip bones.</p></div>
+        <div class="vellor-size-guide__help-item"><strong>Hip</strong><p>Measure around the widest part of your hips.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  #size-guide-{{ section.id }} { background:#F2F2F2; color:#1C1C1C; padding:4rem 1.5rem; }
+  @media(min-width:769px){ #size-guide-{{ section.id }} { padding:6rem 3rem; } }
+  .vellor-size-guide__inner { max-width:900px; margin:0 auto; text-align:center; }
+  .vellor-size-guide__label { font-family:'Inter',sans-serif; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:#999; margin-bottom:1rem; }
+  .vellor-size-guide__heading { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3.5rem); font-weight:300; letter-spacing:0.1em; text-transform:uppercase; margin:0 0 1rem; }
+  .vellor-size-guide__subtext { font-family:'Inter',sans-serif; font-size:0.85rem; color:#666; line-height:1.7; max-width:600px; margin:0 auto 3rem; }
+  .vellor-size-guide__tables { display:flex; flex-direction:column; gap:3rem; }
+  .vellor-size-guide__section-title { font-family:'Inter',sans-serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#999; margin-bottom:1rem; }
+  .vellor-size-guide__table-wrap { overflow-x:auto; }
+  .vellor-size-guide__table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; font-size:0.85rem; }
+  .vellor-size-guide__table th { font-weight:500; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#999; padding:0.75rem 1rem; border-bottom:1px solid #ddd; text-align:center; }
+  .vellor-size-guide__table td { padding:0.75rem 1rem; text-align:center; border-bottom:1px solid #eee; }
+  .vellor-size-guide__table tbody tr:hover { background:rgba(0,0,0,0.02); }
+  .vellor-size-guide__help { margin-top:4rem; }
+  .vellor-size-guide__help-title { font-family:'Inter',sans-serif; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#999; margin-bottom:1.5rem; }
+  .vellor-size-guide__help-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+  @media(max-width:768px){ .vellor-size-guide__help-grid { grid-template-columns:1fr; } }
+  .vellor-size-guide__help-item { text-align:center; }
+  .vellor-size-guide__help-item strong { font-family:'Inter',sans-serif; font-size:0.8rem; display:block; margin-bottom:0.5rem; }
+  .vellor-size-guide__help-item p { font-family:'Inter',sans-serif; font-size:0.8rem; color:#666; line-height:1.6; margin:0; }
+</style>
+{% schema %}
+{ "name":"Size Guide", "tag":"section", "settings":[], "presets":[{"name":"Size Guide","category":"VELLOR"}], "templates":["page"] }
+{% endschema %}
