@@ -1,0 +1,73 @@
+{% comment %}
+  VELLOR Brand Story Section
+  Takes the customer through the brand journey with an open sales vibe
+{% endcomment %}
+
+<section id="brand-story-{{ section.id }}" class="vellor-brand-story">
+  <div class="vellor-brand-story__block">
+    <div class="vellor-brand-story__text-col">
+      <span class="vellor-brand-story__label">WHY VELLOR</span>
+      <h2 class="vellor-brand-story__heading">We didn't start a clothing brand. We started a standard.</h2>
+      <p class="vellor-brand-story__body">Most brands sell you a logo. We sell you a feeling. The feeling of putting on something that fits like it was made for you — because it was. Every stitch, every fabric choice, every detail exists because we refused to settle.</p>
+      <p class="vellor-brand-story__body">Vellor was born from one question: why does quality always come with a designer price tag? We cut out the middleman, the retail markup, and the ego — so you get luxury-grade clothing at a price that makes sense.</p>
+    </div>
+  </div>
+  <div class="vellor-brand-story__block vellor-brand-story__block--dark">
+    <div class="vellor-brand-story__grid">
+      <div class="vellor-brand-story__step">
+        <span class="vellor-brand-story__step-number">01</span>
+        <h3 class="vellor-brand-story__step-title">Premium Fabric</h3>
+        <p class="vellor-brand-story__step-text">We source heavyweight cotton and custom blends that hold their shape wash after wash. No pilling. No fading. No compromise.</p>
+      </div>
+      <div class="vellor-brand-story__step">
+        <span class="vellor-brand-story__step-number">02</span>
+        <h3 class="vellor-brand-story__step-title">Intentional Design</h3>
+        <p class="vellor-brand-story__step-text">Every piece starts with a purpose. We design for how you actually live — not for a runway you'll never walk.</p>
+      </div>
+      <div class="vellor-brand-story__step">
+        <span class="vellor-brand-story__step-number">03</span>
+        <h3 class="vellor-brand-story__step-title">Direct to You</h3>
+        <p class="vellor-brand-story__step-text">No retail markup. No wholesale games. From our workshop to your door — that's how we keep the quality up and the price honest.</p>
+      </div>
+    </div>
+  </div>
+  <div class="vellor-brand-story__block">
+    <div class="vellor-brand-story__text-col vellor-brand-story__text-col--center">
+      <span class="vellor-brand-story__label">THE VELLOR PROMISE</span>
+      <h2 class="vellor-brand-story__heading">If it doesn't feel right, it doesn't ship.</h2>
+      <p class="vellor-brand-story__body">Every piece goes through our hands before it gets to yours. We check the weight, the drape, the color — everything. Because your first impression of Vellor should be the same as ours: this is different.</p>
+      <a href="/collections/all" class="vellor-brand-story__cta">Shop the Collection</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  #brand-story-{{ section.id }} { color: #1C1C1C; }
+  #brand-story-{{ section.id }} .vellor-brand-story__block { padding: 5rem 2rem; background-color: #F2F2F2; }
+  @media (min-width: 769px) { #brand-story-{{ section.id }} .vellor-brand-story__block { padding: 7rem 4rem; } }
+  #brand-story-{{ section.id }} .vellor-brand-story__block--dark { background-color: #0A0A0A; color: #F2F2F2; }
+  #brand-story-{{ section.id }} .vellor-brand-story__text-col { max-width: 680px; }
+  #brand-story-{{ section.id }} .vellor-brand-story__text-col--center { margin: 0 auto; text-align: center; }
+  #brand-story-{{ section.id }} .vellor-brand-story__label { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #999; display: block; margin-bottom: 1.5rem; }
+  #brand-story-{{ section.id }} .vellor-brand-story__block--dark .vellor-brand-story__label { color: #666; }
+  #brand-story-{{ section.id }} .vellor-brand-story__heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 300; line-height: 1.2; margin: 0 0 1.5rem; }
+  #brand-story-{{ section.id }} .vellor-brand-story__body { font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.8; color: #666; margin: 0 0 1rem; }
+  #brand-story-{{ section.id }} .vellor-brand-story__block--dark .vellor-brand-story__body { color: #999; }
+  #brand-story-{{ section.id }} .vellor-brand-story__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto; }
+  @media (min-width: 769px) { #brand-story-{{ section.id }} .vellor-brand-story__grid { grid-template-columns: repeat(3, 1fr); gap: 4rem; } }
+  #brand-story-{{ section.id }} .vellor-brand-story__step-number { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: #333; display: block; margin-bottom: 1rem; }
+  #brand-story-{{ section.id }} .vellor-brand-story__step-title { font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 0.75rem; }
+  #brand-story-{{ section.id }} .vellor-brand-story__step-text { font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.7; color: #999; margin: 0; }
+  #brand-story-{{ section.id }} .vellor-brand-story__cta { display: inline-block; margin-top: 2rem; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #1C1C1C; text-decoration: none; padding: 1rem 2.5rem; border: 1px solid #1C1C1C; transition: all 0.3s ease; }
+  #brand-story-{{ section.id }} .vellor-brand-story__cta:hover { background-color: #1C1C1C; color: #F2F2F2; }
+</style>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "section",
+  "class": "vellor-section-brand-story",
+  "settings": [],
+  "presets": [{ "name": "Brand Story", "category": "VELLOR" }]
+}
+{% endschema %}
