@@ -8,16 +8,20 @@
       "type": "editorial-split",
       "settings": {}
     },
-    "swim": {
-      "type": "swim-editorial",
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {}
+    },
+    "video-break": {
+      "type": "video-interlude",
       "settings": {}
     },
     "products": {
       "type": "product-grid",
       "settings": {}
     },
-    "video-break": {
-      "type": "video-interlude",
+    "swim": {
+      "type": "swim-editorial",
       "settings": {}
     },
     "mens": {
@@ -32,9 +36,10 @@
   "order": [
     "hero",
     "editorial",
-    "swim",
-    "products",
+    "brand-story",
     "video-break",
+    "products",
+    "swim",
     "mens",
     "affiliate"
   ]
