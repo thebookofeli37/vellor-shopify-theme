@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -23,16 +32,12 @@
             "title": "Quiet Design",
             "text": "No logos screaming for attention. Tonal V embroidery. Earth tones and muted palettes. Pieces that speak through quality, not noise."
           }
-        },
-        "pillar-3": {
-          "type": "pillar",
-          "settings": {
-            "title": "Made in the USA",
-            "text": "Every piece is manufactured domestically in facilities that uphold fair wages, safe conditions, and sustainable practices. We know where every stitch comes from."
-          }
         }
       },
-      "block_order": ["pillar-1", "pillar-2", "pillar-3"],
+      "block_order": [
+        "pillar-1",
+        "pillar-2"
+      ],
       "settings": {
         "who_label": "What We Are",
         "who_heading": "Not fast fashion. Not hype. Just substance.",
@@ -51,5 +56,8 @@
       }
     }
   },
-  "order": ["hero", "content"]
+  "order": [
+    "hero",
+    "content"
+  ]
 }
