@@ -1,12 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-video",
-      "settings": {}
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/0dde8ea4c3de4992afbdf4737854e1f9.mp4",
+        "heading": "VELLOR",
+        "link_text": "Discover",
+        "link_url": "https://cdn.shopify.com/videos/c/o/v/0dde8ea4c3de4992afbdf4737854e1f9.mp4"
+      }
     },
     "editorial": {
       "type": "editorial-split",
-      "settings": {}
+      "settings": {
+        "label": "The Collection",
+        "heading": "Look good. Feel good. Move different.",
+        "description": "<p>Clothes that work as hard as you do. Vellor is for anyone building something — whether that's a career, a life, or just a better version of yourself.</p>",
+        "cta_text": "Shop the Collection",
+        "cta_url": ""
+      }
     },
     "brand-story": {
       "type": "brand-story",
@@ -14,11 +34,22 @@
     },
     "video-break": {
       "type": "video-interlude",
-      "settings": {}
+      "settings": {
+        "video_url": "",
+        "heading": "Built for real life. Made to stand out.",
+        "subtext": "Style that fits your life — whatever that looks like."
+      }
     },
     "products": {
       "type": "product-grid",
-      "settings": {}
+      "settings": {
+        "heading": "The Collection",
+        "subheading": "Fresh fits for every move you make.",
+        "collection": "",
+        "products_to_show": 6,
+        "cta_text": "View All",
+        "cta_url": ""
+      }
     },
     "swim": {
       "type": "swim-editorial",
@@ -26,11 +57,23 @@
     },
     "mens": {
       "type": "mens-coming-soon",
-      "settings": {}
+      "settings": {
+        "label": "Coming Soon",
+        "heading": "Men's Collection",
+        "description": "<p>Clean cuts, quality material, no overthinking. Just show up looking right every time. Sign up to be the first to know.</p>",
+        "placeholder_text": "Enter your email",
+        "button_text": "Notify Me"
+      }
     },
     "affiliate": {
       "type": "affiliate-cta",
-      "settings": {}
+      "settings": {
+        "label": "Represent the Brand",
+        "heading": "Become a VELLOR Ambassador",
+        "description": "Free product, commission on every sale, and early access to new drops. We're looking for real ones — not influencers.",
+        "cta_text": "Learn More",
+        "cta_url": ""
+      }
     }
   },
   "order": [
