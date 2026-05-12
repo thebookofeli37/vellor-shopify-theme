@@ -9,8 +9,8 @@
  */
 {
   "sections": {
-    "hero": {
-      "type": "hero-video",
+    "slideshow": {
+      "type": "hero-slideshow",
       "settings": {}
     },
     "editorial": {
@@ -39,7 +39,7 @@
     }
   },
   "order": [
-    "hero",
+    "slideshow",
     "editorial",
     "swim",
     "products",
