@@ -10,11 +10,9 @@
 {
   "sections": {
     "main": {
-      "type": "main-account",
+      "type": "project-v-page",
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

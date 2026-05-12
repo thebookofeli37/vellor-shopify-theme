@@ -13,7 +13,7 @@
       "type": "about-hero",
       "settings": {
         "heading": "VELLOR",
-        "subtitle": "The Standard for Everyday Luxury"
+        "subtitle": "Where the street meets the maison."
       }
     },
     "content": {
@@ -22,42 +22,43 @@
         "pillar-1": {
           "type": "pillar",
           "settings": {
-            "title": "Heavyweight Construction",
-            "text": "14oz premium fleece and sherpa-textured fabrics. Garment-dyed for depth. Kangaroo pockets, ribbed cuffs, oversized hoods. Built to last years, not weeks."
+            "title": "Designer Construction",
+            "text": "Italian Nappa leather, Japanese selvedge denim, mulberry silk, lacquered brass hardware. Hand pick-stitching, French seams, bound buttonholes. Every material and method chosen to signal maison-tier quality at a glance."
           }
         },
         "pillar-2": {
           "type": "pillar",
           "settings": {
-            "title": "Quiet Design",
-            "text": "No logos screaming for attention. Tonal V embroidery. Earth tones and muted palettes. Pieces that speak through quality, not noise."
+            "title": "Quiet Power",
+            "text": "No logos screaming for attention. The V monogram is embossed, embroidered, or cast in brass — visible only when you look close. Pieces that speak through quality, not noise. Confidence doesn't need volume."
+          }
+        },
+        "pillar-3": {
+          "type": "pillar",
+          "settings": {
+            "title": "Miami-Coded",
+            "text": "Born in Miami. 305 deco architecture, Wynwood energy, Brickell ambition, South Beach nights. Every collection carries the city — from the palette to the hardware to the photography."
           }
         }
       },
-      "block_order": [
-        "pillar-1",
-        "pillar-2"
-      ],
+      "block_order": ["pillar-1", "pillar-2", "pillar-3"],
       "settings": {
         "who_label": "What We Are",
-        "who_heading": "Not fast fashion. Not hype. Just substance.",
-        "who_text": "<p>VELLOR is a premium essentials brand built on one idea: the pieces you wear every day should be the ones made with the most intention. We design heavyweight fleece hoodies, joggers, and coordinated sets that feel like nothing else you own.</p><p>Every piece is crafted from 14oz premium heavyweight fleece, sherpa-textured fabrics, and garment-dyed for a lived-in softness from the very first wear. Tonal V embroidery marks each piece — subtle, not loud. The kind of detail you notice up close.</p><p>We don't do drops every week. We don't chase trends. We make a focused collection of essentials — six pieces, five sizes, every color considered — and we make them right. Oversized, boxy fits. Tapered joggers. Coordinated sets that look effortless because they were designed to be.</p>",
-        "pillars_heading": "We believe luxury is in the weight of the fabric, the silence of the branding, and the feeling when you put it on.",
-        "collection_heading": "Six pieces. Every one considered.",
-        "collection_text": "<p>SILENT — the signature in deep black. UNDONE — quiet luxury in light gray. WORN — warm earth tones that get better with time. EASE and DRIFT — complete coordinated sets in sage and cream. And the WORN Jogger — the tapered sweatpant that pairs with everything.</p><p>Each piece comes in XS through XL. Each is garment-dyed, sherpa-textured or 14oz heavyweight fleece, and finished with tonal V embroidery.</p><p>This is what happens when you stop trying to make everything and start making the right things.</p>",
+        "who_heading": "Street energy. Maison standards.",
+        "who_text": "<p>VELLOR is a designer streetwear house built at the intersection of raw street culture and restrained luxury. We make leather goods, outerwear, and elevated essentials for people who move between worlds — the block and the boardroom, the studio and the showroom.</p><p>Our core collection is premium heavyweight fleece — 14oz French terry, garment-dyed, with tonal V embroidery. The pieces you wear every day, built to outlast everything else in your closet.</p><p>Project V is our designer capsule — 50 pieces spanning leather perfecto jackets, Italian Nappa leather pants, mulberry silk evening wear, and a 12-bag signature handbag line with brushed brass hardware. Maison-tier construction with Miami-coded street energy.</p><p>Reference points: Bottega Veneta restraint, Loewe craft language, Off-White attitude, Aime Leon Dore heritage. We sit between those worlds — not one or the other, but both at once.</p>",
+        "pillars_heading": "Luxury is in the weight of the leather, the silence of the branding, and the feeling when you put it on.",
+        "collection_heading": "Two worlds. One house.",
+        "collection_text": "<p><strong>The Core Collection</strong> — SILENT in deep black. DRIFT in cream. EASE in sage green. WORN in warm tan. UNDONE in light gray. Heavyweight fleece sets, sherpa textures, coordinated hoodies and joggers. The everyday foundation.</p><p><strong>Project V</strong> — 50 designer pieces. Butter-soft Italian Nappa leather. Japanese selvedge denim. Mulberry silk. Lacquered brass hardware. 12 signature bags paralleling the world's top maisons. Lot codes V001 through V062 stamped on every piece. The designer tier.</p><p><strong>Swim</strong> — Black and white sets designed for Miami pool decks and beach clubs. Minimal, body-conscious, on-brand.</p>",
         "collection_cta_text": "Shop the Collection",
         "collection_cta_url": "/collections/all",
         "contact_heading": "Get in Touch",
         "contact_email": "hello@vellor.com",
         "contact_text": "We respond within 24 hours, Monday through Friday.",
-        "cta_heading": "Join the journey.",
+        "cta_heading": "Join the world of V.",
         "cta_button_text": "Shop Now",
         "cta_button_url": "/collections/all"
       }
     }
   },
-  "order": [
-    "hero",
-    "content"
-  ]
+  "order": ["hero", "content"]
 }
