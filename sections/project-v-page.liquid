@@ -1,0 +1,753 @@
+{% comment %}
+  VELLOR — Project V Lookbook
+  Designer streetwear capsule. Maison-tier construction, Miami-coded street energy.
+  50 pieces (33 women's / 17 men's) + 12 signature bags.
+{% endcomment %}
+
+<style>
+  .pv {
+    background: #0A0A0A;
+    color: #F2F2F2;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .pv__hero {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: #050505;
+    overflow: hidden;
+  }
+
+  .pv__hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(242,242,242,0.03) 0%, transparent 70%);
+  }
+
+  .pv__hero-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.4);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pv__hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    margin: 0;
+    line-height: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pv__hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: rgba(242,242,242,0.5);
+    margin-top: 32px;
+    max-width: 480px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pv__hero-detail {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.2);
+    margin-top: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Section headers */
+  .pv__section-header {
+    text-align: center;
+    padding: 100px 40px 60px;
+  }
+
+  .pv__section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.3);
+    margin-bottom: 16px;
+  }
+
+  .pv__section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .pv__section-count {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(242,242,242,0.25);
+    margin-top: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Grid */
+  .pv__grid {
+    display: grid;
+    gap: 4px;
+    padding: 0 4px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .pv__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .pv__grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .pv__grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+  .pv__grid-item {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 3/4;
+  }
+
+  .pv__grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .pv__grid-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .pv__grid-item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pv__grid-item:hover .pv__grid-item-info {
+    opacity: 1;
+  }
+
+  .pv__grid-item-code {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.6);
+  }
+
+  .pv__grid-item-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #F2F2F2;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Hero piece — full width */
+  .pv__hero-piece {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    margin: 4px;
+  }
+
+  .pv__hero-piece-image {
+    overflow: hidden;
+    background: #111;
+  }
+
+  .pv__hero-piece-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pv__hero-piece-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    background: #0A0A0A;
+  }
+
+  .pv__hero-piece-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.3);
+    margin-bottom: 16px;
+  }
+
+  .pv__hero-piece-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0 0 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .pv__hero-piece-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(242,242,242,0.5);
+    line-height: 1.8;
+    max-width: 400px;
+  }
+
+  .pv__hero-piece-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #F2F2F2;
+    margin-top: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Divider */
+  .pv__divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(242,242,242,0.15);
+    margin: 80px auto;
+  }
+
+  /* Footer CTA */
+  .pv__cta {
+    text-align: center;
+    padding: 120px 40px;
+    background: #050505;
+  }
+
+  .pv__cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0 0 16px;
+  }
+
+  .pv__cta-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(242,242,242,0.5);
+    margin-bottom: 32px;
+  }
+
+  .pv__cta-btn {
+    display: inline-block;
+    padding: 16px 48px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    background: #F2F2F2;
+    border: 1px solid #F2F2F2;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .pv__cta-btn:hover {
+    background: transparent;
+    color: #F2F2F2;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pv__grid--3 { grid-template-columns: repeat(2, 1fr); }
+    .pv__grid--4 { grid-template-columns: repeat(2, 1fr); }
+    .pv__hero-piece { grid-template-columns: 1fr; }
+    .pv__hero-piece-info { padding: 40px 24px; }
+    .pv__section-header { padding: 60px 20px 40px; }
+  }
+
+  @media (max-width: 480px) {
+    .pv__grid--3 { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="pv">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <div class="pv__hero">
+    <p class="pv__hero-label">Designer Streetwear Capsule</p>
+    <h1 class="pv__hero-title">Project V</h1>
+    <p class="pv__hero-sub">Maison-tier construction. Miami-coded street energy. 50 pieces. Leather goods integrated throughout. Lot codes V001&ndash;V050.</p>
+    <p class="pv__hero-detail">33 Women&rsquo;s &middot; 17 Men&rsquo;s &middot; 12 Signature Bags</p>
+  </div>
+
+  <!-- ============================================================
+       HERO PIECES — THE V PERFECTO + THE V LEATHER PANT
+       ============================================================ -->
+  <div class="pv__hero-piece">
+    <div class="pv__hero-piece-image">
+      <img src="{{ 'project-v-v-perfecto-front.png' | asset_url }}" alt="The V Perfecto" loading="lazy">
+    </div>
+    <div class="pv__hero-piece-info">
+      <p class="pv__hero-piece-label">Signature Piece</p>
+      <h2 class="pv__hero-piece-title">The V Perfecto</h2>
+      <p class="pv__hero-piece-desc">Cropped biker jacket in butter-soft black Italian Nappa leather. Asymmetric zip, lacquered brass hardware, Crowned V embroidered on chest. Hand-stitched edges.</p>
+      <p class="pv__hero-piece-price">$2,495</p>
+    </div>
+  </div>
+
+  <div class="pv__hero-piece" style="direction: rtl;">
+    <div class="pv__hero-piece-info" style="direction: ltr;">
+      <p class="pv__hero-piece-label">Signature Piece</p>
+      <h2 class="pv__hero-piece-title">The V Leather Pant</h2>
+      <p class="pv__hero-piece-desc">Butter-soft black Italian Nappa leather. Hand-stitched seams. Available in slim and wide-leg. The signature elevated essential.</p>
+      <p class="pv__hero-piece-price">$1,495</p>
+    </div>
+    <div class="pv__hero-piece-image" style="direction: ltr;">
+      <img src="{{ 'project-v-v-leather-pant-wide.png' | asset_url }}" alt="The V Leather Pant" loading="lazy">
+    </div>
+  </div>
+
+  <!-- ============================================================
+       WOMEN'S — TEES & TOPS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Women&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Tees &amp; Tops</h2>
+    <p class="pv__section-count">7 Pieces &middot; V001&ndash;V007</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v001.png' | asset_url }}" alt="V001 Cropped Baby Tee" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V001</span><p class="pv__grid-item-name">Cropped Baby Tee</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v002.png' | asset_url }}" alt="V002 Sheer Mesh Top" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V002</span><p class="pv__grid-item-name">Sheer Mesh Long-Sleeve</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v003.png' | asset_url }}" alt="V003 Silk Tube Top" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V003</span><p class="pv__grid-item-name">Silk Satin Tube Top</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v004.png' | asset_url }}" alt="V004 Silk Halter" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V004</span><p class="pv__grid-item-name">Mulberry Silk Halter</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v005.png' | asset_url }}" alt="V005 Racing Jersey" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V005</span><p class="pv__grid-item-name">Racing Jersey</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v006.png' | asset_url }}" alt="V006 Off-Shoulder Top" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V006</span><p class="pv__grid-item-name">Off-Shoulder Top</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v007.png' | asset_url }}" alt="V007 Asymmetric Top" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V007</span><p class="pv__grid-item-name">Asymmetric Shoulder Top</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       WOMEN'S — HOODIES & SWEATSHIRTS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Women&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Hoodies &amp; Sweats</h2>
+    <p class="pv__section-count">3 Pieces &middot; V008&ndash;V010</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v008.png' | asset_url }}" alt="V008 Cropped Hoodie" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V008</span><p class="pv__grid-item-name">Cropped Boxy Hoodie</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v009.png' | asset_url }}" alt="V009 Track Jacket" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V009</span><p class="pv__grid-item-name">Velour Track Jacket</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-v010.png' | asset_url }}" alt="V010 College Crewneck" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V010</span><p class="pv__grid-item-name">College Crewneck</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       WOMEN'S — BOTTOMS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Women&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Bottoms</h2>
+    <p class="pv__section-count">9 Pieces &middot; V011&ndash;V019</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (11..19) %}
+      {% assign padded = i | prepend: '00' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- ============================================================
+       WOMEN'S — DRESSES & SETS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Women&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Dresses &amp; Sets</h2>
+    <p class="pv__section-count">5 Pieces &middot; V020&ndash;V024</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (20..24) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- ============================================================
+       WOMEN'S — ACCESSORIES & LEATHER GOODS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Women&rsquo;s Leather Goods</p>
+    <h2 class="pv__section-title">Accessories</h2>
+    <p class="pv__section-count">9 Pieces &middot; V025&ndash;V033</p>
+  </div>
+
+  <!-- Hero bag callout -->
+  <div class="pv__hero-piece">
+    <div class="pv__hero-piece-image">
+      <img src="{{ 'project-v-v025.png' | asset_url }}" alt="V025 Mini Hero Bag" loading="lazy">
+    </div>
+    <div class="pv__hero-piece-info">
+      <p class="pv__hero-piece-label">Brand-Defining Piece</p>
+      <h2 class="pv__hero-piece-title">The Mini Hero Bag</h2>
+      <p class="pv__hero-piece-desc">Cognac brown butter-soft Italian Nappa leather. Quadro-V monogram embossed all-over. Faceted-V brushed brass clasp. Hand-stitched edges. The piece that moves Vellor from capsule to house.</p>
+    </div>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (26..33) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pv__divider"></div>
+
+  <!-- ============================================================
+       MEN'S — TEES
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Men&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Tees</h2>
+    <p class="pv__section-count">3 Pieces &middot; V034&ndash;V036</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (34..36) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- ============================================================
+       MEN'S — HOODIES & SWEATS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Men&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Hoodies &amp; Sweats</h2>
+    <p class="pv__section-count">3 Pieces &middot; V037&ndash;V039</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (37..39) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- ============================================================
+       MEN'S — OUTERWEAR
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Men&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Outerwear</h2>
+    <p class="pv__section-count">5 Pieces &middot; V040&ndash;V044</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (40..44) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- ============================================================
+       MEN'S — PANTS, SHORTS & ACCESSORIES
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Men&rsquo;s Collection</p>
+    <h2 class="pv__section-title">Pants, Shorts &amp; Accessories</h2>
+    <p class="pv__section-count">6 Pieces &middot; V045&ndash;V050</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    {% for i in (45..50) %}
+      {% assign padded = i | prepend: '0' | slice: -3, 3 %}
+      <div class="pv__grid-item">
+        <img src="{{ 'project-v-v0' | append: padded | append: '.png' | asset_url }}" alt="V0{{ padded }}" loading="lazy">
+        <div class="pv__grid-item-info"><span class="pv__grid-item-code">V0{{ padded }}</span></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pv__divider"></div>
+
+  <!-- ============================================================
+       SIGNATURE BAGS
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">The Bag Line</p>
+    <h2 class="pv__section-title">12 Signature Bags</h2>
+    <p class="pv__section-count">V051&ndash;V062</p>
+  </div>
+
+  <div class="pv__grid pv__grid--3">
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v051.png' | asset_url }}" alt="V051 V-Capucine" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V051</span><p class="pv__grid-item-name">The V-Capucine</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v052.png' | asset_url }}" alt="V052 Voyager Tote" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V052</span><p class="pv__grid-item-name">The Voyager Tote</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v053.png' | asset_url }}" alt="V053 V-Twist" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V053</span><p class="pv__grid-item-name">The V-Twist Shoulder</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v054.png' | asset_url }}" alt="V054 Speed-V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V054</span><p class="pv__grid-item-name">The Speed-V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v055.png' | asset_url }}" alt="V055 Pochette V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V055</span><p class="pv__grid-item-name">The Pochette V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v056.png' | asset_url }}" alt="V056 Coussin V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V056</span><p class="pv__grid-item-name">The Coussin V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v057.png' | asset_url }}" alt="V057 V-Alma" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V057</span><p class="pv__grid-item-name">The V-Alma</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v058.png' | asset_url }}" alt="V058 Belt V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V058</span><p class="pv__grid-item-name">The Belt V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v059.png' | asset_url }}" alt="V059 Mini Pochette" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V059</span><p class="pv__grid-item-name">The Mini Pochette V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v060.png' | asset_url }}" alt="V060 V-Flap Quilted" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V060</span><p class="pv__grid-item-name">The V-Flap Quilted</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v061.png' | asset_url }}" alt="V061 Keepall V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V061</span><p class="pv__grid-item-name">The Keepall V</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'project-v-bag-v062.png' | asset_url }}" alt="V062 Vanity V" loading="lazy">
+      <div class="pv__grid-item-info"><span class="pv__grid-item-code">V062</span><p class="pv__grid-item-name">The Vanity V</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CAMPAIGN — HIGSFIELD EDITORIAL
+       ============================================================ -->
+  <div class="pv__section-header">
+    <p class="pv__section-label">Campaign</p>
+    <h2 class="pv__section-title">The World of V</h2>
+    <p class="pv__section-count">Editorial &middot; Lifestyle &middot; Campaign</p>
+  </div>
+
+  <!-- Hoodies -->
+  <div class="pv__grid pv__grid--3">
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-chrome-v-back-01.jpg' | asset_url }}" alt="Vellor Hoodie Chrome V" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Chrome V Hoodie</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-chrome-v-back-02.jpg' | asset_url }}" alt="Vellor Hoodie Chrome V" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Chrome V Hoodie II</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-faceted-v-back-hanger.jpg' | asset_url }}" alt="Vellor Hoodie Faceted V" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Faceted V Hoodie</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-script-v-back-warehouse.jpg' | asset_url }}" alt="Vellor Hoodie Script V" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Script V Hoodie</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-gothic-v-back-tunnel.jpg' | asset_url }}" alt="Vellor Hoodie Gothic V" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Gothic V Hoodie</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-dual-v-back-london-rolls-royce.jpg' | asset_url }}" alt="Vellor Hoodie London" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Dual V &mdash; London</p></div>
+    </div>
+  </div>
+
+  <!-- Tees + Outerwear -->
+  <div class="pv__grid pv__grid--3" style="margin-top: 4px;">
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-tees-vellor-tee-chrome-v-parking-garage.jpg' | asset_url }}" alt="Vellor Chrome V Tee" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Chrome V Tee</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-tees-vellor-tee-chrome-v-store-hanger.jpg' | asset_url }}" alt="Vellor V Tee Showroom" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">V Tee &mdash; Showroom</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-tees-vellor-tee-diamond-v-parking-garage.jpg' | asset_url }}" alt="Vellor Diamond V Tee" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Diamond V Tee</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-outerwear-vellor-puffer-jacket-lined-v-back.jpg' | asset_url }}" alt="Vellor Puffer" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">V Puffer Jacket</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-outerwear-vellor-bomber-jacket-embossed-v-back.jpg' | asset_url }}" alt="Vellor Bomber" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Embossed V Bomber</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-outerwear-vellor-bomber-jacket-deco-v-back-penthouse.jpg' | asset_url }}" alt="Vellor Deco Bomber" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Deco V Bomber</p></div>
+    </div>
+  </div>
+
+  <!-- Accessories + Swim + Sweatshirts -->
+  <div class="pv__grid pv__grid--3" style="margin-top: 4px;">
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-accessories-vellor-leather-gloves-chrome-v.jpg' | asset_url }}" alt="Vellor Leather Gloves" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Leather Gloves</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-accessories-vellor-bucket-hat-black-v-monogram.jpg' | asset_url }}" alt="Vellor Bucket Hat" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">V Bucket Hat</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-sweatshirts-vellor-crewneck-circle-v-logo-black.jpg' | asset_url }}" alt="Vellor Crewneck" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Circle V Crewneck</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-swim-vellor-bikini-perfecto-poolside-night.jpg' | asset_url }}" alt="Vellor Swim Poolside" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Swim &mdash; Poolside</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-swim-vellor-bikini-stone-editorial-warm.jpg' | asset_url }}" alt="Vellor Swim Editorial" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Swim &mdash; Editorial</p></div>
+    </div>
+    <div class="pv__grid-item">
+      <img src="{{ 'projectv-hf-accessories-vellor-leather-shirt-black-nappa-flatlay.jpg' | asset_url }}" alt="Vellor Leather Shirt" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Nappa Leather Shirt</p></div>
+    </div>
+  </div>
+
+  <!-- Campaign / Lifestyle -->
+  <div class="pv__grid pv__grid--2" style="margin-top: 4px;">
+    <div class="pv__grid-item" style="aspect-ratio: 4/3;">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-lined-v-back-miami-nightlife.jpg' | asset_url }}" alt="Vellor Miami Nightlife" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Miami Nightlife</p></div>
+    </div>
+    <div class="pv__grid-item" style="aspect-ratio: 4/3;">
+      <img src="{{ 'projectv-hf-campaign-vellor-crew-hoodies-warehouse-party.jpg' | asset_url }}" alt="Vellor Warehouse" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Warehouse Show</p></div>
+    </div>
+    <div class="pv__grid-item" style="aspect-ratio: 4/3;">
+      <img src="{{ 'projectv-hf-campaign-vellor-yacht-party-night-skyline.jpg' | asset_url }}" alt="Vellor Yacht" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Yacht &mdash; Night Skyline</p></div>
+    </div>
+    <div class="pv__grid-item" style="aspect-ratio: 4/3;">
+      <img src="{{ 'projectv-hf-campaign-vellor-yacht-party-marina-night.jpg' | asset_url }}" alt="Vellor Marina" loading="lazy">
+      <div class="pv__grid-item-info"><p class="pv__grid-item-name">Marina &mdash; Night</p></div>
+    </div>
+  </div>
+
+  <div class="pv__divider"></div>
+
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <div class="pv__cta">
+    <h2 class="pv__cta-title">Coming Soon</h2>
+    <p class="pv__cta-text">Drop 1 launches with 8 pieces. Join the list.</p>
+    <a href="/pages/contact" class="pv__cta-btn">Get Notified</a>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Project V Lookbook",
+  "settings": []
+}
+{% endschema %}
