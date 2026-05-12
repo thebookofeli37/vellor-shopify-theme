@@ -11,10 +11,14 @@
   {%- endif -%}
 
   <title>
-    {{ page_title }}
-    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    {%- if request.page_type == 'index' -%}
+      VELLOR — Elevated Streetwear
+    {%- else -%}
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains 'VELLOR' %} | VELLOR{% endunless -%}
+    {%- endif -%}
   </title>
 
   {%- if page_description -%}
@@ -24,12 +28,51 @@
   {% render 'meta-tags' %}
 
   <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* Self-hosted fonts — no Google Fonts CDN */
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('{{ "CormorantGaramond-Variable.woff2" | asset_url }}') format('woff2');
+      font-weight: 300 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      src: url('{{ "CormorantGaramond-Italic-Variable.woff2" | asset_url }}') format('woff2');
+      font-weight: 300 600;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('{{ "Inter-Variable.woff2" | asset_url }}') format('woff2');
+      font-weight: 300 500;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
 
   {{ content_for_header }}
+
+  {%- comment -%}
+    Google tag — for Google Ads conversion tracking + Google Analytics 4.
+    Set the tag ID in Shopify Admin: Online Store → Themes → Customize → Theme settings → Google tag ID.
+    Find your tag ID in Google Ads → Tools → Data manager → Google tag, OR Analytics admin → Data streams → Web.
+    Format: G-XXXXXXXXXX (GA4 / Google tag) or AW-XXXXXXXXXX (legacy Ads conversion).
+  {%- endcomment -%}
+  {%- assign google_tag_id = settings.google_tag_id | default: '' -%}
+  {%- if google_tag_id != blank -%}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_tag_id | escape }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', {{ google_tag_id | json }});
+    </script>
+  {%- endif -%}
 
   <style>
     /* ============================================================
@@ -1635,7 +1678,6 @@
         <a href="/collections/mens" class="nav-link">Men</a>
         <a href="/collections/swim" class="nav-link">Swim</a>
         <a href="/collections/all" class="nav-link">Shop</a>
-        <a href="/collections/capsule" class="nav-link">Capsule Drops</a>
       </nav>
 
       <div class="header-logo">
@@ -1795,7 +1837,6 @@
             <li><a href="/collections/swim">Swim</a></li>
             <li><a href="/collections/mens">Men's</a></li>
             <li><a href="/collections/all">Shop All</a></li>
-            <li><a href="/collections/capsule">Capsule Drops</a></li>
           </ul>
         </div>
 
@@ -1803,7 +1844,6 @@
           <h5>Help</h5>
           <ul>
             <li><a href="/pages/contact">Contact</a></li>
-            <li><a href="/pages/size-guide">Size Guide</a></li>
             <li><a href="/policies/shipping-policy">Shipping &amp; Returns</a></li>
             <li><a href="/policies/refund-policy">Refund Policy</a></li>
             <li><a href="/pages/about">About VELLOR</a></li>
