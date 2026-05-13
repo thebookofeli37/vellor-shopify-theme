@@ -56,6 +56,24 @@
 
   {{ content_for_header }}
 
+  {%- comment -%} Strip Shopify fingerprint — hide platform tells {%- endcomment -%}
+  <script>
+    (function(){
+      // Remove Shopify.theme exposure
+      if(window.Shopify){delete window.Shopify.theme;delete window.Shopify.shop;}
+      // Remove shopify-section wrapper classes after DOM loads
+      document.addEventListener('DOMContentLoaded',function(){
+        document.querySelectorAll('.shopify-section').forEach(function(el){
+          el.classList.remove('shopify-section');
+          if(el.id&&el.id.startsWith('shopify-section-'))el.removeAttribute('id');
+        });
+        // Remove meta generator
+        var gen=document.querySelector('meta[name="generator"]');
+        if(gen)gen.remove();
+      });
+    })();
+  </script>
+
   {%- comment -%}
     Google tag — for Google Ads conversion tracking + Google Analytics 4.
     Set the tag ID in Shopify Admin: Online Store → Themes → Customize → Theme settings → Google tag ID.
@@ -1621,6 +1639,54 @@
       animation: slideUp 0.8s ease forwards;
     }
 
+    /* --- Announcement Bar (SKIMS-style) --- */
+    .vellor-announce {
+      background: var(--color-light);
+      color: var(--color-dark);
+      text-align: center;
+      padding: 10px 16px;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      position: relative;
+      overflow: hidden;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vellor-announce__track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vellor-announce__msg {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      white-space: nowrap;
+    }
+
+    .vellor-announce__msg.is-active {
+      opacity: 1;
+    }
+
+    .site-header {
+      top: 36px;
+    }
+
+    .hero-section,
+    .vellor-slides {
+      margin-top: 0;
+    }
+
     /* --- Skip to content --- */
     .skip-to-content {
       position: absolute;
@@ -1667,6 +1733,17 @@
 
 <body class="template-{{ template.name | handle }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
   <a class="skip-to-content" href="#main-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  <!-- ============================================================
+       ANNOUNCEMENT BAR (SKIMS-style rotating)
+       ============================================================ -->
+  <div class="vellor-announce" id="vellor-announce">
+    <div class="vellor-announce__track">
+      <span class="vellor-announce__msg is-active">Free Shipping on Orders $150+</span>
+      <span class="vellor-announce__msg">Project V — Limited Edition. Limited Stock.</span>
+      <span class="vellor-announce__msg">New Drops Every Month. Join the List.</span>
+    </div>
+  </div>
 
   <!-- ============================================================
        HEADER / NAVBAR
@@ -2087,6 +2164,18 @@
           });
         });
       }
+
+      /* --- Announcement Bar Rotation --- */
+      (function() {
+        var msgs = document.querySelectorAll('.vellor-announce__msg');
+        if (msgs.length < 2) return;
+        var current = 0;
+        setInterval(function() {
+          msgs[current].classList.remove('is-active');
+          current = (current + 1) % msgs.length;
+          msgs[current].classList.add('is-active');
+        }, 4000);
+      })();
 
       /* --- Product Accordions --- */
       document.querySelectorAll('.product-accordion-header').forEach(function(btn) {
