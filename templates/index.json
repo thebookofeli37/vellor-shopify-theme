@@ -13,6 +13,10 @@
       "type": "hero-slideshow",
       "settings": {}
     },
+    "project-v": {
+      "type": "project-v-grid",
+      "settings": {}
+    },
     "editorial": {
       "type": "editorial-split",
       "settings": {}
@@ -40,6 +44,7 @@
   },
   "order": [
     "slideshow",
+    "project-v",
     "editorial",
     "swim",
     "products",

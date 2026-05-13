@@ -1,0 +1,357 @@
+{% comment %}
+  VELLOR — Project V Homepage Grid
+  Shows hero pieces with "Limited Stock · Limited Edition" labels and email signup.
+{% endcomment %}
+
+<section class="pvg">
+  <div class="pvg__header">
+    <p class="pvg__label">Limited Edition</p>
+    <h2 class="pvg__title">Project V</h2>
+    <p class="pvg__sub">50 pieces. Maison-tier construction. Once they sell out, they are gone.</p>
+  </div>
+
+  <div class="pvg__grid">
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v-perfecto-front.png' | asset_url }}" alt="The V Perfecto" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">The V Perfecto</h3>
+        <p class="pvg__price">$2,495</p>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v-leather-pant-wide.png' | asset_url }}" alt="The V Leather Pant" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">The V Leather Pant</h3>
+        <p class="pvg__price">$1,495</p>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v044.png' | asset_url }}" alt="Leather Perfecto V044" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Leather Perfecto &mdash; V044</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v040.png' | asset_url }}" alt="Varsity Jacket V040" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Varsity Letterman &mdash; V040</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-bag-v051.png' | asset_url }}" alt="V-Capucine Bag" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">The V-Capucine</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v025.png' | asset_url }}" alt="Mini Hero Bag V025" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Mini Hero Bag &mdash; V025</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v001.png' | asset_url }}" alt="Cropped Baby Tee V001" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Cropped Baby Tee &mdash; V001</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v034.png' | asset_url }}" alt="Oversized Tee V034" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Oversized Boxy Tee &mdash; V034</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v008.png' | asset_url }}" alt="Cropped Hoodie V008" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Cropped Boxy Hoodie &mdash; V008</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-v026.png' | asset_url }}" alt="Opera Gloves V026" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">Opera Gloves &mdash; V026</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-bag-v053.png' | asset_url }}" alt="V-Twist Shoulder Bag" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">The V-Twist Shoulder</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+
+    <div class="pvg__item">
+      <div class="pvg__image"><img src="{{ 'project-v-bag-v060.png' | asset_url }}" alt="V-Flap Quilted Bag" loading="lazy"></div>
+      <div class="pvg__info">
+        <h3 class="pvg__name">The V-Flap Quilted</h3>
+        <p class="pvg__stock">Limited Stock &middot; Limited Edition</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pvg__cta-row">
+    <a href="/pages/project-v" class="pvg__view-all">View All 50 Pieces &rarr;</a>
+  </div>
+
+  <!-- Email Signup for Project V -->
+  <div class="pvg__signup">
+    <div class="pvg__signup-inner">
+      <h3 class="pvg__signup-heading">Get Early Access to Project V</h3>
+      <p class="pvg__signup-text">Be first to know when pieces drop. Limited stock &mdash; once they sell out, they are gone.</p>
+      {%- form 'customer', id: 'project-v-signup' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,project-v,early-access">
+        <div class="pvg__signup-form">
+          <input
+            class="pvg__signup-input"
+            type="email"
+            name="contact[email]"
+            placeholder="Enter your email"
+            required
+            autocomplete="email"
+            aria-label="Email for Project V early access"
+          >
+          <button type="submit" class="pvg__signup-btn">Get Notified</button>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pvg {
+    background: #0A0A0A;
+    padding: 0 0 0;
+  }
+
+  .pvg__header {
+    text-align: center;
+    padding: 100px 40px 60px;
+  }
+
+  .pvg__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.35);
+    margin: 0 0 16px;
+  }
+
+  .pvg__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0;
+    letter-spacing: 0.1em;
+  }
+
+  .pvg__sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(242,242,242,0.45);
+    margin: 16px 0 0;
+    letter-spacing: 0.04em;
+  }
+
+  .pvg__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 0 2px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .pvg__item {
+    position: relative;
+    background: #111;
+  }
+
+  .pvg__image {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .pvg__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transition: transform 0.6s ease;
+  }
+
+  .pvg__item:hover .pvg__image img {
+    transform: scale(1.03);
+  }
+
+  .pvg__info {
+    padding: 16px 16px 20px;
+    background: #0A0A0A;
+  }
+
+  .pvg__name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #F2F2F2;
+    margin: 0;
+    letter-spacing: 0.03em;
+  }
+
+  .pvg__price {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(242,242,242,0.6);
+    margin: 4px 0 0;
+  }
+
+  .pvg__stock {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(242,242,242,0.3);
+    margin: 8px 0 0;
+  }
+
+  .pvg__cta-row {
+    text-align: center;
+    padding: 48px 40px;
+  }
+
+  .pvg__view-all {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #F2F2F2;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(242,242,242,0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.3s ease;
+  }
+
+  .pvg__view-all:hover {
+    border-color: #F2F2F2;
+    opacity: 1;
+  }
+
+  /* Email Signup */
+  .pvg__signup {
+    border-top: 1px solid rgba(242,242,242,0.1);
+    padding: 80px 40px;
+  }
+
+  .pvg__signup-inner {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .pvg__signup-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 300;
+    color: #F2F2F2;
+    margin: 0 0 12px;
+  }
+
+  .pvg__signup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(242,242,242,0.45);
+    margin: 0 0 28px;
+    line-height: 1.7;
+  }
+
+  .pvg__signup-form {
+    display: flex;
+    gap: 0;
+  }
+
+  .pvg__signup-input {
+    flex: 1;
+    padding: 14px 18px;
+    background: transparent;
+    border: 1px solid rgba(242,242,242,0.2);
+    border-right: none;
+    color: #F2F2F2;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .pvg__signup-input::placeholder { color: rgba(242,242,242,0.35); }
+  .pvg__signup-input:focus { border-color: rgba(242,242,242,0.5); }
+
+  .pvg__signup-btn {
+    padding: 14px 28px;
+    background: #F2F2F2;
+    color: #0A0A0A;
+    border: 1px solid #F2F2F2;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .pvg__signup-btn:hover {
+    background: transparent;
+    color: #F2F2F2;
+  }
+
+  @media (max-width: 768px) {
+    .pvg__grid { grid-template-columns: repeat(2, 1fr); }
+    .pvg__header { padding: 60px 20px 40px; }
+    .pvg__signup { padding: 60px 20px; }
+    .pvg__signup-form { flex-direction: column; }
+    .pvg__signup-input { border-right: 1px solid rgba(242,242,242,0.2); border-bottom: none; }
+    .pvg__signup-btn { width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .pvg__grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Project V Grid",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Project V Grid", "category": "VELLOR" }]
+}
+{% endschema %}

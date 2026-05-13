@@ -1,7 +1,7 @@
 {% comment %}
   VELLOR — Hero Image Slideshow
   Full-screen crossfade slideshow with Project V campaign images.
-  Auto-advances every 5 seconds. No controls visible — just immersive imagery.
+  Auto-advances every 5 seconds. Images fill full viewport.
 {% endcomment %}
 
 <section id="hero-slideshow-{{ section.id }}" class="vellor-slides">
@@ -10,41 +10,36 @@
       <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-dual-v-back-london-rolls-royce.jpg' | asset_url }}" alt="VELLOR — London" loading="eager">
     </div>
     <div class="vellor-slides__slide">
-      <img src="{{ 'project-v-v-perfecto-front.png' | asset_url }}" alt="VELLOR — The V Perfecto" loading="lazy">
-    </div>
-    <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-lined-v-back-miami-nightlife.jpg' | asset_url }}" alt="VELLOR — Miami Nightlife" loading="lazy">
-    </div>
-    <div class="vellor-slides__slide">
-      <img src="{{ 'project-v-v-leather-pant-wide.png' | asset_url }}" alt="VELLOR — The V Leather Pant" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-campaign-vellor-crew-hoodies-warehouse-party.jpg' | asset_url }}" alt="VELLOR — Warehouse" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
-      <img src="{{ 'project-v-v040.png' | asset_url }}" alt="VELLOR — Varsity Jacket" loading="lazy">
-    </div>
-    <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-outerwear-vellor-bomber-jacket-deco-v-back-penthouse.jpg' | asset_url }}" alt="VELLOR — Deco Bomber" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
-      <img src="{{ 'project-v-bag-v051.png' | asset_url }}" alt="VELLOR — V-Capucine Bag" loading="lazy">
+      <img src="{{ 'project-v-v040.png' | asset_url }}" alt="VELLOR — Varsity Jacket" loading="lazy">
+    </div>
+    <div class="vellor-slides__slide">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-gothic-v-back-tunnel.jpg' | asset_url }}" alt="VELLOR — Tunnel" loading="lazy">
+    </div>
+    <div class="vellor-slides__slide">
+      <img src="{{ 'projectv-hf-outerwear-vellor-bomber-jacket-embossed-v-back.jpg' | asset_url }}" alt="VELLOR — Embossed Bomber" loading="lazy">
     </div>
   </div>
 
   <div class="vellor-slides__overlay"></div>
 
   <div class="vellor-slides__content">
-    <p class="vellor-slides__label">Project V</p>
-    <h1 class="vellor-slides__heading">VELLOR</h1>
-    <p class="vellor-slides__sub">Designer streetwear. Maison-tier construction.</p>
-    <a href="/pages/project-v" class="vellor-slides__cta">Explore Project V</a>
+    <p class="vellor-slides__label">Limited Edition</p>
+    <h1 class="vellor-slides__heading">Project V</h1>
+    <p class="vellor-slides__sub">Designer streetwear. Maison-tier construction. Limited stock.</p>
+    <a href="/pages/project-v" class="vellor-slides__cta">Explore the Collection</a>
   </div>
 
-  <!-- Progress dots -->
   <div class="vellor-slides__dots">
     <span class="vellor-slides__dot is-active"></span>
-    <span class="vellor-slides__dot"></span>
     <span class="vellor-slides__dot"></span>
     <span class="vellor-slides__dot"></span>
     <span class="vellor-slides__dot"></span>
@@ -84,7 +79,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 30%;
+    object-position: center center;
   }
 
   .vellor-slides__overlay {
@@ -92,10 +87,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.35) 0%,
-      rgba(0, 0, 0, 0.1) 40%,
-      rgba(0, 0, 0, 0.1) 60%,
-      rgba(0, 0, 0, 0.55) 100%
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.15) 40%,
+      rgba(0, 0, 0, 0.15) 60%,
+      rgba(0, 0, 0, 0.6) 100%
     );
     z-index: 1;
     pointer-events: none;
@@ -125,9 +120,9 @@
 
   .vellor-slides__heading {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 10vw, 11rem);
+    font-size: clamp(3rem, 10vw, 9rem);
     font-weight: 300;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     color: #F2F2F2;
     margin: 0;
     text-transform: uppercase;
@@ -194,12 +189,10 @@
   (function() {
     var section = document.getElementById('hero-slideshow-{{ section.id }}');
     if (!section) return;
-
     var slides = section.querySelectorAll('.vellor-slides__slide');
     var dots = section.querySelectorAll('.vellor-slides__dot');
     var current = 0;
     var total = slides.length;
-    var interval = 5000;
     var timer;
 
     function goTo(index) {
@@ -210,27 +203,14 @@
       dots[current].classList.add('is-active');
     }
 
-    function next() {
-      goTo(current + 1);
-    }
+    function startAuto() { timer = setInterval(function() { goTo(current + 1); }, 5000); }
 
-    function startAuto() {
-      timer = setInterval(next, interval);
-    }
-
-    // Dot clicks
     dots.forEach(function(dot, i) {
-      dot.addEventListener('click', function() {
-        clearInterval(timer);
-        goTo(i);
-        startAuto();
-      });
+      dot.addEventListener('click', function() { clearInterval(timer); goTo(i); startAuto(); });
     });
 
-    // Pause on hover
     section.addEventListener('mouseenter', function() { clearInterval(timer); });
     section.addEventListener('mouseleave', startAuto);
-
     startAuto();
   })();
 </script>
@@ -239,13 +219,7 @@
 {
   "name": "Hero Slideshow",
   "tag": "section",
-  "class": "vellor-section-slideshow",
   "settings": [],
-  "presets": [
-    {
-      "name": "Hero Slideshow",
-      "category": "VELLOR"
-    }
-  ]
+  "presets": [{ "name": "Hero Slideshow", "category": "VELLOR" }]
 }
 {% endschema %}
