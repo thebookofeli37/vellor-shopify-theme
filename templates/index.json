@@ -17,6 +17,10 @@
       "type": "project-v-grid",
       "settings": {}
     },
+    "brand-world": {
+      "type": "brand-world",
+      "settings": {}
+    },
     "editorial": {
       "type": "editorial-split",
       "settings": {}
@@ -45,6 +49,7 @@
   "order": [
     "slideshow",
     "project-v",
+    "brand-world",
     "editorial",
     "swim",
     "products",

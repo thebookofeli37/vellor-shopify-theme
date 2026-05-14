@@ -1,0 +1,126 @@
+{% comment %}
+  VELLOR — Brand World Section
+  Full-width campaign images showing the Vellor lifestyle.
+{% endcomment %}
+
+<section class="vbw">
+  <div class="vbw__header">
+    <p class="vbw__label">The Brand</p>
+    <h2 class="vbw__title">The World of VELLOR</h2>
+  </div>
+
+  <!-- Row 1: 2-up -->
+  <div class="vbw__grid vbw__grid--2">
+    <div class="vbw__item">
+      <img src="{{ 'brand-1.jpg' | asset_url }}" alt="VELLOR Penthouse" loading="lazy">
+      <div class="vbw__overlay"><span>Penthouse. Miami.</span></div>
+    </div>
+    <div class="vbw__item">
+      <img src="{{ 'brand-4.jpg' | asset_url }}" alt="VELLOR Rooftop" loading="lazy">
+      <div class="vbw__overlay"><span>Rooftop. Brickell.</span></div>
+    </div>
+  </div>
+
+  <!-- Row 2: 3-up -->
+  <div class="vbw__grid vbw__grid--3">
+    <div class="vbw__item">
+      <img src="{{ 'brand-3.jpg' | asset_url }}" alt="VELLOR Underground" loading="lazy">
+      <div class="vbw__overlay"><span>Underground.</span></div>
+    </div>
+    <div class="vbw__item">
+      <img src="{{ 'brand-7.jpg' | asset_url }}" alt="VELLOR Rooftop Event" loading="lazy">
+      <div class="vbw__overlay"><span>After Hours.</span></div>
+    </div>
+    <div class="vbw__item">
+      <img src="{{ 'brand-8.jpg' | asset_url }}" alt="VELLOR Parking Garage" loading="lazy">
+      <div class="vbw__overlay"><span>3:17 AM.</span></div>
+    </div>
+  </div>
+
+  <!-- Row 3: Full bleed -->
+  <div class="vbw__grid vbw__grid--1">
+    <div class="vbw__item vbw__item--wide">
+      <img src="{{ 'brand-6.jpg' | asset_url }}" alt="VELLOR Yacht" loading="lazy">
+      <div class="vbw__overlay"><span>VELLOR.</span></div>
+    </div>
+  </div>
+
+  <!-- Row 4: 2-up -->
+  <div class="vbw__grid vbw__grid--2">
+    <div class="vbw__item">
+      <img src="{{ 'brand-5.jpg' | asset_url }}" alt="VELLOR Warehouse" loading="lazy">
+      <div class="vbw__overlay"><span>Warehouse Show.</span></div>
+    </div>
+    <div class="vbw__item">
+      <img src="{{ 'brand-2.jpg' | asset_url }}" alt="VELLOR Travel" loading="lazy">
+      <div class="vbw__overlay"><span>Departure.</span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vbw { background: #0A0A0A; }
+
+  .vbw__header { text-align: center; padding: 100px 40px 48px; }
+
+  .vbw__label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase; color: rgba(242,242,242,0.3); margin: 0 0 16px;
+  }
+
+  .vbw__title {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300; color: #F2F2F2; margin: 0; letter-spacing: 0.08em;
+  }
+
+  .vbw__grid { display: grid; gap: 4px; padding: 0 4px; max-width: 1600px; margin: 0 auto 4px; }
+  .vbw__grid--1 { grid-template-columns: 1fr; }
+  .vbw__grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .vbw__grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+  .vbw__item {
+    position: relative; overflow: hidden; background: #111;
+    aspect-ratio: 4/5;
+  }
+
+  .vbw__item--wide { aspect-ratio: 21/9; }
+
+  .vbw__item img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center center;
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .vbw__item:hover img { transform: scale(1.04); }
+
+  .vbw__overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px; background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+
+  .vbw__item:hover .vbw__overlay { opacity: 1; }
+
+  .vbw__overlay span {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400;
+    letter-spacing: 0.15em; text-transform: uppercase; color: rgba(242,242,242,0.7);
+  }
+
+  @media (max-width: 768px) {
+    .vbw__grid--3 { grid-template-columns: repeat(2, 1fr); }
+    .vbw__header { padding: 60px 20px 32px; }
+    .vbw__item--wide { aspect-ratio: 16/9; }
+  }
+
+  @media (max-width: 480px) {
+    .vbw__grid--2, .vbw__grid--3 { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Brand World",
+  "tag": "section",
+  "settings": [],
+  "presets": [{ "name": "Brand World", "category": "VELLOR" }]
+}
+{% endschema %}
