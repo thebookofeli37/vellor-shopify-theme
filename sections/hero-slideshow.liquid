@@ -1,25 +1,21 @@
 {% comment %}
-  VELLOR — Hero Image Slideshow
-  Full-screen crossfade slideshow with Project V campaign images.
-  Auto-advances every 5 seconds. Images fill full viewport.
+  VELLOR — 3D Hero Slideshow
+  Parallax background, floating particles, depth text, 3D perspective
 {% endcomment %}
 
 <section id="hero-slideshow-{{ section.id }}" class="vellor-slides">
-  <div class="vellor-slides__track">
+  <div class="vellor-slides__track" id="vellor-slides-track">
     <div class="vellor-slides__slide is-active">
       <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-dual-v-back-london-rolls-royce.jpg' | asset_url }}" alt="VELLOR — London" loading="eager">
     </div>
     <div class="vellor-slides__slide">
-      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-lined-v-back-miami-nightlife.jpg' | asset_url }}" alt="VELLOR — Miami Nightlife" loading="lazy">
+      <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-lined-v-back-miami-nightlife.jpg' | asset_url }}" alt="VELLOR — Miami" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-campaign-vellor-crew-hoodies-warehouse-party.jpg' | asset_url }}" alt="VELLOR — Warehouse" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-outerwear-vellor-bomber-jacket-deco-v-back-penthouse.jpg' | asset_url }}" alt="VELLOR — Deco Bomber" loading="lazy">
-    </div>
-    <div class="vellor-slides__slide">
-      <img src="{{ 'project-v-v040.png' | asset_url }}" alt="VELLOR — Varsity Jacket" loading="lazy">
     </div>
     <div class="vellor-slides__slide">
       <img src="{{ 'projectv-hf-hoodies-vellor-hoodie-gothic-v-back-tunnel.jpg' | asset_url }}" alt="VELLOR — Tunnel" loading="lazy">
@@ -29,13 +25,16 @@
     </div>
   </div>
 
+  <!-- Particles -->
+  <div class="vellor-slides__particles" id="vellor-particles"></div>
+
   <div class="vellor-slides__overlay"></div>
 
-  <div class="vellor-slides__content">
-    <p class="vellor-slides__label">Limited Edition</p>
-    <h1 class="vellor-slides__heading">Project V</h1>
-    <p class="vellor-slides__sub">Designer streetwear. Maison-tier construction. Limited stock.</p>
-    <a href="/pages/project-v" class="vellor-slides__cta">Explore the Collection</a>
+  <div class="vellor-slides__content" id="vellor-hero-content">
+    <p class="vellor-slides__label" style="transform:translateZ(15px);">Limited Edition</p>
+    <h1 class="vellor-slides__heading" style="transform:translateZ(40px);">Project V</h1>
+    <p class="vellor-slides__sub" style="transform:translateZ(25px);">Designer streetwear. Maison-tier construction. Limited stock.</p>
+    <a href="/pages/project-v" class="vellor-slides__cta" style="transform:translateZ(50px);">Explore the Collection</a>
   </div>
 
   <div class="vellor-slides__dots">
@@ -45,181 +44,207 @@
     <span class="vellor-slides__dot"></span>
     <span class="vellor-slides__dot"></span>
     <span class="vellor-slides__dot"></span>
-    <span class="vellor-slides__dot"></span>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="vellor-slides__scroll-ind">
+    <span>Scroll</span>
+    <div class="vellor-slides__scroll-line"></div>
   </div>
 </section>
 
 <style>
   .vellor-slides {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 600px;
-    overflow: hidden;
-    background: #0A0A0A;
+    position: relative; width: 100%; height: 100vh; min-height: 600px;
+    overflow: hidden; background: #0A0A0A; perspective: 1200px;
   }
 
   .vellor-slides__track {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: -20px; transition: transform 0.15s ease;
   }
 
   .vellor-slides__slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
+    position: absolute; inset: 0; opacity: 0;
     transition: opacity 1.2s ease-in-out;
   }
 
-  .vellor-slides__slide.is-active {
-    opacity: 1;
-  }
+  .vellor-slides__slide.is-active { opacity: 1; }
 
   .vellor-slides__slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
+    width: 100%; height: 100%; object-fit: cover; object-position: center center;
+    filter: brightness(0.65) saturate(1.1);
+  }
+
+  /* Particles — chrome/silver for streetwear */
+  .vellor-slides__particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+  .v-particle {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242, 242, 242, 0.4) 0%, transparent 70%);
+    animation: v-float linear infinite;
+  }
+
+  @keyframes v-float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
   }
 
   .vellor-slides__overlay {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.4) 0%,
-      rgba(0, 0, 0, 0.15) 40%,
-      rgba(0, 0, 0, 0.15) 60%,
-      rgba(0, 0, 0, 0.6) 100%
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0.1) 60%,
+      rgba(0, 0, 0, 0.65) 100%
     );
-    z-index: 1;
-    pointer-events: none;
   }
 
   .vellor-slides__content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-    padding: 2rem;
+    position: relative; z-index: 3;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; text-align: center; padding: 2rem;
+    transform-style: preserve-3d;
   }
 
   .vellor-slides__label {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(242, 242, 242, 0.5);
-    margin: 0 0 20px;
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(242, 242, 242, 0.5); margin: 0 0 20px;
+    animation: vFadeUp 1s ease 0.2s both;
   }
 
   .vellor-slides__heading {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 10vw, 9rem);
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    color: #F2F2F2;
-    margin: 0;
-    text-transform: uppercase;
-    line-height: 1;
+    font-size: clamp(3rem, 10vw, 9rem); font-weight: 300;
+    letter-spacing: 0.2em; color: #F2F2F2; margin: 0;
+    text-transform: uppercase; line-height: 1;
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+    animation: vFadeUp 1s ease 0.4s both;
   }
 
   .vellor-slides__sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    letter-spacing: 0.08em;
-    color: rgba(242, 242, 242, 0.6);
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 300;
+    letter-spacing: 0.08em; color: rgba(242, 242, 242, 0.6);
     margin: 20px 0 0;
+    animation: vFadeUp 1s ease 0.6s both;
   }
 
   .vellor-slides__cta {
-    display: inline-block;
-    margin-top: 32px;
-    padding: 14px 40px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #F2F2F2;
-    border: 1px solid rgba(242, 242, 242, 0.4);
-    text-decoration: none;
-    transition: all 0.3s ease;
+    display: inline-block; margin-top: 32px;
+    padding: 14px 40px; font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #F2F2F2;
+    border: 1px solid rgba(242, 242, 242, 0.3);
+    background: rgba(242, 242, 242, 0.05);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    text-decoration: none; transition: all 0.4s ease;
+    animation: vFadeUp 1s ease 0.8s both;
   }
 
   .vellor-slides__cta:hover {
-    background: #F2F2F2;
-    color: #0A0A0A;
-    border-color: #F2F2F2;
-    opacity: 1;
+    background: #F2F2F2; color: #0A0A0A; border-color: #F2F2F2; opacity: 1;
+    transform: translateZ(50px) scale(1.05) !important;
+    box-shadow: 0 10px 40px rgba(242, 242, 242, 0.15);
+  }
+
+  @keyframes vFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .vellor-slides__dots {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    gap: 10px;
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+    z-index: 4; display: flex; gap: 10px;
   }
 
   .vellor-slides__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(242, 242, 242, 0.3);
-    transition: background 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(242, 242, 242, 0.3); transition: all 0.3s ease; cursor: pointer;
   }
 
-  .vellor-slides__dot.is-active {
-    background: #F2F2F2;
-    transform: scale(1.3);
+  .vellor-slides__dot.is-active { background: #F2F2F2; transform: scale(1.3); }
+
+  /* Scroll indicator */
+  .vellor-slides__scroll-ind {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+
+  .vellor-slides__scroll-ind span {
+    font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(242, 242, 242, 0.3);
+  }
+
+  .vellor-slides__scroll-line {
+    width: 1px; height: 30px;
+    background: linear-gradient(to bottom, rgba(242,242,242,0.3), transparent);
+    animation: vScrollPulse 2s ease infinite;
+  }
+
+  @keyframes vScrollPulse {
+    0%, 100% { opacity: 0.2; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
   }
 </style>
 
 <script>
-  (function() {
-    var section = document.getElementById('hero-slideshow-{{ section.id }}');
-    if (!section) return;
-    var slides = section.querySelectorAll('.vellor-slides__slide');
-    var dots = section.querySelectorAll('.vellor-slides__dot');
-    var current = 0;
-    var total = slides.length;
-    var timer;
+(function() {
+  var section = document.getElementById('hero-slideshow-{{ section.id }}');
+  if (!section) return;
+  var slides = section.querySelectorAll('.vellor-slides__slide');
+  var dots = section.querySelectorAll('.vellor-slides__dot');
+  var track = document.getElementById('vellor-slides-track');
+  var current = 0;
+  var total = slides.length;
+  var timer;
 
-    function goTo(index) {
-      slides[current].classList.remove('is-active');
-      dots[current].classList.remove('is-active');
-      current = index % total;
-      slides[current].classList.add('is-active');
-      dots[current].classList.add('is-active');
+  function goTo(index) {
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('is-active');
+    current = index % total;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('is-active');
+  }
+
+  function startAuto() { timer = setInterval(function() { goTo(current + 1); }, 5000); }
+
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() { clearInterval(timer); goTo(i); startAuto(); });
+  });
+
+  section.addEventListener('mouseenter', function() { clearInterval(timer); });
+  section.addEventListener('mouseleave', startAuto);
+  startAuto();
+
+  // Parallax on mouse move
+  section.addEventListener('mousemove', function(e) {
+    var rect = section.getBoundingClientRect();
+    var x = (e.clientX - rect.left) / rect.width - 0.5;
+    var y = (e.clientY - rect.top) / rect.height - 0.5;
+    if (track) track.style.transform = 'translate(' + (x * -15) + 'px,' + (y * -15) + 'px) scale(1.04)';
+  });
+
+  // Particles
+  var particles = document.getElementById('vellor-particles');
+  if (particles) {
+    for (var i = 0; i < 15; i++) {
+      var p = document.createElement('div');
+      p.className = 'v-particle';
+      var size = Math.random() * 4 + 1;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      p.style.animationDelay = (Math.random() * 6) + 's';
+      particles.appendChild(p);
     }
-
-    function startAuto() { timer = setInterval(function() { goTo(current + 1); }, 5000); }
-
-    dots.forEach(function(dot, i) {
-      dot.addEventListener('click', function() { clearInterval(timer); goTo(i); startAuto(); });
-    });
-
-    section.addEventListener('mouseenter', function() { clearInterval(timer); });
-    section.addEventListener('mouseleave', startAuto);
-    startAuto();
-  })();
+  }
+})();
 </script>
 
 {% schema %}
-{
-  "name": "Hero Slideshow",
-  "tag": "section",
-  "settings": [],
-  "presets": [{ "name": "Hero Slideshow", "category": "VELLOR" }]
-}
+{"name":"3D Hero Slideshow","tag":"section","settings":[],"presets":[{"name":"3D Hero Slideshow"}]}
 {% endschema %}
