@@ -56,6 +56,101 @@
     </div>
   </div>
 
+  {% if collection.handle == 'women' or collection.handle == 'all' %}
+  <!-- Swim Line Feature on Women's Page -->
+  <div class="vellor-swim-feature">
+    <div class="vellor-swim-feature__header">
+      <p class="vellor-swim-feature__label">New</p>
+      <h2 class="vellor-swim-feature__title">VELLOR Swim</h2>
+      <p class="vellor-swim-feature__sub">Made for the water. Built for the moment after.</p>
+    </div>
+    <div class="vellor-swim-feature__grid">
+      <div class="vellor-swim-feature__card">
+        <div class="vellor-swim-feature__img"><img src="{{ 'swim-event-sunset.jpg' | asset_url }}" alt="VELLOR Swim Launch" loading="lazy"></div>
+        <p class="vellor-swim-feature__caption">The Launch &middot; NYC</p>
+      </div>
+      <div class="vellor-swim-feature__card">
+        <div class="vellor-swim-feature__img"><img src="{{ 'swim-event-brickell.jpg' | asset_url }}" alt="VELLOR Swim Brickell" loading="lazy"></div>
+        <p class="vellor-swim-feature__caption">VELLOR Summer &middot; Brickell</p>
+      </div>
+      <div class="vellor-swim-feature__card">
+        <div class="vellor-swim-feature__img"><img src="{{ 'projectv-hf-swim-vellor-bikini-perfecto-poolside-night.jpg' | asset_url }}" alt="VELLOR Swim Poolside" loading="lazy"></div>
+        <p class="vellor-swim-feature__caption">Poolside &middot; After Dark</p>
+      </div>
+      <div class="vellor-swim-feature__card">
+        <div class="vellor-swim-feature__img"><img src="{{ 'projectv-hf-swim-vellor-bikini-stone-editorial-warm.jpg' | asset_url }}" alt="VELLOR Swim Editorial" loading="lazy"></div>
+        <p class="vellor-swim-feature__caption">Editorial &middot; Stone</p>
+      </div>
+    </div>
+    <div class="vellor-swim-feature__cta">
+      <a href="/collections/swim" class="vellor-swim-feature__btn">Shop Swim &rarr;</a>
+    </div>
+  </div>
+
+  <style>
+    .vellor-swim-feature {
+      background: #050505; padding: 80px 0; border-top: 1px solid rgba(242,242,242,0.06);
+    }
+    .vellor-swim-feature__header { text-align: center; padding: 0 40px 48px; }
+    .vellor-swim-feature__label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.3em; text-transform: uppercase; color: rgba(242,242,242,0.5);
+      background: rgba(242,242,242,0.08); display: inline-block; padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .vellor-swim-feature__title {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300; color: #F2F2F2; margin: 0 0 12px; letter-spacing: 0.1em;
+    }
+    .vellor-swim-feature__sub {
+      font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(242,242,242,0.4);
+    }
+    .vellor-swim-feature__grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+      max-width: 1600px; margin: 0 auto; padding: 0 4px;
+    }
+    .vellor-swim-feature__card {
+      position: relative; overflow: hidden; background: #111;
+      perspective: 800px; transform-style: preserve-3d;
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .vellor-swim-feature__card.is-visible { opacity: 1; transform: translateY(0); }
+    .vellor-swim-feature__card:nth-child(2) { transition-delay: 0.1s; }
+    .vellor-swim-feature__card:nth-child(3) { transition-delay: 0.2s; }
+    .vellor-swim-feature__card:nth-child(4) { transition-delay: 0.3s; }
+    .vellor-swim-feature__img { aspect-ratio: 3/4; overflow: hidden; }
+    .vellor-swim-feature__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .vellor-swim-feature__card:hover .vellor-swim-feature__img img { transform: scale(1.05); }
+    .vellor-swim-feature__caption {
+      font-family: 'Inter', sans-serif; font-size: 11px; color: rgba(242,242,242,0.4);
+      letter-spacing: 0.1em; padding: 14px 16px; margin: 0;
+    }
+    .vellor-swim-feature__cta { text-align: center; padding: 40px 0 0; }
+    .vellor-swim-feature__btn {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase; color: #F2F2F2;
+      text-decoration: none; border-bottom: 1px solid rgba(242,242,242,0.3);
+      padding-bottom: 4px; transition: border-color 0.3s ease;
+    }
+    .vellor-swim-feature__btn:hover { border-color: #F2F2F2; opacity: 1; }
+    @media (max-width: 768px) { .vellor-swim-feature__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .vellor-swim-feature__grid { grid-template-columns: 1fr; } }
+  </style>
+
+  <script>
+  (function(){
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.vellor-swim-feature__card').forEach(function(c) { obs.observe(c); });
+  })();
+  </script>
+  {% endif %}
+
   {% if collection.handle == 'swim' %}
   <!-- Swim Editorial — three chapters, one story -->
 
