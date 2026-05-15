@@ -15,9 +15,7 @@
         <source src="{{ 'model-grey.mp4' | asset_url }}" type="video/mp4">
       </video>
     {% elsif collection.handle == 'swim' %}
-      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'swim-hero.png' | asset_url }}" style="object-position: center 40%;">
-        <source src="{{ 'swim-hero.mp4' | asset_url }}" type="video/mp4">
-      </video>
+      <img src="{{ 'swim-event-sunset.jpg' | asset_url }}" alt="VELLOR Swim" class="vellor-collection__hero-image" loading="eager" style="object-position: center 30%;">
     {% elsif collection.image %}
       <img
         src="{{ collection.image | image_url: width: 1920 }}"
