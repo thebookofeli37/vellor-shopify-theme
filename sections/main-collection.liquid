@@ -7,9 +7,7 @@
   <!-- Video Hero -->
   <div class="vellor-collection__hero">
     {% if collection.handle == 'women' or collection.handle == 'all' %}
-      <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'model-web.png' | asset_url }}">
-        <source src="{{ 'model-blue.mp4' | asset_url }}" type="video/mp4">
-      </video>
+      <img src="{{ 'brand-4.jpg' | asset_url }}" alt="VELLOR Women" class="vellor-collection__hero-image" loading="eager" style="object-position: center 35%;">
     {% elsif collection.handle == 'mens' %}
       <video class="vellor-collection__hero-video" autoplay muted loop playsinline poster="{{ 'model-hero.png' | asset_url }}">
         <source src="{{ 'model-grey.mp4' | asset_url }}" type="video/mp4">
@@ -371,7 +369,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 50%;
+    object-position: center 20%;
     opacity: 0.75;
   }
 
