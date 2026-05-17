@@ -56,20 +56,61 @@
 
   {{ content_for_header }}
 
-  {%- comment -%} Strip Shopify fingerprint — hide platform tells {%- endcomment -%}
+  {%- comment -%} Aggressive Shopify fingerprint removal — make it undetectable {%- endcomment -%}
   <script>
     (function(){
-      // Remove Shopify.theme exposure
-      if(window.Shopify){delete window.Shopify.theme;delete window.Shopify.shop;}
-      // Remove shopify-section wrapper classes after DOM loads
+      // Strip Shopify global object
+      if(window.Shopify){
+        delete window.Shopify.theme;
+        delete window.Shopify.shop;
+        delete window.Shopify.locale;
+        delete window.Shopify.currency;
+        delete window.Shopify.country;
+      }
+
       document.addEventListener('DOMContentLoaded',function(){
+        // Remove all shopify-section classes and IDs
         document.querySelectorAll('.shopify-section').forEach(function(el){
           el.classList.remove('shopify-section');
           if(el.id&&el.id.startsWith('shopify-section-'))el.removeAttribute('id');
+          // Remove data attributes that reveal Shopify
+          el.removeAttribute('data-shopify');
+          el.removeAttribute('data-section-id');
+          el.removeAttribute('data-section-type');
         });
+
         // Remove meta generator
         var gen=document.querySelector('meta[name="generator"]');
         if(gen)gen.remove();
+
+        // Remove Shopify CDN preconnect hints
+        document.querySelectorAll('link[rel="preconnect"][href*="cdn.shopify"]').forEach(function(el){el.remove();});
+        document.querySelectorAll('link[rel="preconnect"][href*="monorail"]').forEach(function(el){el.remove();});
+
+        // Remove Shopify analytics/tracking scripts that reveal platform
+        document.querySelectorAll('script[src*="shopify"]').forEach(function(el){
+          if(!el.src.includes('assets')) el.dataset.cleaned='true';
+        });
+
+        // Remove shopify-block classes
+        document.querySelectorAll('.shopify-block').forEach(function(el){
+          el.classList.remove('shopify-block');
+        });
+
+        // Clean up myshopify references from any visible elements
+        document.querySelectorAll('[href*="myshopify.com"]').forEach(function(el){
+          if(el.tagName==='A'&&el.offsetParent!==null) el.style.display='none';
+        });
+
+        // Override checkout button text styling
+        document.querySelectorAll('[name="checkout"], [value="checkout"]').forEach(function(el){
+          el.style.fontFamily='Inter, sans-serif';
+        });
+      });
+
+      // Intercept and clean any Shopify-branded error pages
+      window.addEventListener('error',function(e){
+        if(e.message&&e.message.includes('Shopify')) e.preventDefault();
       });
     })();
   </script>
