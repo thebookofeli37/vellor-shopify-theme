@@ -2303,6 +2303,119 @@
     })();
   </script>
 
+  <!-- ============================================================
+       GLOBAL PREMIUM ANIMATIONS + TRUST BAR
+       ============================================================ -->
+  <style>
+    /* Scroll-triggered fade-in for ALL content sections */
+    .fade-in-section {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* Stagger children */
+    .stagger-children > * {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stagger-children.is-visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+    .stagger-children.is-visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .stagger-children.is-visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+    .stagger-children.is-visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+    .stagger-children.is-visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+
+    /* Enhanced button hover */
+    .btn, .btn-primary, .btn-secondary, .btn-link, .btn-dark,
+    .vellor-slides__cta, .pvg__signup-btn, .pvg__view-all {
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+    }
+
+    /* Smooth image reveal */
+    .product-card-image img, .vellor-collection__card-image,
+    .pvg__image img, .pv__grid-item img, .vbw__item img {
+      transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.4s ease !important;
+    }
+
+    /* Trust bar above footer */
+    .vellor-trust {
+      background: #111; border-top: 1px solid rgba(242,242,242,0.06);
+      padding: 40px 0; text-align: center;
+    }
+    .vellor-trust__grid {
+      display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+      max-width: 900px; margin: 0 auto; padding: 0 20px;
+    }
+    .vellor-trust__item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .vellor-trust__icon { font-size: 1.2rem; color: rgba(242,242,242,0.4); }
+    .vellor-trust__text {
+      font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(242,242,242,0.4);
+    }
+
+    /* Smooth page transitions */
+    main { animation: pageIn 0.6s ease; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Premium product card lift */
+    .product-card:hover, .vellor-collection__card:hover {
+      transform: translateY(-4px);
+      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+  </style>
+
+  <!-- Trust Bar -->
+  <div class="vellor-trust">
+    <div class="vellor-trust__grid">
+      <div class="vellor-trust__item">
+        <span class="vellor-trust__icon">&#9733;</span>
+        <span class="vellor-trust__text">Premium Quality</span>
+      </div>
+      <div class="vellor-trust__item">
+        <span class="vellor-trust__icon">&#x2708;</span>
+        <span class="vellor-trust__text">Free Shipping $150+</span>
+      </div>
+      <div class="vellor-trust__item">
+        <span class="vellor-trust__icon">&#x21BB;</span>
+        <span class="vellor-trust__text">Easy Returns</span>
+      </div>
+      <div class="vellor-trust__item">
+        <span class="vellor-trust__icon">&#x1F512;</span>
+        <span class="vellor-trust__text">Secure Checkout</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global scroll-triggered animations
+    (function(){
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.1 });
+
+      // Auto-apply to key sections
+      document.querySelectorAll(
+        '.section-padding, .editorial-split, .vellor-collection__about, ' +
+        '.vellor-swim-feature, .vellor-collection__coming-soon, ' +
+        '.footer-top, .pv__section-header, .pv__about, .pv__capture, ' +
+        '.vbw__header, .pvg__header, .pvg__signup'
+      ).forEach(function(el) {
+        el.classList.add('fade-in-section');
+        obs.observe(el);
+      });
+
+      // Stagger grid children
+      document.querySelectorAll(
+        '.footer-top, .vellor-trust__grid'
+      ).forEach(function(el) {
+        el.classList.add('stagger-children');
+        obs.observe(el);
+      });
+    })();
+  </script>
+
   <!-- GHL Live Chat Widget — Vellor Clothing -->
   <script
     src="https://widgets.leadconnectorhq.com/loader.js"
